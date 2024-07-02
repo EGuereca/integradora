@@ -1,0 +1,161 @@
+/*Todo*/
+*{
+    scroll-behavior: smooth;
+}
+/*Cuerpo*/
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+}
+/*Header*/
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    width: 110%;
+    position: fixed;
+}
+.logo{
+    align-items: center;
+}
+.logo img{
+    height: 100px;
+}
+.nav{
+    align-items: center;
+}
+.user-cart img{
+    height: 25px;
+}
+.nav a{
+    padding-left: 20px;
+    padding-right: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+.nav a:hover{
+    text-decoration: underline;
+}
+.user-cart{
+    align-items: center;
+}
+.user-cart a{
+    margin-left: 20px;
+    padding-left: 20px;
+}
+.user-cart img{
+    height: 25px;
+}
+/*Contenido*/
+.content{
+    display: flex;
+    padding-top: 150px;
+    padding-bottom: 70px;
+}
+.about-text{
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.about-text h2{
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+.about-text p{
+    font-size: 18px;
+    line-height: 1.6;
+}
+.about-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.about-img img{
+    max-width: 45%;
+    height: auto;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+/*Brands*/
+.brands{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+.brand{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    padding: 20px;
+}
+.brand img{
+    width: 100%;
+    object-fit: contain;
+    cursor: pointer;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.brand img:hover{
+    width: 105%;
+}
+/*Sucursales*/
+.sucursales{
+    text-align: center;
+    padding: 20px;
+    padding-top: 50px;
+}
+.sucursales h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+.sucursal{
+    align-items: center;
+    margin-bottom: 40px;
+}
+.sucursal img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin-bottom: 20px;
+}
+.sucursal p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 auto 20px;
+}
+.map {
+    margin-bottom: 20px;
+    padding-top: 30px;
+}
+/*Footer*/
+.rs{
+    align-items: center;
+}
+.rs a img{
+    height: 20px;
+}
+.footer {
+    text-align: center;
+    padding: 20px;
+}
+.footer p {
+    font-size: 14px;
+    margin: 0;
+}
