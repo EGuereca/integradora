@@ -55,10 +55,16 @@ body{
 .user-cart img{
     height: 25px;
 }
-/*Contenido*/
+/*Información del perforador*/
+.titulo{
+    padding-top: 150px;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 40%;
+}
 .content{
     display: flex;
-    padding-top: 150px;
+    padding-top: 50px;
     padding-bottom: 70px;
 }
 .about-text{
@@ -72,7 +78,6 @@ body{
 .about-text p{
     font-size: 18px;
     line-height: 1.6;
-    text-align: justify;
 }
 .about-img{
     display: flex;
@@ -80,7 +85,7 @@ body{
     align-items: center;
 }
 .about-img img{
-    max-width: 55%;
+    max-width: 45%;
     height: auto;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -88,67 +93,41 @@ body{
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 }
-/*Brands*/
-.brands{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-}
-.brand{
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #111111;
-    padding: 20px;
-}
-.brand img{
-    width: 100%;
-    object-fit: contain;
-    cursor: pointer;
-    transition: width 0.3s ease;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-.brand img:hover{
-    width: 105%;
-}
-/*Sucursales*/
-.sucursales{
+/*Tipos de perforaciones*/
+.perforaciones {
     text-align: center;
-    padding: 20px;
-    padding-top: 50px;
 }
-.sucursales h2 {
-    font-size: 32px;
+.perforaciones h2 {
     margin-bottom: 20px;
+    padding-bottom: 50px;
 }
-.sucursal{
-    align-items: center;
-    margin-bottom: 40px;
+.perforaciones-grid{
+    padding-bottom: 20px;
 }
-.sucursal img{
-    max-width: 100%;
-    height: auto;
+.perforaciones img{
+    width: 80%;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+.btn{
+    padding-bottom: 25px;
+}
+.cta-button {
+    background-color: #25d366;
+    color: #fff;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
     border-radius: 10px;
+    display: inline-block;
+    margin-top: 20px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    margin-bottom: 20px;
-}
-.sucursal p {
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 0 auto 20px;
-}
-.map {
-    margin-bottom: 20px;
-    padding-top: 30px;
 }
 /*Footer*/
 .rs{

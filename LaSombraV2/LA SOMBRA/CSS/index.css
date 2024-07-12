@@ -16,8 +16,14 @@ body{
     font-weight: bold;
     margin-bottom: 20px;
 }
+.logo img{
+    width: 40%;
+}
 .age-warning{
     margin-bottom: 20px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
 }
 .buttons{
     display: flex;
