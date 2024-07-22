@@ -29,21 +29,20 @@ body{
 .logo img{
     width: 75%;
 }
-.nav{
+.navbar{
     align-items: center;
     padding-left: 40px;
 }
-.user-cart img{
-    height: 25px;
-}
-.nav a{
-    padding-left: 30px;
+.navbar a{
     padding-right: 5px;
     color: white;
     text-decoration: none;
     font-size: 18px;
 }
-.nav a:hover{
+.navbar li{
+    padding-left: 30px;
+}
+.navbar a:hover{
     color: green;
 }
 .user-cart{
@@ -56,9 +55,26 @@ body{
 .user-cart img{
     height: 25px;
 }
+/*Burger*/
+.nav-item a{
+    color: white;
+}
+.navbar-toggler-icon{
+    background-color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
 /*Contenedor*/
 .card {
     background-color: #111111;
+    color: white;
+}
+.card a{
+    color: white;
+    text-decoration: none;
 }
 .btn-pink {
     background-color: white;
@@ -67,9 +83,6 @@ body{
 }
 .btn-pink:hover {
     background-color: green;
-}
-.card{
-    color: white;
 }
 img{
     border-radius: 10px;
@@ -85,6 +98,5 @@ img{
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     height: 250px;
-    max-height: 300px;
     overflow: hidden;
 }

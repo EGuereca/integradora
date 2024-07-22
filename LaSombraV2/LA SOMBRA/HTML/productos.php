@@ -8,74 +8,120 @@
     <link rel="stylesheet" href="../CSS/productos.css">
 </head>
 <body>
-    <header id="inicio" class="row header">
-        <div class="user-cart col-lg-4 col-sm-6">
+<header id="inicio" class="row header">
+        <div class="user-cart col-lg-4 col-sm-4">
             <a href="../HTML/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>
             <a href="../index.html"><img src="../ICONS/cart.png" alt="cart"></a>
         </div>
-        <div class="logo col-lg-4 col-sm-6"><a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
-        <nav class="nav col-lg-4 col-sm-12">
-            <a style="color: green;" href="#in">Productos</a>
-            <a href="../HTML/perforaciones.html">Perforaciones</a>
-            <a href="#suc">Sucursales</a>
+        <div class="logo col-lg-4 col-sm-4"><a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
+        <nav class="navbar navbar-expand-lg col-lg-4 col-sm-4">
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a style="color: green;" class="nav-link" href="#in">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../HTML/productos.php">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../HTML/perforaciones.html">Perforaciones</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
     <div class="container" id="#in">
-        <div class="search-bar">
+        <div class="search-bar mb-3">
             <input type="text" class="form-control" placeholder="Buscar artículo...">
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <div class="product">
-                    <a  style="text-decoration: none; color: white;" href="../HTML/detalle_producto.php">
-                    <img src="../IMG/blazy-susann.jpg" alt="Product Image">
-                    <h5>Product</h5>
-                    <p>Description of first product</p>
-                    <p>$10.99</p>
+        <div class="col-lg-4 col-sm-12">
+                <div class="card mb-4">
+                <a href="../HTML/detalle_producto.php">
+                    <div class="card-img-container">
+                        <img src="../IMG/blazy-susan.svg" alt="Blazy Susan™ Grinder" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
+                        <p class="card-text">$699.00</p>
+                        <p class="card-text">25 piezas disponibles</p>
+                    </div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="product">
-                    <a href="../HTML/detalle_producto.php">
-                    <img src="../IMG/blunt-wrapp.jpg" alt="Product Image">
-                    <h5>Product</h5>
-                    <p>Description of second product</p>
-                    <p>$10.99</p>
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mb-4">
+                <a href="../HTML/detalle_producto.php">
+                    <div class="card-img-container">
+                        <img src="../IMG/bicho.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
+                        <p class="card-text">$699.00</p>
+                        <p class="card-text">25 piezas disponibles</p>
+                    </div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="product">
-                    <img src="../IMG/cookiess.jpg" alt="Product Image">
-                    <h5>Product</h5>
-                    <p>Description of third product</p>
-                    <p>$10.99</p>
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mb-4">
+                <a href="../HTML/detalle_producto.php">
+                    <div class="card-img-container">
+                        <img src="../IMG/blazy-susann.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
+                        <p class="card-text">$699.00</p>
+                        <p class="card-text">25 piezas disponibles</p>
+                    </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="product">
-                    <img src="../IMG/g-rollzzz.jpg" alt="Product Image">
-                    <h5>Product</h5>
-                    <p>Description of fourth product</p>
-                    <p>$10.99</p>
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mb-4">
+                <a href="../HTML/detalle_producto.php">
+                    <div class="card-img-container">
+                        <img src="../IMG/blunt-wrap.webp" alt="Blazy Susan™ Grinder" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
+                        <p class="card-text">$699.00</p>
+                        <p class="card-text">25 piezas disponibles</p>
+                    </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="product">
-                    <img src="../IMG/lion-rolling-circuss.jpg" alt="Product Image">
-                    <h5>Product</h5>
-                    <p>Description of fifth product</p>
-                    <p>$10.99</p>
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mb-4">
+                <a href="../HTML/detalle_producto.php">
+                    <div class="card-img-container">
+                        <img src="../IMG/blunt-wrapp.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
+                        <p class="card-text">$699.00</p>
+                        <p class="card-text">25 piezas disponibles</p>
+                    </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="product">
-                    <img src="../IMG/king-palmm.jpg" alt="Product Image">
-                    <h5>Product</h5>
-                    <p>Description of sixth product</p>
-                    <p>$10.99</p>
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mb-4">
+                <a href="../HTML/detalle_producto.php">
+                    <div class="card-img-container">
+                        <img src="../IMG/cookies.webp" alt="Blazy Susan™ Grinder" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
+                        <p class="card-text">$699.00</p>
+                        <p class="card-text">25 piezas disponibles</p>
+                    </div>
+                    </a>
                 </div>
+            </div>
             </div>
         </div>
     </div>
