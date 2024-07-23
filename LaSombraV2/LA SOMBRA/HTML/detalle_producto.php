@@ -33,7 +33,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" id="in">
         <div class="row" style="padding-top: 150px;">
             <div class="col-lg-6 col-sm-12">
                 <img src="../IMG/blazy-susann.jpg" alt="Blazy Susan Premium Pink Pre Rolled Cones Shortys" class="img-fluid">
@@ -92,6 +92,12 @@
             </div>
             
         </div>
+        <footer class="footer row">
+            <div class="col-lg-11 text">
+                <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
+            </div>
+            <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
+        </footer>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

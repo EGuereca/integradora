@@ -104,3 +104,19 @@ img{
     height: 250px;
     overflow: hidden;
 }
+/*Footer*/
+.rs{
+    align-items: center;
+}
+.rs a img{
+    height: 20px;
+}
+.footer {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+}
+.footer p {
+    font-size: 14px;
+    margin: 0;
+}
