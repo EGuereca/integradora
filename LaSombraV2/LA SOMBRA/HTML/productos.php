@@ -21,13 +21,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/iniciov2.html">Inicio</a>
+                        <a class="nav-link" href="../HTML/iniciov2.php">Inicio</a>
                     </li>
                     <li class="nav-item active">
                         <a style="color: green;" class="nav-link" href="#in">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/perforaciones.html">Perforaciones</a>
+                        <a class="nav-link" href="../HTML/perforaciones.php">Perforaciones</a>
                     </li>
                 </ul>
             </div>

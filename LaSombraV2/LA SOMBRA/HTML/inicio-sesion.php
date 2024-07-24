@@ -17,8 +17,8 @@
             <input type="password" id="password" placeholder="Ingresa tu contraseña aquí"><br>
             <button type="submit">Entrar</button>
         </form>
-        <p>¿No tienes cuenta? <a href="../HTML/crear-cuenta.html" class="create-account">Crear cuenta</a></p>
-        <p class="p-back"><a href="../HTML/iniciov2.html" class="back">Regresar a inicio</a></p>
+        <p>¿No tienes cuenta? <a href="../HTML/crear-cuenta.php" class="create-account">Crear cuenta</a></p>
+        <p class="p-back"><a href="../HTML/iniciov2.php" class="back">Regresar a inicio</a></p>
     </div>
 </body>
 </html>

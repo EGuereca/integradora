@@ -10,7 +10,7 @@
 <body>
     <header id="inicio" class="row header">
         <div class="user-cart col-lg-4 col-sm-4">
-            <a href="../HTML/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>
+            <a href="../HTML/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
             <a href="../index.html"><img src="../ICONS/cart.png" alt="cart"></a>
         </div>
         <div class="logo col-lg-4 col-sm-4"><a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
@@ -27,7 +27,7 @@
                         <a class="nav-link" href="../HTML/productos.php">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/perforaciones.html">Perforaciones</a>
+                        <a class="nav-link" href="../HTML/perforaciones.php">Perforaciones</a>
                     </li>
                 </ul>
             </div>

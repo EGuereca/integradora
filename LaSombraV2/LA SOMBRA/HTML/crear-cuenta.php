@@ -32,12 +32,12 @@
             <button type="button" onclick="irAOtraPagina()" class="btn btn-grey">Inicia sesión</button>
         </form>
         
-        <p class="p-back"><a href="../HTML/iniciov2.html" class="back">Regresar a inicio</a></p>
+        <p class="p-back"><a href="../HTML/iniciov2.php" class="back">Regresar a inicio</a></p>
     </div>
     <script>
         function irAOtraPagina() {
           // Redireccionar a otra página
-        window.location.href = '../HTML/inicio-sesion.html';
+        window.location.href = '../HTML/inicio-sesion.php';
         }
     </script>
 </body>
