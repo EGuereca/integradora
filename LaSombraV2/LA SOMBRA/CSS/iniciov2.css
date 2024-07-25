@@ -10,6 +10,7 @@ body{
     color: white;
 }
 /*Header*/
+
 .header{
     display: flex;
     justify-content: space-between;
@@ -27,6 +28,7 @@ body{
 }
 .logo img{
     width: 75%;
+    height: auto;
 }
 .navbar{
     align-items: center;
@@ -175,4 +177,10 @@ body{
 .footer p {
     font-size: 14px;
     margin: 0;
+}
+
+@media (max-width: 991.98px) {
+    .hide-on-md-sm {
+        display: none;
+    }
 }

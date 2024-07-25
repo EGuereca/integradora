@@ -19,7 +19,7 @@
         </div>
         <div class="logo col-lg-4 col-sm-4"><a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
         <nav class="navbar navbar-expand-lg col-lg-4 col-sm-4">
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarBurger" aria-controls="navbarBurger" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,6 +32,28 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarBurger">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">Inicio</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a style="color: green;" class="nav-link" href="#in">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Cuenta</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Carrito</a>
                     </li>
                 </ul>
             </div>
@@ -70,9 +92,16 @@
 
             <div class="paginacion">
             <?php
+            /*
             for ($i = 1; $i <= $total_paginas; $i++) {
                 echo "<a href='?pagina=" . $i . "'>" . $i . "</a> ";
                 }
+            */
+            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+            for ($i = 1; $i <= $total_paginas; $i++) {
+                $active_class = $i == $pagina_actual ? 'active' : '';
+                echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
+            }
             ?>
             </div>
     </div>

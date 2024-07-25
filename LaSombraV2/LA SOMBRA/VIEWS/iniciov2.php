@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="../CSS/iniciov2.css">
 </head>
 <body>
+    <!--
     <header id="inicio" class="row header">
-        <div class="user-cart col-lg-4 col-sm-4">
+        <div class="user-cart col-lg-4 col-sm-4 hide-on-md-sm">
             <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
             <a href="../index.html"><img src="../ICONS/cart.png" alt="cart"></a>
         </div>
         <div class="logo col-lg-4 col-sm-4"><a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
+
         <nav class="navbar navbar-expand-lg col-lg-4 col-sm-4">
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,10 +31,44 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
                     </li>
+
+                </ul>
+            </div>
+
+
+            
+        </nav>
+    </header>
+    -->
+    <header id="inicio" class="header row">
+    <div class="col-4 user-cart hide-on-md-sm">
+        <a href="../VIEWS/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>
+        <a href="../index.html"><img src="../ICONS/cart.png" alt="cart"></a>
+    </div>
+    <div class="col-4 logo text-center">
+        <a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a>
+    </div>
+    <div class="col-4 text-end">
+        <nav class="navbar navbar-expand-lg">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="burger">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a style="color: green;" class="nav-link" href="../VIEWS/iniciov2.php">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" href="../VIEWS/productos.php">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
+                    </li>
                 </ul>
             </div>
         </nav>
-    </header>
+    </div>
+</header>
     <div id="in" class="container">
         <div class="content row">
             <div class="about-text col-lg-6 col-sm-12">
@@ -99,5 +135,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

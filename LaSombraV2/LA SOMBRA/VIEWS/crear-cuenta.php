@@ -46,7 +46,7 @@
     <script>
         function irAOtraPagina() {
           // Redireccionar a otra página
-        window.location.href = 'login.php';
+        window.location.href = 'inicio-sesion.php';
         }
     </script>
 </body>

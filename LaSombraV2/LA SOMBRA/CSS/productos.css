@@ -28,6 +28,8 @@ body{
 }
 .logo img{
     width: 75%;
+    height: auto;
+
 }
 .navbar{
     align-items: center;
@@ -119,4 +121,19 @@ img{
 .footer p {
     font-size: 14px;
     margin: 0;
+}
+.paginacion{
+    text-align: center;
+}
+.paginacion a{
+    padding: 7px;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    
+}
+.paginacion a.active {
+    color: green;
+    font-weight: bold;
+    text-decoration: underline;
 }

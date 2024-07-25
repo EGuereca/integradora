@@ -4,7 +4,7 @@
 session_start();
 
 try {
-    $conexion = new PDO("mysql:host=localhost;dbname=la_sombra", "root", "Mysql123");
+    $conexion = new PDO("mysql:host=localhost;dbname=la_sombra", "root", "");
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Error de conexión: " . $e->getMessage());

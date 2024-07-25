@@ -27,6 +27,8 @@ body{
 }
 .logo img{
     width: 75%;
+    height: auto;
+
 }
 .navbar{
     align-items: center;
