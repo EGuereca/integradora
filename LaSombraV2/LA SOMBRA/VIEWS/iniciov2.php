@@ -50,7 +50,7 @@
     </div>
     <div class="col-4 text-end">
         <nav class="navbar navbar-expand-lg">
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="burger">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBurger" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="burger">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -63,6 +63,29 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!--LO DE LA BURGER -->
+            <div class="collapse navbar-collapse" id="navbarBurger">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">Inicio</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a style="color: green;" class="nav-link" href="#in">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Cuenta</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Carrito</a>
                     </li>
                 </ul>
             </div>
