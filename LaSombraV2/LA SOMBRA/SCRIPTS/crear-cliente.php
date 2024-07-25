@@ -29,6 +29,7 @@ if (isset($_POST["btncrearclient"])) {
             $stmt->execute();
             
             echo "<p style='color: green;'>Usuario registrado exitosamente.</p>";
+            header("refresh:3  ; ../VIEWS/inicio-sesion.php");
         } else {
             echo "<p style='color: red;'>Las contraseñas son diferentes.</p>";
         }

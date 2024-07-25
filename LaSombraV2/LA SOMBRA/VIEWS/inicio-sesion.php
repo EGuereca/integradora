@@ -15,6 +15,9 @@
             <input type="text" id="user" placeholder="Ingresa tu nombre de usuario aquí"><br>
             <label for="password">Ingresa tu contraseña:</label><br>
             <input type="password" id="password" placeholder="Ingresa tu contraseña aquí"><br>
+            <?php 
+            include '../SCRIPTS/login-script.php';
+            ?>
             <button type="submit">Entrar</button>
         </form>
         <p>¿No tienes cuenta? <a href="../VIEWS/crear-cuenta.php" class="create-account">Crear cuenta</a></p>
