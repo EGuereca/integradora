@@ -1,3 +1,7 @@
+<?php
+    include '../SCRIPTS/conf-catalogo.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,93 +41,41 @@
         <div class="search-bar mb-3">
             <input type="text" class="form-control" placeholder="Buscar artículo...">
         </div>
-        <div class="row">
-        <div class="col-lg-4 col-sm-12">
+        <div class="row">      
+        <?php
+        if (!empty($productos)) {
+            foreach ($productos as $row) { ?>
+
+                <div class="col-lg-4 col-sm-12">
                 <div class="card mb-4">
                 <a href="../HTML/detalle_producto.php">
                     <div class="card-img-container">
-                        <img src="../IMG/blazy-susan.svg" alt="Blazy Susan™ Grinder" class="card-img-top">
+                        <img src="../IMG/blazy-susan.svg" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
+                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                        <p class="card-text">$ <?php echo $row['precio']; ?></p>
+                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
                     </div>
                     </a>
                 </div>
+            </div>          
+        <?php
+            }
+        } else {
+            echo "No hay productos disponibles";
+        }
+        ?>           
             </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                <a href="../HTML/detalle_producto.php">
-                    <div class="card-img-container">
-                        <img src="../IMG/bicho.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
+
+            <div class="paginacion">
+            <?php
+            for ($i = 1; $i <= $total_paginas; $i++) {
+                echo "<a href='?pagina=" . $i . "'>" . $i . "</a> ";
+                }
+            ?>
             </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                <a href="../HTML/detalle_producto.php">
-                    <div class="card-img-container">
-                        <img src="../IMG/blazy-susann.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                <a href="../HTML/detalle_producto.php">
-                    <div class="card-img-container">
-                        <img src="../IMG/blunt-wrap.webp" alt="Blazy Susan™ Grinder" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                <a href="../HTML/detalle_producto.php">
-                    <div class="card-img-container">
-                        <img src="../IMG/blunt-wrapp.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                <a href="../HTML/detalle_producto.php">
-                    <div class="card-img-container">
-                        <img src="../IMG/cookies.webp" alt="Blazy Susan™ Grinder" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            </div>
-        </div>
+    </div>
         <footer class="footer row">
             <div class="offset-1 col-lg-9 text">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
