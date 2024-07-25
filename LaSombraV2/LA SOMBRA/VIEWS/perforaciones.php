@@ -10,7 +10,7 @@
 <body>
     <header id="inicio" class="row header">
         <div class="user-cart col-lg-4 col-sm-4">
-            <a href="../HTML/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>
+            <a href="../VIEWS/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>
             <a href="../index.html"><img src="../ICONS/cart.png" alt="cart"></a>
         </div>
         <div class="logo col-lg-4 col-sm-4"><a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
@@ -21,10 +21,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/iniciov2.php">Inicio</a>
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/productos.php">Productos</a>
+                        <a class="nav-link" href="../VIEWS/productos.php">Productos</a>
                     </li>
                     <li class="nav-item active">
                         <a style="color: green;" class="nav-link" href="#in">Perforaciones</a>
