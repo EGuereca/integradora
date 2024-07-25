@@ -24,7 +24,7 @@ if (isset($_POST["btningreso"])) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $_SESSION["id"] = $row['id_usuario'];
             $_SESSION["nombre"] = $row['nombres'];
-            header("location: inicio.php");
+            header("location: ../VIEWS/iniciov2.php");
             exit();
         } else {
             echo "<p style='color: red;'>Contraseña o nombre de usuario incorrectos.</p>";

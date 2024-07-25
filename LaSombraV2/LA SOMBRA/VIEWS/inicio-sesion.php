@@ -10,15 +10,15 @@
     <div class="container">
         <img src="../IMG/sombra-logo.jpg" alt="La Sombra Ozuna TRC">
         <h2>Inicia sesión</h2>
-        <form>
+        <form method="post" action="">
             <label for="user">Ingresa tu nombre de usuario:</label><br>
-            <input type="text" id="user" placeholder="Ingresa tu nombre de usuario aquí"><br>
+            <input type="text" id="user" placeholder="Ingresa tu nombre de usuario aquí" name="usuario"><br>
             <label for="password">Ingresa tu contraseña:</label><br>
-            <input type="password" id="password" placeholder="Ingresa tu contraseña aquí"><br>
+            <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password"><br>
             <?php 
             include '../SCRIPTS/login-script.php';
             ?>
-            <button type="submit">Entrar</button>
+            <button type="submit"  name="btningreso" value="INICIAR SESION">Entrar</button>
         </form>
         <p>¿No tienes cuenta? <a href="../VIEWS/crear-cuenta.php" class="create-account">Crear cuenta</a></p>
         <p class="p-back"><a href="../VIEWS/iniciov2.php" class="back">Regresar a inicio</a></p>
