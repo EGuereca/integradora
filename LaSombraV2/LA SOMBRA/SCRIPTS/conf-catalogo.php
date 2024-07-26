@@ -1,4 +1,8 @@
 <?php
+if (!defined('SESSION_STARTED')) {
+    session_start();
+}
+
 $hostname = "localhost";
 $user = "root";
 $password = "";
@@ -19,28 +23,37 @@ try {
 
 $productos_por_pagina = 9;
 
-if (isset($_GET['pagina'])) {
-    $pagina = $_GET['pagina'];
-} else {
-    $pagina = 1;
-}
+$marca = isset($_SESSION['marca']) ? $_SESSION['marca'] : null;
+
+$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$pagina = $pagina > 0 ? $pagina : 1;
 
 $inicio = ($pagina - 1) * $productos_por_pagina;
 
-$sql = "SELECT id_producto, nombre, descripcion, precio, stock 
-        FROM productos LIMIT :inicio, :productos_por_pagina";
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
-$stmt->bindValue(':productos_por_pagina', $productos_por_pagina, PDO::PARAM_INT);
+if ($marca !== null) {
+    $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
+    FROM productos WHERE marca = :marca LIMIT $inicio, $productos_por_pagina";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
+    $total_sql = "SELECT COUNT(*) FROM productos WHERE marca = :marca";
+} else {
+    $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
+    FROM productos LIMIT $inicio, $productos_por_pagina";
+    $stmt = $pdo->prepare($sql);
+    $total_sql = "SELECT COUNT(*) FROM productos";
+}
+
 $stmt->execute();
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$total_sql = "SELECT COUNT(*) FROM productos";
-$total_stmt = $pdo->query($total_sql);
+$total_stmt = $pdo->prepare($total_sql);
+if ($marca !== null) {
+    $total_stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
+}
+$total_stmt->execute();
 $total_productos = $total_stmt->fetchColumn();
 $total_paginas = ceil($total_productos / $productos_por_pagina);
 
 $pdo = null; 
-
 
 ?>
