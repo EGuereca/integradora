@@ -1,4 +1,5 @@
 <?php
+    define('SESSION_STARTED', true);
     session_start();
 
     $_SESSION['marca'] = 'Raw';
