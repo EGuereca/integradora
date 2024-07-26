@@ -1,5 +1,11 @@
 <?php
+     define('SESSION_STARTED', true);
+     session_start();
+
+     $_SESSION['marca'] = null;
+
     include '../SCRIPTS/conf-catalogo.php';
+    require '../SCRIPTS/config-prod.php';
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +55,8 @@
 
                 <div class="col-lg-4 col-sm-12">
                 <div class="card mb-4">
-                <a href="../HTML/detalle_producto.php">
+                <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
+                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
                     <div class="card-img-container">
                         <img src="../IMG/blazy-susan.svg" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
                     </div>

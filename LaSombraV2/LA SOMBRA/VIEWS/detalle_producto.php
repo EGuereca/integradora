@@ -1,3 +1,7 @@
+<?php
+    require '../SCRIPTS/database.php';    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,11 +40,11 @@
     <div class="container" id="in">
         <div class="row" style="padding-top: 150px;">
             <div class="col-lg-6 col-sm-12">
-                <img src="../IMG/blazy-susann.jpg" alt="Blazy Susan Premium Pink Pre Rolled Cones Shortys" class="img-fluid">
+                <img src="../IMG/blazy-susann.jpg" alt="<?php echo $nombre;?>" class="img-fluid">
             </div>
             <div class="col-lg-6 col-sm-12">
-                <h1>Blazy Susan Premium Pink Pre Rolled Cones Shortys</h1>
-                <h2>$10.99</h2>
+                <h1><?php echo $nombre;?></h1>
+                <h2>$ <?php echo $precio;?></h2>
                 <p><strong>Disponibilidad:</strong> Sucursal Matamoros, Sucursal Nazas</p>
                 <p><strong>Cantidad disponible:</strong> 5 piezas</p>
                 <button class="btn btn-pink btn-lg">AGREGAR A CARRITO</button>
@@ -48,49 +52,26 @@
         </div>
         <h2 class="mt-5">Productos relacionados:</h2>
         <div class="row">
+            <?php 
+            
+            foreach($row2 as $row) {?>
+
         <div class="col-lg-4 col-sm-12">
                 <div class="card mb-4">
-                    <a href="../HTML/detalle_producto.php">
+                    <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
+                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
                     <div class="card-img-container">
-                        <img src="../IMG/bicho.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
+                        <img src="../IMG/bicho.jpg" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
+                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                        <p class="card-text">$ <?php echo $row['precio']; ?></p>
+                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
                     </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                    <a href="../HTML/detalle_producto.php">
-                    <div class="card-img-container">
-                        <img src="../IMG/g-rollzzz.jpg" alt="Blazy Susan™ Grinder" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                    <a href="../HTML/detalle_producto.php">
-                    <div class="card-img-container">
-                        <img src="../IMG/cookies.webp" alt="Blazy Susan™ Grinder" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Blazy Susan™ Grinder</h5>
-                        <p class="card-text">$699.00</p>
-                        <p class="card-text">25 piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            
+            <?php } ?>            
         </div>
         <footer class="footer row">
             <div class="col-lg-11 text">
