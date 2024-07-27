@@ -25,13 +25,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/iniciov2.html">Inicio</a>
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/productos.php">Productos</a>
+                        <a class="nav-link" href="../VIEWS/productos.php">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../HTML/perforaciones.html">Perforaciones</a>
+                        <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
                     </li>
                 </ul>
             </div>
