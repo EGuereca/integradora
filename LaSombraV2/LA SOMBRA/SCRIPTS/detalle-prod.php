@@ -50,6 +50,7 @@ else {
           }        
       }
       else {
+        # HACER UNA PAGINA DE DATOS NO VALIDOS
         echo "ERROR";
           exit;
       }

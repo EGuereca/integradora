@@ -1,5 +1,5 @@
 <?php
-    require '../SCRIPTS/database.php';    
+    require '../SCRIPTS/detalle-prod.php';    
 ?>
 
 <!DOCTYPE html>

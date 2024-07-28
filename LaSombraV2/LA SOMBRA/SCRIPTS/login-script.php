@@ -10,7 +10,9 @@ try {
     die("Error de conexión: " . $e->getMessage());
 }
 
-$stmt = $conexion->prepare("SELECT nombre_usuario, id_usuario FROM usuarios WHERE nombre_usuario = :usuario AND AES_DECRYPT(password, 'clave_segura') = :password");
+$stmt = $conexion->prepare("SELECT nombre_usuario, id_usuario, rol
+FROM usuarios JOIN rol_usuario ON usuarios.id_usuario = rol_usuario.usuario
+WHERE nombre_usuario = :usuario AND AES_DECRYPT(password, 'clave_segura') = :password");
 
 if (isset($_POST["btningreso"])) {
     if (!empty($_POST["usuario"]) && !empty($_POST["password"])) {
@@ -23,9 +25,16 @@ if (isset($_POST["btningreso"])) {
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $_SESSION["id"] = $row['id_usuario'];
-            $_SESSION["nombre"] = $row['nombres'];
-            header("location: ../VIEWS/iniciov2.php");
-            exit();
+            $_SESSION["nombre"] = $row['nombre'];
+            $_SESSION["rol"] = $row['rol'];
+            if ($_SESSION["rol"] == 3) {
+                header("location: ../VIEWS/iniciov2.php");
+                exit();
+            }
+            else {
+                header("location: ../VIEWS/dashboard.php");
+                exit();
+            }
         } else {
             echo "<p style='color: red;'>Contraseña o nombre de usuario incorrectos.</p>";
         }

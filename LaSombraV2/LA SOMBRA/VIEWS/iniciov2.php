@@ -42,7 +42,7 @@
     -->
     <header id="inicio" class="header row">
     <div class="col-4 user-cart hide-on-md-sm">
-        <a href="../VIEWS/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>
+        <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
         <a href=".."><img src="../ICONS/cart.png" alt="cart"></a>
     </div>
     <div class="col-4 logo text-center">
