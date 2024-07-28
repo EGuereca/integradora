@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,15 +105,15 @@
         </div>
         <div class="brands">
             <div class="row">
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-blzssan.php"><img src="../IMG/blazy-susann.jpg" alt="blazy-susan"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-raw.php"><img src="../IMG/raww.jpg" alt="raw"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-ocb.php"><img src="../IMG/ocbb.jpg" alt="ocb"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-rolcir.php"><img src="../IMG/lion-rolling-circuss.jpg" alt="lion-rolling-circus"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-hort.php"><img src="../IMG/hornett.jpg" alt="hornet"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-coks.php"><img src="../IMG/cookiess.jpg" alt="cookies"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-bwrap.php"><img src="../IMG/blunt-wrapp.jpg" alt="blunt-wrap"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-kpalm.php"><img src="../IMG/king-palmm.jpg" alt="king-palm"></a></div>
-                <div class="brand col-lg-4 col-sm-6"><a href="../VIEWS/catalogo-grollz.php"><img src="../IMG/g-rollzzz.jpg" alt="g-roolz"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=Blazy%20Susan"><img src="../IMG/blazy-susann.jpg" alt="blazy-susan"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=Raw"><img src="../IMG/raww.jpg" alt="raw"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=OCB"><img src="../IMG/ocbb.jpg" alt="ocb"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=Rolling%20Circus"><img src="../IMG/lion-rolling-circuss.jpg" alt="lion-rolling-circus"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=Hornet"><img src="../IMG/hornett.jpg" alt="hornet"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=Cookies"><img src="../IMG/cookiess.jpg" alt="cookies"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=Blunt%20Wrap"><img src="../IMG/blunt-wrapp.jpg" alt="blunt-wrap"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=King%20Palm"><img src="../IMG/king-palmm.jpg" alt="king-palm"></a></div>
+                <div class="brand col-lg-4 col-sm-6"><a href="../SCRIPTS/cdss.php?marca=G-rollz"><img src="../IMG/g-rollzzz.jpg" alt="g-roolz"></a></div>
             </div>
         </div>
         <div class="sucursales" id="suc">
@@ -135,7 +136,7 @@
             <div class="sucursal row">
                 <div class="col-lg-6 col-sm-12">
                     <h3>Sucursal Matamoros</h3>
-                    <p>C. Lerdo, Vegas de Marrufo Poniente, 27440 Matamoros, Coah.</p>
+                    <p>C. Lerdo, Vegas de Marrufo Poniente, 27440 Matamoros, Coah.</p>
                     <p>Horario:</p>
                     <p> Lunes a viernes de 12pm - 8pm</p>
                     <p>Domingo de 12pm - 5pm</p>

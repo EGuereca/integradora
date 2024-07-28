@@ -6,6 +6,8 @@
 
     include '../SCRIPTS/conf-catalogo.php';
     require '../SCRIPTS/config-prod.php';
+
+    $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +18,10 @@
     <title>Productos - La Sombra</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/productos.css">
+
 </head>
 <body>
+
 <header id="inicio" class="row header">
         <div class="user-cart col-lg-4 col-sm-4">
             <a href="../VIEWS/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>

@@ -1,10 +1,10 @@
 <?php
-   define('SESSION_STARTED', true);
-   session_start();
+    define('SESSION_STARTED', true);
+    session_start();
 
-    $_SESSION['marca'] = 'Rolling Circus';
-    include '../SCRIPTS/conf-catalogo.php';                
-    require '../SCRIPTS/config-prod.php';
+
+    include '../SCRIPTS/conf-catalogo.php';   
+    require '../SCRIPTS/config-prod.php';               
 ?>
 
 <!DOCTYPE html>
@@ -71,13 +71,13 @@
             }
         } else {
             echo "<div class='alert alert-success' role='alert'>
-                No hay articulos disponibles </div>";
+            No hay articulos disponibles </div>";
         }
         ?>           
             </div>
 
             <div class="paginacion">
-            <?php          
+            <?php     
             $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
             for ($i = 1; $i <= $total_paginas; $i++) {
                 $active_class = $i == $pagina_actual ? 'active' : '';
