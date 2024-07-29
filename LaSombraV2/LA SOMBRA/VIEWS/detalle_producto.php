@@ -46,7 +46,7 @@
                 <h1><?php echo $nombre;?></h1>
                 <h2>$ <?php echo $precio;?></h2>
                 <p><strong>Cantidad disponible:</strong> <?php echo $stock;?> piezas</p>
-                <button class="btn btn-pink btn-lg <?php if ($stock < 0) {
+                <button type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0) {
                     echo "disabled";
                 }?>">AGREGAR A CARRITO</button>
             </div>
