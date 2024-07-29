@@ -45,9 +45,10 @@
             <div class="col-lg-6 col-sm-12">
                 <h1><?php echo $nombre;?></h1>
                 <h2>$ <?php echo $precio;?></h2>
-                <p><strong>Disponibilidad:</strong> Sucursal Matamoros, Sucursal Nazas</p>
-                <p><strong>Cantidad disponible:</strong> 5 piezas</p>
-                <button class="btn btn-pink btn-lg">AGREGAR A CARRITO</button>
+                <p><strong>Cantidad disponible:</strong> <?php echo $stock;?> piezas</p>
+                <button class="btn btn-pink btn-lg <?php if ($stock < 0) {
+                    echo "disabled";
+                }?>">AGREGAR A CARRITO</button>
             </div>
         </div>
         <h2 class="mt-5">Productos relacionados:</h2>

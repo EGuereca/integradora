@@ -7,7 +7,11 @@
     include '../SCRIPTS/conf-catalogo.php';
     require '../SCRIPTS/config-prod.php';
 
-    $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : null;
+    if (isset($_SESSION['sucursal'])) {
+        $sucursal = $_SESSION['sucursal'];
+    } else {
+        $_SESSION['sucursal'] = null;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +56,22 @@
         <div class="search-bar mb-3">
             <input type="text" class="form-control" placeholder="Buscar artículo...">
         </div>
+        <?php
+            if($_SESSION['sucursal'] == null){
+                
+           
+        ?>
+        <div class="container">
+            <h2>Seleccione una sucursal:</h2> <br>
+            <form method="post" action="">
+                <button type="submit" class="btn btn-outline-primary" name="todo">Todo</button>
+                <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
+                <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
+            </form>
+        </div>
+        <?php } 
+                else{        
+        ?>
         <div class="row">      
         <?php
         if (!empty($productos)) {
@@ -82,11 +102,6 @@
 
             <div class="paginacion">
             <?php
-            /*
-            for ($i = 1; $i <= $total_paginas; $i++) {
-                echo "<a href='?pagina=" . $i . "'>" . $i . "</a> ";
-                }
-            */
             $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
             for ($i = 1; $i <= $total_paginas; $i++) {
                 $active_class = $i == $pagina_actual ? 'active' : '';
@@ -94,6 +109,7 @@
             }
             ?>
             </div>
+        <?php } ?>
     </div>
         <footer class="footer row">
             <div class="offset-1 col-lg-9 text">
