@@ -1,10 +1,11 @@
 <?php
 session_start();
-if ($_SESSION["rol"] == 3) {
+if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
 include '../SCRIPTS/productos-dsh.php';
+
 ?>
 
 <!DOCTYPE html>
