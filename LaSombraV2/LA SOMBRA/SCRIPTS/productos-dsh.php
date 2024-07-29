@@ -1,7 +1,7 @@
 <?php  
-$hostname = "3.144.20.56";
-$user = "guereca";
-$password = "123";
+$hostname = "localhost";
+$user = "root";
+$password = "";
 $database = "la_sombra";
 $charset = "utf8";
 $dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";

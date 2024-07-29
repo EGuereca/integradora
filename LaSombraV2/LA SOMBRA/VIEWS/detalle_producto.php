@@ -46,9 +46,19 @@
                 <h1><?php echo $nombre;?></h1>
                 <h2>$ <?php echo $precio;?></h2>
                 <p><strong>Cantidad disponible:</strong> <?php echo $stock;?> piezas</p>
+                <form action="" method="post">
+                <select class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
                 <button type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0) {
                     echo "disabled";
                 }?>">AGREGAR A CARRITO</button>
+                </form>
+                
             </div>
         </div>
         <h2 class="mt-5">Productos relacionados:</h2>

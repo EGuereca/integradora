@@ -18,7 +18,6 @@ if (isset($_POST['btncarrito'])) {
     $stm->bindParam(2, $cantidad, PDO::PARAM_STR);
     $stm->bindParam(3, $cliente, PDO::PARAM_STR);
     $stm->execute();
-     
 }
 
 ?>

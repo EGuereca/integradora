@@ -56,28 +56,6 @@
             </div>
         </div>
     </div>
-    <div class="row cart-item">
-        <div class="col-md-3">
-            <img src="../IMG/blazy-susann.jpg" class="img-fluid" alt="Producto 1">
-        </div>
-        <div class="cart-item-details col-md-4">
-            <p>Blazy Susan Tips Pink Filtros (50 Filtros por Libro)</p>
-        </div>
-        <div class="col-md-2">
-            <p>$49.00</p>
-        </div>
-        <div class="col-md-2">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <button class="btn btn-outline-dark" type="button">-</button>
-                </div>
-                <input type="text" class="form-control text-center" value="1">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-dark" type="button">+</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row cart-total">
         <div>
             <p>Subtotal: $98.00</p>
