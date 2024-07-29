@@ -28,10 +28,14 @@ try {
     echo $e->getMessage();
     exit; 
 }
+
+
   
   $id = isset($_GET['id']) ? $_GET['id'] : '';
   $token = isset($_GET['token']) ? $_GET['token'] : '';
 
+
+  
 if ($id == '' || $token == '') {
       # HACER UNA PAGINA DE PRODUCTO NO ENCONTRADO
       echo "ERROR llll";
