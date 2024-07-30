@@ -3,12 +3,20 @@
 
 session_start();
 
+/*
 try {
-    $conexion = new PDO("mysql:host=3.144.20.56;dbname=la_sombra", "root", "");
+    $conexion = new PDO("mysql:host=localhost;dbname=la_sombra", "root", "");
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Error de conexión: " . $e->getMessage());
 }
+*/
+
+include "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
+
+$conexion = $db->getPDO();
 
 $stmt = $conexion->prepare("SELECT nombre_usuario, id_usuario, rol
 FROM usuarios JOIN rol_usuario ON usuarios.id_usuario = rol_usuario.usuario
@@ -43,7 +51,7 @@ if (isset($_POST["btningreso"])) {
     }
 }
 
-
+$db->desconectarBD();
 
 
 
