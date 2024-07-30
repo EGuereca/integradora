@@ -1,5 +1,6 @@
 <?php
 require '../SCRIPTS/config-prod.php';
+require '../SCRIPTS/con-carrito.php';
 if (!defined('SESSION_STARTED')) {
   session_start();
 }

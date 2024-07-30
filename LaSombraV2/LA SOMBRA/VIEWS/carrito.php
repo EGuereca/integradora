@@ -1,3 +1,7 @@
+<?php
+    include '../SCRIPTS/imprimir-carrito.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,15 +38,20 @@
         </nav>
     </header>
 <div class="container cart-container">
+<?php
+        $total = 0;
+        if (!empty($productos)) {
+            foreach ($productos as $row) { 
+             $total = $total + $row['precio'];   ?>
     <div class="row cart-item">
         <div class="col-md-3">
             <img src="../IMG/bicho.jpg" class="img-fluid" alt="Producto 1">
         </div>
         <div class="cart-item-details col-md-4">
-            <p>Blazy Susan Tips Pink Filtros (50 Filtros por Libro)</p>
+            <p><?php echo $row['nombre'] ?></p>
         </div>
         <div class="col-md-2">
-            <p>$49.00</p>
+            <p>$ <?php echo $row['precio'] ?></p>
         </div>
         <div class="col-md-2">
             <div class="input-group">
@@ -56,9 +65,15 @@
             </div>
         </div>
     </div>
+    <?php
+            }
+        } else {
+            echo "No hay productos en el carrito";
+        }
+        ?>
     <div class="row cart-total">
         <div>
-            <p>Subtotal: $98.00</p>
+            <p>Subtotal: $<?php echo $total ?></p>
             <p>Dirección de recolección: Sucursal Nazas</p>
             <button class="btn btn-success">Confirmar pedido</button>
         </div>
