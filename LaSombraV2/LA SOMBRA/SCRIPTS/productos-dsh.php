@@ -22,7 +22,11 @@ $id_prod = isset($_POST["id_prod"]) ? $_POST["id_prod"] : '';
 $categoria = isset($_POST["categoria"]) ? $_POST["categoria"] : '';
 $sucursal = isset($_POST["sucursal"]) ? $_POST["sucursal"] : '';
 
+$proveedores = "SELECT nombre, id_proveedor AS id FROM proveedores";
+$cate = "SELECT nombre, id_categoria AS id FROM categorias";
 
+$st = $pdo->prepare($proveedores);
+$s = $pdo->prepare($cate);
 
 $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre, 
         p.precio AS precio, p.stock AS stock, c.nombre AS categoria
@@ -74,9 +78,13 @@ if ($sucursal) {
 }
 
 $stmt->execute();
+$st->execute();
+$s->execute();
 
 echo "Número de resultados: " . $stmt->rowCount();
 
+$cat = $s->fetchAll(PDO::FETCH_ASSOC);
+$prov = $st->fetchAll(PDO::FETCH_ASSOC);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
