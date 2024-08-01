@@ -1,0 +1,50 @@
+body {
+    background-color: #f8f9fa;
+}
+.sidebar {
+    height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+img{
+    width: 150px;
+}
+.sidebar a {
+    color: black;
+    display: block;
+    padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-decoration: none;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.sidebar a:hover {
+    background-color: limegreen;
+}
+.content {
+    padding: 20px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.header a{
+    text-decoration: none;
+    color: black;
+}
+.header a:hover{
+    color: green;
+}
+.header span{
+    margin-left: 500px;
+}
+.card-custom {
+    margin-bottom: 20px;
+}
