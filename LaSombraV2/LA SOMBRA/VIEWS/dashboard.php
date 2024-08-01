@@ -28,28 +28,18 @@ include '../SCRIPTS/productos-dsh.php';
             } else {
                 additionalInput.style.display = "none";
             }
-          }
+          }           
 
+          function validarTamanioArchivo(input) {
+            const maxSize = 2 * 1024 * 1024; // 2 MB en bytes
+            const file = input.files[0];
 
-
-
-
-          <?php 
-            foreach ($prov as $row) {
-              ?>  
-
-          function toggleCheck(checkid) {
-            var checkbox = document.getElementById(checkid);
-            var additionalInput = document.getElementById("prc");                    
-            if (checkbox.checked) {
-                additionalInput.style.display = "block";
-            } else {
-                additionalInput.style.display = "none";
-            }                     
-        } 
-        <?php
+            if (file.size > maxSize) {
+                alert("El archivo es demasiado grande. El tamaño máximo permitido es de 2 MB.");
+                input.value = ''; 
             }
-            ?>            
+        }
+
     </script>
 
 <body>
@@ -102,7 +92,7 @@ include '../SCRIPTS/productos-dsh.php';
                     <td>" . htmlspecialchars($row["id_producto"]) . "</td>
                     <td>" . htmlspecialchars($row["nombre"]) . "</td>
                     <td>" . htmlspecialchars($row["stock"]) . "</td>
-                    <td>" . htmlspecialchars($row["precio"]) . "</td>
+                    <td>$" . htmlspecialchars($row["precio"]) . "</td>
                     <td>" . htmlspecialchars($row["categoria"]) . "</td>
                   </tr>";
         }
@@ -112,16 +102,16 @@ include '../SCRIPTS/productos-dsh.php';
     }
 ?>
 
-<form action="" method="post">
+<form action="../SCRIPTS/productos-dsh.php" method="post" enctype="multipart/form-data">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Empleados</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Producto</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group">
                         <label for="username">Nombre del Producto:</label><br>
@@ -163,36 +153,63 @@ include '../SCRIPTS/productos-dsh.php';
                     </div>
                   
                     <fieldset>
-                    <legend>Proveedor(es)</legend>
-                    <?php 
-                    foreach ($prov as $row) { ?>
-                      <div>
-                        <input type="checkbox" id="<?php echo $row['id']; ?>" name="proveedores" value="<?php echo $row['id'];?>" onclick="toggleCheck('<?php echo $row['id']; ?>')" />
-                        <label for="coding"><?php echo $row['nombre'];?></label>
-                      </div>
-                      <div id="prc" style="display:none;">
-                       <label for="extra">Precio de compra:</label>
-                       <input type="text" id="extra" name="extra">
-                      </div>
-                     <?php } ?>
-                    </fieldset>
-
-                    <fieldset>
                     <legend>Categoria(s)</legend>
                     <?php 
                     foreach ($cat as $row) { ?>
                       <div>
-                        <input type="checkbox" id="coding" name="interest" value="<?php echo $row['id'];?>" />
+                        <input type="checkbox" id="coding" name="cate[]" value="<?php echo $row['id'];?>" />
                         <label for="coding"><?php echo $row['nombre'];?></label>
                       </div>
                         <?php } ?>
                     </fieldset>
+
+                    <fieldset>
+                    <legend>Proveedor(es)</legend>
+                    <p>(EL PRECIO DE COMPRA SE REGISTRA, DESDE EL REABASTECIMIENTO)</p>
+                    <?php 
+                    foreach ($prov as $row) { ?>
+                      <div>
+                        <input type="checkbox" id="<?php echo $row['id']; ?>" name="proveedores[]" value="<?php echo $row['id'];?>" />
+                        <label for="coding"><?php echo $row['nombre'];?></label>
+                      </div>
+                     <?php } ?>
+                    </fieldset>
+
                     <div class="form-group">
                         <label for="precio">Precio al publico:</label><br>
-                        <input type="text" id="nombre" placeholder="Ingresa el nombre del producto" name="nombre">
+                        <input type="text" id="nombre" placeholder="Ingresa el nombre del producto" name="precio">
                     </div>
+
+                    <fieldset>
+                      <legend>MATERIAL:</legend>
+                      <div>
+                        <input type="radio" id="mt1" name="material" value="ceramica"/>
+                        <label for="contactChoice1">Ceramica</label>
+
+                        <input type="radio" id="mt22" name="material" value="metal"/>
+                        <label for="contactChoice2">Metal</label>
+
+                        <input type="radio" id="mt3" name="material" value="plastico"/>
+                        <label for="contactChoice3">Plastico</label>
+
+                        <input type="radio" id="mt4" name="material" value="cristal"/>
+                        <label for="contactChoice3">Cristal</label>
+
+                        <input type="radio" id="mt5" name="material" value="madera"/>
+                        <label for="contactChoice3">Madera</label> 
+                        
+                        <input type="radio" id="mt4" name="material" value="otro"/>
+                        <label for="contactChoice3">Otro</label>
+                      </div>                
+                    </fieldset>
+
+                    <label for="avatar">Seleccione una imagen del producto:</label>
+                    <input type="file" id="img" name="img" required/>
+                      
+                    <legend>DESCRIPCIÓN:</legend>
+                    <textarea name="desc" class="form-control" rows="5"></textarea><br><br>
                 </div> 
-                <button type="submit" name="btncrearemp" class="btn btn-primary">Registrar</button>     
+                <button type="submit" name="btnreg" class="btn btn-primary">Registrar</button>     
             </form>
         </div>
       <div class="modal-footer">
