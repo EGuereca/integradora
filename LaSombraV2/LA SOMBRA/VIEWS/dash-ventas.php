@@ -1,3 +1,13 @@
+<?php
+session_start();
+if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
+    header("location: ../VIEWS/iniciov2.php");
+    exit();    
+}
+include '../SCRIPTS/dsh-ventas.php';
+
+$fecha = date('Y-m-d');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +15,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/dash-ventas.css">
+    <link rel="stylesheet" href="../CSS/dash-ventas.css">    
+    <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </head>
+<script>
+            function detalles() {
+            var selectedOption = document.querySelector('input[name="contact"]:checked').value;
+            var additionalInput = document.getElementById("otra_marca");
+
+            if (selectedOption === "otro") {
+                additionalInput.style.display = "block";
+            } else {
+                additionalInput.style.display = "none";
+            }
+          }
+</script>
 <body>
 <div class="d-flex">
         <div class="sidebar">
@@ -23,9 +46,13 @@
         <div class="content flex-grow-1">
             <div class="header">
                 <div>
-                    <a href="../VIEWS/dash-nueva-venta.php">Nueva venta</a>
-                    <span>dd/mm/aa</span>
-                    <span>Sucursal</span>
+                    <button type='button' class='btn btn-primary' data-bs-toggle='modal' 
+                        data-bs-target='#exampleModal'> Registrar Venta </button>
+                    <form action="" method="post">
+                        <label for="start">Fecha:</label>
+                        <input type="date" id="start" name="fecha"  max="<?php echo $fecha;?>" />
+                        <button type="submit" name="btnfecha" class="btn btn-primary">BUSCAR</button>     
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -40,90 +67,30 @@
                                     <tr>
                                         <th>ID Venta</th>
                                         <th>Total</th>
-                                        <th>ID Empleado</th>
+                                        <th>Empleado</th>
+                                        <th>     </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>                                
+                                    <?php $tot = 0;
+                                    foreach ($results as $row) {   
+                                        $empleado = $row['vendedor'];                                                                      
+                                    ?>
                                     <tr>
-                                        <td>00001</td>
-                                        <td>$100.80</td>
-                                        <td>Juan3</td>
+                                        <td><?php echo $row['id']; ?></td>
+                                        <td>$ <?php echo $row['total']; ?></td>
+                                        <?php  
+                                        if ($empleado  == null) {
+                                            echo '<td>Online</td>';
+                                        }
+                                        else {
+                                            echo "<td>$empleado</td>";
+                                        }
+                                        $tot = $tot + $row['total'];
+                                        ?>
+                                        <td><input type="radio" name="option" value="yes" > Detalles</td>
                                     </tr>
-                                    <tr>
-                                        <td>00002</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00003</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00004</td>
-                                        <td>$100.80</td>
-                                        <td>Pepe4</td>
-                                    </tr>
+                                    <?php } ?>                                                                       
                                 </tbody>
                             </table>
                         </div>
@@ -132,10 +99,10 @@
                 <div class="col-md-4">
                     <div class="card card-custom">
                         <div class="card-header">
-                            Monto total del día
+                            Monto total del día <?php echo $date; ?>
                         </div>
                         <div class="card-body">
-                            <h3>$403.20</h3>
+                            <h3>$ <?php echo $tot; ?></h3>
                         </div>
                     </div>
                     <div class="card card-custom">
@@ -190,6 +157,26 @@
             </div>
         </div>
     </div>
+
+                           <!-- MODAL PARA REGISTRAR VENTA, AÚN NO JALA -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">RESGISTRAR VENTA</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                ...
+            </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
