@@ -14,10 +14,10 @@
 <body>
 <header id="inicio" class="row header">
         <div class="user-cart col-lg-4 col-sm-4">
-            <a href="../HTML/inicio-sesion.html"><img src="../ICONS/user.png" alt="user"></a>
+            <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
             <a href="../index.html"><img src="../ICONS/cart.png" alt="cart"></a>
         </div>
-        <div class="logo col-lg-4 col-sm-4"><a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
+        <div class="logo col-lg-4 col-sm-4"><a href="../VIEWS/iniciov2.php"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
         <nav class="navbar navbar-expand-lg col-lg-4 col-sm-4">
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
