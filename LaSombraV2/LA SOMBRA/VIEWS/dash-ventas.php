@@ -17,6 +17,8 @@
             <a href="#">Citas</a>
             <a href="#">Proveedor</a>
             <a href="#">Registrar empleado</a>
+
+            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
         </div>
         <div class="content flex-grow-1">
             <div class="header">

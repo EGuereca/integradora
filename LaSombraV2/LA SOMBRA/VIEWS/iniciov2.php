@@ -41,6 +41,8 @@
         </nav>
     </header>
     -->
+    
+
     <header id="inicio" class="header row">
     <div class="col-4 user-cart hide-on-md-sm">
         <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
