@@ -36,10 +36,10 @@ $fecha = date('Y-m-d');
             <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
             <a style="background-color: limegreen;" href="#">Ventas</a>
             <a href="#">Apartados</a>
-            <a href="#">Productos</a>
-            <a href="#">Citas</a>
-            <a href="#">Proveedor</a>
-            <a href="#">Registrar empleado</a>
+            <a href="../VIEWS/dashboard.php">Productos</a>
+            <a href="../VIEWS/dash-citas.php">Citas</a>
+            <a href="../VIEWS/dash-provee.php">Proveedor</a>
+            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
 
             <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
         </div>
