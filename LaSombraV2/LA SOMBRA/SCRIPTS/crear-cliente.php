@@ -1,15 +1,7 @@
 <?php
 
 session_start();
-  
-/*
-try {
-    $conexion = new PDO("mysql:host=localhost;dbname=la_sombra", "root", "");
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error de conexión: " . $e->getMessage());
-} 
-*/
+
 include "../CLASS/database.php";
 $db = new Database();
 $db->conectarBD();
@@ -35,8 +27,14 @@ if (isset($_POST["btncrearclient"])) {
             $stmt->bindParam(3, $email, PDO::PARAM_STR);
             $stmt->bindParam(4, $telefono, PDO::PARAM_STR);
             $stmt->execute();
+
+
+            $ns = $pdo->prepare("SELECT id_usuario FROM usuarios ORDER BY id_usuario DESC LIMIT 1");
+            $ns->execute();
+            $id= $ns->fetch(PDO::FETCH_ASSOC)['id_usuario'];
             
             echo "<p style='color: green;'>Usuario registrado exitosamente.</p>";
+            $_SESSION['id'] = $id;
             header("refresh:3  ; ../VIEWS/inicio-sesion.php");
         } else {
             echo "<p style='color: red;'>Las contraseñas son diferentes.</p>";

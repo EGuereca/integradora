@@ -1,7 +1,7 @@
 <?php
 require '../SCRIPTS/config-prod.php';
 require '../SCRIPTS/con-carrito.php';
-if (!defined('SESSION_STARTED')) {
+if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
