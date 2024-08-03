@@ -70,7 +70,7 @@
 
 
     <div id="logo" class="col-6 col-lg-4 order-1 order-lg-3 text-start text-lg-end logo">
-        <a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a>
+        <a href="../VIEWS/productos.php"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a>
     </div>
 
     <div class="col-6 col-lg-4 text-end order-2 order-lg-4">
