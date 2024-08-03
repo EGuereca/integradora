@@ -45,8 +45,22 @@ $sql = "SELECT dv.cantidad AS cantidad, p.nombre AS nombre,
     WHERE id_usuario = :usuario
     ) AND estado = 'CARRITO')";
 
+$update = "UPDATE ventas SET estado = 'PENDIENTE' WHERE id_venta = (
+    SELECT 	id_venta  FROM venta WHERE id_cliente = 
+    (SELECT c.id_cliente FROM cliente AS c JOIN persona 
+    AS p ON c.persona = p.id_persona
+    JOIN usuarios AS u ON p.usuario = u.id_usuario
+    WHERE id_usuario = :id
+    )";
+
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':usuario', $id, PDO::PARAM_STR);
+
+    $upd = $pdo->prepare($update);
+    if (isset($_POST['btn'])) {
+        $upd->bindParam(':id', $id, PDO::PARAM_INT);
+        $upd->execute();
+    }
 
     $stmt->execute();
     $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);

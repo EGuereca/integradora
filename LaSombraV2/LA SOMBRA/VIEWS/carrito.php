@@ -1,4 +1,14 @@
 <?php
+session_start();
+if ($_SESSION["rol"] == null) {
+    header("location: ../VIEWS/iniciov2.php");
+    exit();    
+}
+elseif ($_SESSION['rol'] != 3) {
+    header("location: ../VIEWS/dashboard.php");
+    exit();
+}
+
     include '../SCRIPTS/imprimir-carrito.php';
 ?>
 
@@ -75,7 +85,9 @@
         <div>
             <p>Subtotal: $<?php echo $total ?></p>
             <p>Dirección de recolección: Sucursal Nazas</p>
-            <button class="btn btn-success">Confirmar pedido</button>
+            <form action="" method="post">
+                <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+            </form>
         </div>
     </div>
 </div>

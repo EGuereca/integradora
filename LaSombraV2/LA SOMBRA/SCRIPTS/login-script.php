@@ -32,9 +32,9 @@ if (isset($_POST["btningreso"])) {
 
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $_SESSION["id"] = $row['id_usuario'];
-            $_SESSION["nombre"] = $row['nombre'];
-            $_SESSION["rol"] = $row['rol'];
+            $_SESSION['id'] = $row['id_usuario'];
+            $_SESSION['nombre'] = $row['nombre'];
+            $_SESSION['rol'] = $row['rol'];
             if ($_SESSION["rol"] == 3) {
                 header("location: ../VIEWS/iniciov2.php");
                 exit();
