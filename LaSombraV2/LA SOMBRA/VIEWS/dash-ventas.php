@@ -18,18 +18,6 @@ $fecha = date('Y-m-d');
     <link rel="stylesheet" href="../CSS/dash-ventas.css">    
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </head>
-<script>
-            function detalles() {
-            var selectedOption = document.querySelector('input[name="contact"]:checked').value;
-            var additionalInput = document.getElementById("otra_marca");
-
-            if (selectedOption === "otro") {
-                additionalInput.style.display = "block";
-            } else {
-                additionalInput.style.display = "none";
-            }
-          }
-</script>
 <body>
 <div class="d-flex">
         <div class="sidebar">
@@ -90,7 +78,7 @@ $fecha = date('Y-m-d');
                                         ?>
                                         <td>
                                             <p class="d-inline-flex gap-1">
-                                                <a  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                <a  data-bs-toggle="collapse" href="#<?php echo $row['id'];?>" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                     Detalles
                                                 </a>
                                             </p>
@@ -112,11 +100,24 @@ $fecha = date('Y-m-d');
                         </div>
                     </div>
 
-                    <div class="collapse" id="collapseExample">
+                    <?php 
+                        foreach ($results as $row) {  
+                        $id_v = $row['id']; 
+                        $pr = $pdo->prepare("SELECT dv.cantidad AS cantidad, p.nombre AS nombre,
+                            (p.precio * dv.cantidad) AS subtotal
+                            FROM detalle_venta AS dv
+                            JOIN productos AS p ON dv.producto = p.id_producto
+                            WHERE dv.venta = :id");
+                        $pr->bindParam(':id', $id_v, PDO::PARAM_INT);    
+                        $pr->execute();
+                        
+                        $ciclo = $pr->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <div class="collapse" id="<?php echo $row['id'];?>">
                         <div class="card card-body">
                         <div class="card card-custom">
                         <div class="card-header">
-                            00001
+                        <?php echo $row['id'];?>
                         </div>
                         <div class="card-body">
                             <table class="table">
@@ -127,19 +128,23 @@ $fecha = date('Y-m-d');
                                         <th>Subtotal</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>                                    
                                     <tr>
-                                        <td>00001</td>
-                                        <td>2</td>
-                                        <td>$40.36</td>
-                                    </tr>                            
+                                    <?php 
+                                        foreach ($ciclo as $row) {                                                                                    
+                                    ?>
+                                        <td><?php echo $row['nombre']; ?></td>
+                                        <td><?php echo $row['cantidad']; ?></td>
+                                        <td>$ <?php echo $row['subtotal']; ?></td>
+                                    </tr>
+                                    <?php } ?>                            
                                 </tbody>
                             </table>
                         </div>
                     </div>         
                         </div>
                     </div>
-
+                    <?php } ?>
                     
                 </div>
             </div>
@@ -147,23 +152,6 @@ $fecha = date('Y-m-d');
     </div>
 
                            <!-- MODAL PARA REGISTRAR VENTA, AÚN NO JALA -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
