@@ -17,6 +17,7 @@ $hoy = date('Y-m-d');
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <title>CITAS</title>
+    <link rel="stylesheet" href="../CSS/dash-citas.css">
 </head>
 <body>
 
@@ -32,12 +33,24 @@ $hoy = date('Y-m-d');
             }
           }
 </script>
+<div class="d-flex">
+  <div class="sidebar">
+            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
+            <a href="../VIEWS/dash-ventas.php">Ventas</a>
+            <a href="../VIEWS/dash-apartados.php">Apartados</a>
+            <a href="../VIEWS/dashboard.php">Productos</a>
+            <a style="background-color: limegreen;" href="#">Citas</a>
+            <a href="../VIEWS/dash-provee.php">Proveedor</a>
+            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
 
-<nav class="navbar bg-body-tertiary">
+            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
+        </div>
+
   <div class="container-fluid">
+  <nav class="navbar bg-body-tertiary row">
     <form method="post" class="d-flex" role="search">
-    <input type="date" id="start" name="fecha" value="" min="2024-01-01" max="<?php echo $hoy;?>" />     
-        <select class="form-select" aria-label="Default select example" name="perforador">
+    <input class="col-lg-3 col-sm-6" type="date" id="start" name="fecha" value="" min="2024-01-01" max="<?php echo $hoy;?>" />     
+        <select class="form-select col-lg-3 col-sm-6" aria-label="Default select example" name="perforador">
             <option selected value="">Perforador</option>
             <?php 
                 foreach ($pe as $row) {
@@ -46,22 +59,20 @@ $hoy = date('Y-m-d');
             ?>
             
         </select>
-        <select class="form-select" aria-label="Default select example" name="sucursal">
+        <select class="form-select col-lg-3 col-sm-6" aria-label="Default select example" name="sucursal">
             <option selected value="">Sucursal</option>
             <option value="">Todo</option>
             <option value="2">Nazas</option>
             <option value="1">Matamoros</option>
         </select>
-      <button class="btn btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
+      <button class="btn btn-outline-success col-lg-3 col-sm-6" type="submit" name="btn-aplicar">Aplicar</button>
     </form>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+    <button type="button" class="btn btn-primary offset-4 col-4" data-bs-toggle="modal" 
     data-bs-target="#exampleModal"> Registrar Producto </button>
-
-  </div>
-</nav>
-
-<?php
+    </nav>
+    <!-- Main Content -->
+                <?php
 $fecha = date('Y-m-d H:i:s');
 $f = new DateTime();
 $max_fecha = clone $f;
@@ -110,6 +121,11 @@ $fecha_min = $f->format('Y-m-d\TH:i');
         echo "<p>No se encontraron citas.</p>";
     }
 ?>
+            </div>
+            
+  </div>
+
+
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
