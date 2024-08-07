@@ -1,5 +1,5 @@
 <?php
-session_start();
+/*
 if ($_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
@@ -8,6 +8,7 @@ elseif ($_SESSION['rol'] != 3) {
     header("location: ../VIEWS/dashboard.php");
     exit();
 }
+*/
 
     include '../SCRIPTS/imprimir-carrito.php';
 ?>

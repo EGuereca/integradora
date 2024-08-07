@@ -87,7 +87,6 @@
     <div class="row align-items-center">
     
 
-
     <div class="col-md-3 d-none d-lg-flex justify-content-start">
             <div class="user-cart">
                 <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
