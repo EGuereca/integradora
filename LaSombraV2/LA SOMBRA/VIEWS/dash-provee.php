@@ -14,9 +14,23 @@ include '../SCRIPTS/provee-dsh.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
+    <title>Proveedor</title>
+    <link rel="stylesheet" href="../CSS/dash-provee.css">
 </head>
 <body>
+<div class="d-flex">
+<div class="sidebar">
+            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
+            <a href="../VIEWS/dash-ventas.php">Ventas</a>
+            <a href="../VIEWS/dash-apartados.php">Apartados</a>
+            <a href="../VIEWS/productos.php">Productos</a>
+            <a href="../VIEWS/dash-citas.php">Citas</a>
+            <a style="background-color: limegreen;" href="#">Proveedor</a>
+            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
+
+            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
+        </div>
+        <div class="container-fluid">
 <nav class="navbar bg-body-tertiary">
   <?php 
     if ($_SESSION["rol"] == 1 ) {
@@ -24,8 +38,6 @@ include '../SCRIPTS/provee-dsh.php';
     data-bs-target='#exampleModal'> Registrar Producto </button>";
     }
   ?>    
-
-  </div>
 </nav>
     <?php 
         if ($results) {
@@ -75,6 +87,7 @@ include '../SCRIPTS/provee-dsh.php';
       </div>
     </div>
   </div>
+</div>
 </div>
 </body>
 </html>

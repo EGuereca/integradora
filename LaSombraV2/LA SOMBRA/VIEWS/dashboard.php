@@ -16,6 +16,7 @@ include '../SCRIPTS/productos-dsh.php';
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <title>Productos</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <script>
@@ -43,8 +44,21 @@ include '../SCRIPTS/productos-dsh.php';
     </script>
 
 <body>
+  <div class="d-flex">
+  <!-- Sidebar -->
+  <div class="sidebar">
+            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
+            <a href="../VIEWS/dash-ventas.php">Ventas</a>
+            <a href="../VIEWS/dash-apartados.php">Apartados</a>
+            <a style="background-color: limegreen;" href="#">Productos</a>
+            <a href="../VIEWS/dash-citas.php">Citas</a>
+            <a href="../VIEWS/dash-provee.php">Proveedor</a>
+            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
+
+            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
+        </div>
+        <div class="container-fluid">
 <nav class="navbar bg-body-tertiary">
-  <div class="container-fluid">
     <form method="post" class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="ID Producto" aria-label="Search" id="id_prod" name="id_prod">
       <input class="form-control me-2" type="search" placeholder="Nombre Producto" aria-label="Search" id="nm_prod" name="nm_prod">
@@ -73,7 +87,6 @@ include '../SCRIPTS/productos-dsh.php';
         data-bs-target='#exampleModal'> Registrar Producto </button>";
     }
     ?>
-  </div>
 </nav>
 <br>
 <?php
@@ -217,6 +230,9 @@ include '../SCRIPTS/productos-dsh.php';
       </div>
     </div>
   </div>
+</div>
+
+</div>
 </div>
 </body>
 </html>
