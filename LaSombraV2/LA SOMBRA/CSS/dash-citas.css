@@ -25,3 +25,27 @@ img{
 .sidebar a:hover {
     background-color: limegreen;
 }
+.navbar{
+    padding-top: 10px;
+    padding-right: 10px;
+    margin-bottom: 100px;
+}
+.container-fluid{
+    width: 100%;
+}
+input{
+    margin: 20px;
+}
+.form-select{
+    margin: 20px;
+    width: 150px;
+}
+button{
+    margin: 20px;
+}
+.btn-primary{
+    padding-top: 0;
+}
+.table{
+    width: 100%;
+}

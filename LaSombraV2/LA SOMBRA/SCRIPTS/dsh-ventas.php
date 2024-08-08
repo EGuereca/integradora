@@ -6,6 +6,7 @@ $database = "la_sombra";
 $charset = "utf8";
 $dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";
 
+
 try {
     $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -16,6 +17,12 @@ try {
     echo $e->getMessage();
     exit; 
 }
+
+$prod = "SELECT id_producto, nombre, descripcion, precio, stock, url 
+        FROM productos";
+$cat = $pdo->prepare($prod);
+$cat->execute();
+$c = $cat->fetchAll(PDO::FETCH_ASSOC);
 
 $hoy = date('Y-m-d');
 
@@ -42,11 +49,6 @@ else {
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
-/*
-echo "Número de resultados: " . $stmt->rowCount();
-
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-*/
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $resultCount = $stmt->rowCount();
