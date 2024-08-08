@@ -22,8 +22,25 @@ $fecha = date('Y-m-d');
 <div class="d-flex">
     <div class="sidebar">
         <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
-        <a style="background-color: limegreen;" href="#">Ventas</a>
-        <a href="#">Apartados</a>
+        <?php 
+            
+            switch ($_SESSION['rol']) {
+                case 1:
+                    echo "<h5>Usuario: Administrador</h5>";
+                    break;
+                case 3:
+                    "<h5>Usuario: Empleado</h5>";
+                    break;
+                    case 7:
+                        "<h5>Usuario: Perforador</h5>";
+                        break;
+                default:
+                    break;
+            }
+
+            ?>
+        <a style="background-color: limegreen;" href="../VIEWS/dash-ventas.php">Ventas</a>
+        <a href="../VIEWS/dash-apartados.php">Apartados</a>
         <a href="../VIEWS/dashboard.php">Productos</a>
         <a href="../VIEWS/dash-citas.php">Citas</a>
         <a href="../VIEWS/dash-provee.php">Proveedor</a>
