@@ -1,21 +1,11 @@
 <?php
-$hostname = "localhost";
-$user = "root";
-$password = "";
-$database = "la_sombra";
-$charset = "utf8";
-$dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";
 
-try {
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-    $pdo = new PDO($dsn, $user, $password, $options);
-} catch (PDOException $e) {
-    echo $e->getMessage();
-    exit; 
-}
+
+include "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
+
+$conexion = $db->getPDO();
 
 $sucursal = isset($_POST["sucursal"]) ? $_POST["sucursal"] : '';
 $perforador = isset($_POST["perforador"]) ? $_POST["perforador"] : '';
@@ -70,15 +60,15 @@ if ($perforador) {
     $params[':perforador'] = $perforador;
 }
 
-$stmt = $pdo->prepare($sql);
+$stmt = $conexion->prepare($sql);
 $stmt->execute($params);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$perf = $pdo->prepare($con);
+$perf = $conexion->prepare($con);
 $perf->execute();
 $pe = $perf->fetchAll(PDO::FETCH_ASSOC);
 
-$insert = $pdo->prepare("INSERT INTO citas(nombre_cliente,empleado,tipo_perforacion,fecha_hora,sucursal,comentarios,telefono,costo)
+$insert = $conexion->prepare("INSERT INTO citas(nombre_cliente,empleado,tipo_perforacion,fecha_hora,sucursal,comentarios,telefono,costo)
 VALUES(?,?,?,?,?,?,?,?)");
 if (isset($_POST['btnreg'])) {
     $insert->bindParam(1, $nombre, PDO::PARAM_STR);

@@ -10,23 +10,12 @@ if (isset($_SESSION['sucursal'])) {
     $_SESSION['sucursal'] = null;
 }
 
-$hostname = "localhost";
-$user = "root";
-$password = "";
-$database = "la_sombra";
-$charset = "utf8";
-$dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";
+include "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
 
-try {
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-    $pdo = new PDO($dsn, $user, $password, $options);
-} catch (PDOException $e) {
-    echo $e->getMessage();
-    exit; 
-}
+$conexion = $db->getPDO();
+
 
 $productos_por_pagina = 9;
 
@@ -60,7 +49,7 @@ if ($marca !== null) {
     if ($_SESSION['sucursal'] == null) {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos WHERE marca = :marca LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
         $total_sql = "SELECT COUNT(*) FROM productos WHERE marca = :marca";
     }
@@ -69,7 +58,7 @@ if ($marca !== null) {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos_nazas WHERE marca = :marca AND stock > 0
         LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
         $total_sql = "SELECT COUNT(*) FROM productos_nazas WHERE marca = :marca 
         AND stock > 0";
@@ -78,7 +67,7 @@ if ($marca !== null) {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos WHERE marca = :marca AND stock > 0
         LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
         $total_sql = "SELECT COUNT(*) FROM productos WHERE marca = :marca
         AND stock > 0";
@@ -87,7 +76,7 @@ if ($marca !== null) {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos_matamoros WHERE marca = :marca AND stock > 0
         LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
         $total_sql = "SELECT COUNT(*) FROM productos_matamoros WHERE marca = :marca
         AND stock > 0";
@@ -98,7 +87,7 @@ if ($marca !== null) {
         $sql = $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos WHERE stock > 0
         LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $total_sql = "SELECT COUNT(*) FROM productos";
     }
     else{
@@ -106,21 +95,21 @@ if ($marca !== null) {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos_nazas WHERE stock > 0
         LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $total_sql = "SELECT COUNT(*) FROM productos_nazas WHERE stock > 0";
     }
     if ($_SESSION['sucursal'] == '2') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos WHERE stock > 0
         LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $total_sql = "SELECT COUNT(*) FROM productos WHERE stock > 0";
     }
     if ($_SESSION['sucursal'] == '3') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
         FROM productos_matamoros WHERE stock > 0
         LIMIT $inicio, $productos_por_pagina";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $total_sql = "SELECT COUNT(*) FROM productos_matamoros WHERE stock > 0";
     }
     }    
@@ -129,7 +118,7 @@ if ($marca !== null) {
 $stmt->execute();
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$total_stmt = $pdo->prepare($total_sql);
+$total_stmt = $conexion->prepare($total_sql);
 if ($marca !== null) {
     $total_stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
 }

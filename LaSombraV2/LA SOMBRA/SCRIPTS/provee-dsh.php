@@ -1,27 +1,16 @@
 <?php
-$hostname = "localhost";
-$user = "root";
-$password = "";
-$database = "la_sombra";
-$charset = "utf8";
-$dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";
 
-try {
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-    $pdo = new PDO($dsn, $user, $password, $options);
-} catch (PDOException $e) {
-    echo $e->getMessage();
-    exit; 
-}
+    include "../CLASS/database.php";
+    $db = new Database();
+    $db->conectarBD();
+    
+    $conexion = $db->getPDO();
 
 $sql = "SELECT id_proveedor AS id ,nombre, telefono, pagina FROM proveedores";
-$stm = $pdo->prepare($sql);
+$stm = $conexion->prepare($sql);
 $stm->execute();
 
-$insert = $pdo->prepare("INSERT INTO proveedores(nombre,telefono,pagina) 
+$insert = $conexion->prepare("INSERT INTO proveedores(nombre,telefono,pagina) 
 VALUES(?,?,?)");
 
 $results = $stm->fetchAll(PDO::FETCH_ASSOC);

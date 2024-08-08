@@ -12,6 +12,8 @@ if (isset($_SESSION['sucursal'])) {
   $_SESSION['sucursal'] = null;
 }
 
+// LO DEJÉ EN COMENTARIO POR SI HAY ALGÚN PEDO, LA CLASE DE BD YA SE INCLUYE EN LOS SCRIPTS DE ARRIBA
+/*
 $hostname = "localhost";
 $user = "root";
 $password = "";
@@ -29,6 +31,8 @@ try {
     echo $e->getMessage();
     exit; 
 }
+*/
+
 
 
   
@@ -46,12 +50,12 @@ if ($id == '' || $token == '') {
 else {
       $token_tmp = hash_hmac('sha256',$id,K_TOKEN);
       if ($token == $token_tmp) {
-          $sql = $pdo->prepare("SELECT COUNT(id_producto) FROM productos
+          $sql = $conexion->prepare("SELECT COUNT(id_producto) FROM productos
           WHERE id_producto = ?");
           $sql->execute([$id]);
           if ($sql->fetchColumn() > 0) { 
             if ($_SESSION['sucursal'] == null) {
-              $sql = $pdo->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos
+              $sql = $conexion->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos
             WHERE id_producto = ?");
             $sql->execute([$id]);
             $row = $sql->fetch(PDO::FETCH_ASSOC);
@@ -61,13 +65,13 @@ else {
             $descripcion = $row['descripcion'];
             $precio = $row['precio'];
 
-            $sql2= $pdo->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
+            $sql2= $conexion->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
             WHERE marca = ? LIMIT 3");
             $sql2->execute([$marca]);
             $row2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
             }
             if ($_SESSION['sucursal'] == 1) {
-              $sql = $pdo->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos_nazas
+              $sql = $conexion->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos_nazas
             WHERE id_producto = ?");
             $sql->execute([$id]);
             $row = $sql->fetch(PDO::FETCH_ASSOC);
@@ -77,13 +81,13 @@ else {
             $descripcion = $row['descripcion'];
             $precio = $row['precio'];
 
-            $sql2= $pdo->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
+            $sql2= $conexion->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
             WHERE marca = ? LIMIT 3");
             $sql2->execute([$marca]);
             $row2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
             }
             if ($_SESSION['sucursal'] == 2) {
-              $sql = $pdo->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos
+              $sql = $conexion->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos
             WHERE id_producto = ?");
             $sql->execute([$id]);
             $row = $sql->fetch(PDO::FETCH_ASSOC);
@@ -93,13 +97,13 @@ else {
             $descripcion = $row['descripcion'];
             $precio = $row['precio'];
 
-            $sql2= $pdo->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
+            $sql2= $conexion->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
             WHERE marca = ? LIMIT 3");
             $sql2->execute([$marca]);
             $row2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
             }
             if ($_SESSION['sucursal'] == 3) {
-              $sql = $pdo->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos_matamoros
+              $sql = $conexion->prepare("SELECT nombre, marca, stock, descripcion, precio, material FROM productos_matamoros
             WHERE id_producto = ?");
             $sql->execute([$id]);
             $row = $sql->fetch(PDO::FETCH_ASSOC);
@@ -109,7 +113,7 @@ else {
             $descripcion = $row['descripcion'];
             $precio = $row['precio'];
 
-            $sql2= $pdo->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
+            $sql2= $conexion->prepare("SELECT id_producto ,nombre, marca, descripcion, precio, material, stock FROM productos
             WHERE marca = ? LIMIT 3");
             $sql2->execute([$marca]);
             $row2 = $sql2->fetchAll(PDO::FETCH_ASSOC);

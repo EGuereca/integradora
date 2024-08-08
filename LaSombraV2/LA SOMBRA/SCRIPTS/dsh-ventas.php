@@ -1,4 +1,5 @@
 <?php
+/*
 $hostname = "localhost";
 $user = "root";
 $password = "";
@@ -17,10 +18,16 @@ try {
     echo $e->getMessage();
     exit; 
 }
+*/
+include "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
+
+$conexion = $db->getPDO();
 
 $prod = "SELECT id_producto, nombre, descripcion, precio, stock, url 
         FROM productos";
-$cat = $pdo->prepare($prod);
+$cat = $conexion->prepare($prod);
 $cat->execute();
 $c = $cat->fetchAll(PDO::FETCH_ASSOC);
 
@@ -46,7 +53,7 @@ else {
     $sql .= "AND v.fecha_venta LIKE '$hoy%'";
 }
 
-$stmt = $pdo->prepare($sql);
+$stmt = $conexion->prepare($sql);
 $stmt->execute();
 
 
