@@ -17,7 +17,11 @@ $fecha = date('Y-m-d');
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/ventas-dash.css">    
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
+
+
 <body>
 <div class="d-flex">
     <div class="sidebar">
@@ -165,19 +169,35 @@ $fecha = date('Y-m-d');
                         </select>
                     </div>   
                         <div class="row" id="productList">
-                            
+                            <?php
+                                foreach ($c as $row) {                                                                    
+                            ?>
                             <div class="col-md-4">
                                 <div class="card product-card">
-                                    <img src="../IMG/bicho.jpg" class="card-img-top" alt="Nombre del Producto">
+                                    <?php 
+                                        if ($row['url'] == null) { 
+                                           echo "<img src='../IMG/sombra-logo.jpg' class='card-img-top' alt='Nombre del Producto'>";                                           
+                                        }
+                                        else {
+                                            echo "<img src=".$row['url']." class='card-img-top' alt=".$row['nombre'].">";
+                                        }
+                                    ?>
                                     <div class="card-body">
-                                        <h5 class="card-title">Blazy Susan Pink Rolling Papers</h5>
-                                        <p class="card-text">18 piezas disponibles</p>
-                                        <p class="card-text text-success">$49.00</p>
+                                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
+                                        <p class="card-text text-success">$<?php echo $row['precio']; ?></p>
+                                        <select class="form-control" name="cantidad">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
                                     </div>
-                                    <button class="btn btn-primary btn-add-to-cart">Añadir</button>
+                                    <button class="btn btn-primary btn-add-to-cart" >Añadir</button>
                                 </div>
                             </div>
-                            
+                            <?php } ?>
                            
                         </div>
                     </div>
@@ -205,6 +225,14 @@ $fecha = date('Y-m-d');
             </div>
         </div>
     </div>
+</div>
+
+
+<div id="cart-details" class="mt-4">
+    <h4>Carrito</h4>
+    <ul id="cart-items">
+        <!-- Los productos añadidos se mostrarán aquí -->
+    </ul>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
