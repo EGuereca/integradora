@@ -25,3 +25,6 @@ img{
 .sidebar a:hover {
     background-color: limegreen;
 }
+.btn-emp{
+    margin: 20px;
+}
