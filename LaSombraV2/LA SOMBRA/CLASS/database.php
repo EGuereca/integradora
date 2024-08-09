@@ -3,7 +3,7 @@ class Database
 {
     private $PDOlOCAL; // Si pones esta variable en null se cierra
     private $user = 'root';
-    private $password = '';
+    private $password = 'Mysql123';
     private $server = "mysql:host=localhost;dbname=la_sombra"; // Ajuste de espacio en blanco
     
     function conectarBD()
