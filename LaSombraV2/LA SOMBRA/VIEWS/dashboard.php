@@ -272,7 +272,7 @@ include '../SCRIPTS/productos-dsh.php';
                     </fieldset>
 
                     <label for="avatar">Seleccione una imagen del producto:</label>
-                    <input type="file" id="img" name="img" required/>
+                    <input type="file" id="img" name="img"/>
                       
                     <legend>DESCRIPCIÓN:</legend>
                     <textarea name="desc" class="form-control" rows="5"></textarea><br><br>
