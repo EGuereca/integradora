@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../CSS/inicio-sesion.css">
 </head>
 <body>
+<div class="outer-container">
     <div class="container">
         <img src="../IMG/sombra-logo.jpg" alt="La Sombra Ozuna TRC">
         <h2>Inicia sesión</h2>
@@ -23,5 +24,6 @@
         <p>¿No tienes cuenta? <a href="../VIEWS/crear-cuenta.php" class="create-account">Crear cuenta</a></p>
         <p class="p-back"><a href="../VIEWS/iniciov2.php" class="back">Regresar a inicio</a></p>
     </div>
+</div>
 </body>
 </html>
