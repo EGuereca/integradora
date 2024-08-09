@@ -3,15 +3,33 @@
     scroll-behavior: smooth;
 }
 /*Cuerpo*/
-body{
+.body{
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #111111;
     color: white;
 }
 
+.form-group{
+    padding: 14px;
+    text-align: center;
+    
+}
+
+#username, #email, #telefono{
+    width: 40%;
+    text-align: center;
+    margin: auto;
+}
+
+#containerdata{
+    padding-top: 100px;
+    text-align: center;
+    
+}
+
 #actualizar{
-    background-color: green;
+    padding-top: 10px;
 }
 /*Header*/
 
@@ -40,13 +58,6 @@ body{
     border-width: 1px;
     height: 85px;
 
-}
-
-
-#actu a{
-
-    color: white;
-    text-decoration: none;
 }
 
 #btn-nav{
@@ -117,25 +128,4 @@ body{
 }
 .user-cart img{
     height: 25px;
-}
-
-
-/*BODY*/
-#data{
-    padding-top: 150px;
-}
-
-.data p{
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 8px;
-}
-
-#panel{
-   
-    color: aqua;
-}
-
-.historial{
-    padding-top: 70px;
 }

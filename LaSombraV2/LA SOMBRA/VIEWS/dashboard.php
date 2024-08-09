@@ -16,7 +16,7 @@ include '../SCRIPTS/productos-dsh.php';
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <title>Productos</title>
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
 </head>
 
 <script>

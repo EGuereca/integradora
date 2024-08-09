@@ -29,7 +29,7 @@ if (isset($_POST["btncrearclient"])) {
             $stmt->execute();
 
 
-            $ns = $pdo->prepare("SELECT id_usuario FROM usuarios ORDER BY id_usuario DESC LIMIT 1");
+            $ns = $conexion->prepare("SELECT id_usuario FROM usuarios ORDER BY id_usuario DESC LIMIT 1");
             $ns->execute();
             $id= $ns->fetch(PDO::FETCH_ASSOC)['id_usuario'];
             
