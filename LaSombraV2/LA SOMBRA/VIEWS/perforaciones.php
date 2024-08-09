@@ -125,7 +125,7 @@ session_start();
 </header>
 
     <div class="container">
-            <div id="in" class="titulo row col-12">
+            <div id="in" class="titulo row">
                 <h1>PERFORACIONES</h1>
             </div>
             <div class="content row">
