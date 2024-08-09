@@ -80,7 +80,7 @@ include '../SCRIPTS/dsh-reabas.php';
             <a href="../VIEWS/dash-citas.php">Citas</a>
             <a href="../VIEWS/dash-provee.php">Proveedor</a>
             <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
-            <a style="background-color: limegreen;" href="#">Reabastecimiento</a>
+            <a style="background-color: limegreen;" href="in#">Reabastecimiento</a>
 
             <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
         </div>-->

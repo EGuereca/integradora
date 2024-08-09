@@ -10,6 +10,9 @@ body{
     color: white;
 }
 
+#actualizar{
+    background-color: green;
+}
 /*Header*/
 
 #body-burger{
@@ -47,7 +50,7 @@ body{
     width: 325px
 }
 .header{
-    height: 75;
+    height: 75px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -109,6 +112,23 @@ body{
 }
 
 
+#actu a{
+
+    color: white;
+    text-decoration: none;
+}
+
+#btn-nav{
+    background-color: green;
+    color: white;
+}
+
+#buscar{
+    width: 325px
+}
+
+
+
 /*BODY*/
 #data{
     padding-top: 150px;
@@ -123,4 +143,8 @@ body{
 #panel{
    
     color: aqua;
+}
+
+.historial{
+    padding-top: 70px;
 }

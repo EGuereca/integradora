@@ -125,7 +125,8 @@ body{
     padding-top: 150px;
     justify-content: space-between;
     align-items: center;
-    padding-left: 40%;
+    padding-left: 35%;
+    
 }
 .content{
     display: flex;
@@ -204,6 +205,7 @@ body{
 .footer {
     text-align: center;
     padding: 20px;
+    margin: auto;
 }
 .footer p {
     font-size: 14px;
