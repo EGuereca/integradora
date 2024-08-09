@@ -1,20 +1,40 @@
 <?php
 
-include "../SCRIPTS/detalle-usuario.php";
 
+include "../CLASS/database.php";
+
+$db = new Database();
+$db->conectarBD();
+
+$conexion = $db->getPDO();
+session_start(); 
+
+
+
+if(isset($_GET['upd'])) $iduser = $_GET['upd'];
+
+$sql = "SELECT * FROM usuarios WHERE id_usuario = :id";
+$stmt = $conexion->prepare($sql);
+$stmt ->bindParam(":id",$iduser);
+$stmt->execute();
+$count = $stmt->rowCount();
+
+if($count > 0){
+    $datos = $stmt->fetch();
+}
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de cuenta</title>
+    <title>Actualizar datos</title>
+    <link type="text/css" rel="stylesheet" href="../CSS/updateusuario.css">
+
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/detalle-cuenta.css">
 </head>
-<body>
+<body class="body">
 <header>
 <nav id="contenedor-todo" class="navbar navbar-dark  fixed-top">
     <div  class="container">
@@ -40,7 +60,7 @@ include "../SCRIPTS/detalle-usuario.php";
         </div>
 
 
-    <div id="logo" class="col-6 col-lg-4 order-1 order-lg-3 text-start text-lg-end justify-content-center logo">
+    <div id="logo" class="col-6 col-lg-4 order-1 order-lg-3 text-start text-lg-end logo">
         <a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a>
     </div>
 
@@ -126,57 +146,26 @@ include "../SCRIPTS/detalle-usuario.php";
     </nav>
 </header>
 
-<div class="todo">
-    
-    <div id="data" class="container data">
-        <div class="detalles">
-            <h1>Detalles</h1>
-            <?php if ($user): ?>
-                <p><strong>Nombre de usuario :</strong> <?php echo htmlspecialchars($user['nombre_usuario']); ?></p>
-                <p><strong>Email :</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-                <p><strong>Telefono :</strong> <?php echo htmlspecialchars($user['telefono']); ?></p>
-                <button class="btn btn-success" id="actu"><a  href="updateuser.php?upd=<?=$iduser?>">Actualizar datos</a></button>
-            <?php else: ?>
-                <p>No se encontraron datos del usuario.</p>
-            <?php endif; ?>
+<div id="containerdata"  class="container m-auto">
+    <div class="my-3 text-center d-flex flex-row justify-content-center"><p><h1>Actualizar Usuario</h1></p></div>
+
+    <form action="../SCRIPTS/upd.php" method="post">
+        <div class="form-group">
+            <input type="hidden" name="id" value="<?= $datos['id_usuario']?>">
+            <input type="text" name="username" id="username" class="form-control" required placeholder="Nombre de usuario" value="<?= $datos['nombre_usuario']?>">
         </div>
 
-        <div class="historial">
-            <h1>Historial de pedidos</h1>
-            <?php if ($completadas && count($completadas) > 0): ?>
-            <table class="table table-dark table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID Venta</th>
-                        <th>Fecha</th>
-                        <th>Total</th>
-                        <th>Estado</th>
-                        <th>Nombre de la Sucursal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($completadas as $venta): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($venta['ID']); ?></td>
-                            <td><?php echo htmlspecialchars($venta['fecha_venta']); ?></td>
-                            <td><?php echo htmlspecialchars($venta['monto_total']); ?></td>
-                            <td><?php echo htmlspecialchars($venta['estado']); ?></td>
-                            <td><?php echo htmlspecialchars($venta['sucursal']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No se encontraron pedidos completados.</p>
-        <?php endif; ?>
+        <div class="form-group">
+            <input type="email" name="email" id="email" class="form-control" required placeholder="Email" value="<?= $datos['email']?>">
         </div>
-    </div>
 
-    
+        <div class="form-group">
+            <input type="text" name="telefono" id="telefono" class="form-control" required placeholder="Telefono" value="<?= $datos['telefono']?>">
+        </div>
+        <input id="actualizar" type="submit" value="Actualizar" class="btn btn-success"> <button class="btn btn-secondary">Regresar</button>
 
+    </form>
 </div>
-
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -185,3 +174,4 @@ include "../SCRIPTS/detalle-usuario.php";
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>
+

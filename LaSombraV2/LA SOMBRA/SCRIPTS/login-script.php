@@ -49,7 +49,6 @@ if (isset($_POST["btningreso"])) {
     }
 }
 
-$db->desconectarBD();
 
 
 
