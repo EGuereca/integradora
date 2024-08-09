@@ -6,6 +6,8 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
 }
 include '../SCRIPTS/dsh-ventas.php';
 
+
+
 $fecha = date('Y-m-d');
 ?>
 <!DOCTYPE html>
@@ -198,7 +200,7 @@ $fecha = date('Y-m-d');
                                     <button class="btn btn-primary btn-add-to-cart" >Añadir</button>
                                 </div>
                             </div>
-                            <?php #} ?>
+                            <?php #} ?>/
                         </div>
                     </div>
                     <div class="col-md-4">

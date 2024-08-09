@@ -106,3 +106,83 @@ img{
     -o-border-radius: 5px;
 }
 
+/*MODAL*/
+/* Estilo general para el modal */
+.modal-content {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    background-color: #343a40;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* Estilos para los campos del formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+select.form-select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Estilo de los botones */
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}

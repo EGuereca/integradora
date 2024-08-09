@@ -70,6 +70,9 @@ $hoy = date('Y-m-d');
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
@@ -124,7 +127,7 @@ $hoy = date('Y-m-d');
     </form>
 
     <button type="button" class="btn btn-primary offset-4 col-4" data-bs-toggle="modal" 
-    data-bs-target="#exampleModal"> Registrar Producto </button>
+    data-bs-target="#exampleModal"> Registrar Cita </button>
     <!-- Main Content -->
                 <?php
 $fecha = date('Y-m-d H:i:s');
@@ -182,7 +185,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -206,6 +209,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
                 }
             ?>            
         </select> <br>
+        <div class="tipo-perforacion">
         <fieldset>
             <legend>Tipo de perforación:</legend>
                 <div>
@@ -228,6 +232,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
                     <label for="contactChoice2">Otro</label>
                 </div>
         </fieldset>
+        </div>
 
                     <div id="otro" style="display:none;">
                       <label for="extra">Ingrese el tipo de perforación:</label>

@@ -25,19 +25,20 @@ $emp = $consulta->fetch(PDO::FETCH_ASSOC)['id_empleado'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nazas'])) {
     $_SESSION['sucursal'] = '1'; 
-    $suc = $_SESSION['sucursal'] = '1';   
+    $suc = $_SESSION['sucursal'];   
     header("Location: ../VIEWS/llenar-venta.php");
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['todo'])) {
-    $_SESSION['sucursal'] = '2';
+    $_SESSION['sucursal'];
     
     header("Location: ../VIEWS/llenar-venta.php");
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['matamoros'])) {
     $_SESSION['sucursal'] = '3';
-    $suc = $_SESSION['sucursal'] = '3';
+    $suc = $_SESSION['sucursal']
+    ;
     header("Location: ../VIEWS/llenar-venta.php");
     exit();
 }
