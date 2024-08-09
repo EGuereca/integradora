@@ -126,6 +126,7 @@ include "../SCRIPTS/detalle-usuario.php";
     </nav>
 </header>
 
+
 <div class="todo">
     
     <div id="data" class="container data">
@@ -135,6 +136,7 @@ include "../SCRIPTS/detalle-usuario.php";
                 <p><strong>Nombre de usuario :</strong> <?php echo htmlspecialchars($user['nombre_usuario']); ?></p>
                 <p><strong>Email :</strong> <?php echo htmlspecialchars($user['email']); ?></p>
                 <p><strong>Telefono :</strong> <?php echo htmlspecialchars($user['telefono']); ?></p>
+                <button class="btn btn-success" id="actu"><a  href="updateuser.php?upd=<?=$iduser?>">Actualizar datos</a></button>
             <?php else: ?>
                 <p>No se encontraron datos del usuario.</p>
             <?php endif; ?>

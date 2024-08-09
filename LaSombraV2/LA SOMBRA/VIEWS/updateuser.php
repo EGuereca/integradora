@@ -1,18 +1,40 @@
 <?php
-session_start();
-?>
 
+
+include "../CLASS/database.php";
+
+$db = new Database();
+$db->conectarBD();
+
+$conexion = $db->getPDO();
+session_start(); 
+
+
+
+if(isset($_GET['upd'])) $iduser = $_GET['upd'];
+
+$sql = "SELECT * FROM usuarios WHERE id_usuario = :id";
+$stmt = $conexion->prepare($sql);
+$stmt ->bindParam(":id",$iduser);
+$stmt->execute();
+$count = $stmt->rowCount();
+
+if($count > 0){
+    $datos = $stmt->fetch();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LA SOMBRA - OZUNA TRC</title>
-    <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/perforaciones.css">
-</head>
-<body>
+    <title>Actualizar datos</title>
+    <link type="text/css" rel="stylesheet" href="../CSS/updateusuario.css">
 
+    <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
+</head>
+<body class="body">
 <header>
 <nav id="contenedor-todo" class="navbar navbar-dark  fixed-top">
     <div  class="container">
@@ -124,58 +146,32 @@ session_start();
     </nav>
 </header>
 
-    <div class="container">
-            <div id="in" class="titulo row col-12">
-                <h1>PERFORACIONES</h1>
-            </div>
-            <div class="content row">
-                <div class="about-text col-lg-6 col-sm-12">
-                    <h3>Info de perforador</h3>
-                    <p>Subheading for description or instructions</p>
-                    <p>Body text for your whole article or post. We'll put in some lorem ipsum to show how a filled-out page might look.</p>
-                    <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla ut.</p>
-                </div>
-                <div class="about-img col-lg-6 col-sm-12">
-                    <img src="../IMG/bicho.jpg" alt="Perforador">
-                </div>
-            </div>
-            <div class="perforaciones">
-                <h2>Tipos de perforaciones</h2>
-                <div class="perforaciones-grid row">
-                    <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 1">
-                        <p>Description of featured product</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 2">
-                        <p>Description of featured product</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 3">
-                        <p>Description of featured product</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 4">
-                        <p>Description of featured product</p>
-                    </div>
-                </div>
-                <div id="btn-wha" class="btn">
-                    <a target="_blank" href="https://wa.me/+528712340008" class="cta-button">Genera tu cita!</a>
-                </div>
-            </div>
+<div id="containerdata"  class="container m-auto">
+    <div class="my-3 text-center d-flex flex-row justify-content-center"><p><h1>Actualizar Usuario</h1></p></div>
+
+    <form action="../SCRIPTS/upd.php" method="post">
+        <div class="form-group">
+            <input type="hidden" name="id" value="<?= $datos['id_usuario']?>">
+            <input type="text" name="username" id="username" class="form-control" required placeholder="Nombre de usuario" value="<?= $datos['nombre_usuario']?>">
         </div>
-        <footer class="footer row">
-            <div class="  col-lg-9 text col-sm-12 ">
-                <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
-            </div>
-            <div class="col-lg-1  col-sm-12 text-lg-end"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
-        </footer>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+        <div class="form-group">
+            <input type="email" name="email" id="email" class="form-control" required placeholder="Email" value="<?= $datos['email']?>">
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="telefono" id="telefono" class="form-control" required placeholder="Telefono" value="<?= $datos['telefono']?>">
+        </div>
+        <input id="actualizar" type="submit" value="Actualizar" class="btn btn-success"> <button class="btn btn-secondary">Regresar</button>
+
+    </form>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-
-    </div>
 </body>
 </html>
+

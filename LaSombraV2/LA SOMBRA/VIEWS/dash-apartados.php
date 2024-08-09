@@ -9,50 +9,72 @@
 </head>
 <body>
 <div class="d-flex">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
-            <a href="../VIEWS/dash-ventas.php">Ventas</a>
-            <a style="background-color: limegreen;" href="#">Apartados</a>
-            <a href="../VIEWS/dashboard.php">Productos</a>
-            <a href="../VIEWS/dash-citas.php">Citas</a>
-            <a href="../VIEWS/dash-provee.php">Proveedor</a>
-            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
-
-            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>
-        <!-- Main Content -->
+    <header>
+    <nav id="contenedor-todo" class="navbar  fixed-top">
+    <div  class="container">
+    <div class="row align-items-center">
+    <div class="col-6 col-lg-4 order-2 order-lg-4">
         
-        <div class="container-fluid flex-grow-1">
-        <header class="header d-flex justify-content-between align-items-center w-100">
-            <div>
-            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Apartado</button>
-                <form action="" method="post" class="d-inline-block">
-                    <label for="id_apartado" class="me-2">ID o Nombre:</label>
-                    <input type="text" id="id_apartado" name="id_apartado" class="form-control d-inline-block w-auto me-2" placeholder="ID Apartado o Nombre" />
-
-                    <label for="start" class="me-2">Fecha:</label>
-                    <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto me-2" />
-
-                    <label for="sucursal" class="me-2">Sucursal:</label>
-                    <select id="sucursal" name="sucursal" class="form-control d-inline-block w-auto me-2">
-                        <option value="">Selecciona Sucursal</option>
-                        <option value="sucursal1">Sucursal 1</option>
-                        <option value="sucursal2">Sucursal 2</option>
-                        <option value="sucursal3">Sucursal 3</option>
-                    </select>
-
-                    <button type="submit" name="btnbuscar" class="btn btn-primary d-inline-block">BUSCAR</button>
-                </form>
-                <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <div class="logo">
+                <a href="#in"><img src="../IMG/sombra-logo.png" alt="La Sombra"></a>
+                </div>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-        </header>
-                    <div class="card card-custom">
+            <div  id="body-burger"   class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="background-color: limegreen;" href="#">APARTADOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-citas.php">CITAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </nav>
+    </header>
+        <!-- Sidebar
+        <div class="sidebar">
+        <img src="../IMG/sombra-logo.png" alt="La Sombra Logo" class="img-fluid mb-4">
+        <a href="../VIEWS/dash-ventas.php">Ventas</a>
+        <a style="background-color: limegreen;" href="#">Apartados</a>
+        <a href="../VIEWS/dashboard.php">Productos</a>
+        <a href="../VIEWS/dash-citas.php">Citas</a>
+        <a href="../VIEWS/dash-provee.php">Proveedor</a>
+        <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
+        <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
+        </div>-->
+        <!-- Main Content -->
+        <div class="container-fluid">
+                    <div class="card card-custom row">
                         <div class="card-header">
                            <h3>Apartados</h3> 
                         </div>
                         <div class="card-body">
-                <table class="table ">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Estado</th>
@@ -102,5 +124,6 @@
                 </div>
             </div>
         </div>
+        <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>

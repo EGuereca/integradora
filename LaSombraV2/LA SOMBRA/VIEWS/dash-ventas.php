@@ -27,7 +27,7 @@ $fecha = date('Y-m-d');
     <div class="sidebar">
         <img src="../IMG/sombra-logo.png" alt="La Sombra Logo" class="img-fluid mb-4">
         <a style="background-color: limegreen;" href="#">Ventas</a>
-        <a href="#">Apartados</a>
+        <a href="../VIEWS/dash-apartados.php">Apartados</a>
         <a href="../VIEWS/dashboard.php">Productos</a>
         <a href="../VIEWS/dash-citas.php">Citas</a>
         <a href="../VIEWS/dash-provee.php">Proveedor</a>
@@ -35,13 +35,13 @@ $fecha = date('Y-m-d');
         <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
     </div>
     <div class="main-container flex-grow-1">
-        <header class="header d-flex justify-content-between align-items-center w-100">
+        <header class="header d-flex justify-content-between align-items-center w-100 row">
             <div>
-                <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button>
+                <a href="../VIEWS/llenado-venta.php"><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button></a>
                 <form action="" method="post" class="d-inline-block">
-                    <label for="start">Fecha:</label>
-                    <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto" />
-                    
+                    <label class="col-lg-2 col-sm-2" for="start">Fecha:</label>
+                    <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto col-lg-3 col-sm-3" />
+                    <button type="submit" name="btnfecha" class="btn btn-primary d-inline-block col-lg-4">BUSCAR</button>
                 </form>
                 <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
             </div>
@@ -147,7 +147,7 @@ $fecha = date('Y-m-d');
     </div>
 </div>
 
-<!-- Modal para Nueva Venta -->
+<!-- Modal para Nueva Venta 
 <div id="newSaleModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -170,22 +170,22 @@ $fecha = date('Y-m-d');
                     </div>   
                         <div class="row" id="productList">
                             <?php
-                                foreach ($c as $row) {                                                                    
+                                #foreach ($c as $row) {                                                                    
                             ?>
                             <div class="col-md-4">
                                 <div class="card product-card">
                                     <?php 
-                                        if ($row['url'] == null) { 
-                                            echo "<img src='../IMG/sombra-logo.jpg' class='card-img-top' alt='Nombre del Producto'>";                                           
-                                        }
-                                        else {
-                                            echo "<img src=".$row['url']." class='card-img-top' alt=".$row['nombre'].">";
-                                        }
+                                 #       if ($row['url'] == null) { 
+                                  #          echo "<img src='../IMG/sombra-logo.jpg' class='card-img-top' alt='Nombre del Producto'>";                                           
+                                    #    }
+                                   #     else {
+                                      #      echo "<img src=".$row['url']." class='card-img-top' alt=".$row['nombre'].">";
+                                     #   }
                                     ?>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
-                                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
-                                        <p class="card-text text-success">$<?php echo $row['precio']; ?></p>
+                                        <h5 class="card-title"><?php #echo $row['nombre']; ?></h5>
+                                        <p class="card-text"><?php #echo $row['stock']; ?> piezas disponibles</p>
+                                        <p class="card-text text-success">$<?php #echo $row['precio']; ?></p>
                                         <select class="form-control" name="cantidad">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -197,7 +197,7 @@ $fecha = date('Y-m-d');
                                     <button class="btn btn-primary btn-add-to-cart" >Añadir</button>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php #} ?>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -225,7 +225,7 @@ $fecha = date('Y-m-d');
         </div>
     </div>
 </div>
-
+-->
 
 <div id="cart-details" class="mt-4">
     <h4>Carrito</h4>

@@ -38,6 +38,7 @@ if (isset($_POST["btncrearemp"])) {
             $curp = $_POST["curp"];
             $rol = $_POST["rol"];
             
+            $stmt2->bindParam(1, $usuario, PDO::PARAM_STR);
             $stmt2->bindParam(2, $password, PDO::PARAM_STR);
             $stmt2->bindParam(3, $email, PDO::PARAM_STR);
             $stmt2->bindParam(4, $telefono, PDO::PARAM_STR);
