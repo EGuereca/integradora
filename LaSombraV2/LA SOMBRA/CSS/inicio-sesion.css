@@ -9,16 +9,33 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
-/*Contenedor*/
+
+
+.outer-container {
+    border: 2px solid rgb(0, 0, 0); 
+    width: 30%;
+    height: 80%;
+    box-shadow: 1 5px;
+    padding: 10px;           
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: none;
+}
+.outer-container:hover{
+    border: 2px solid green;    
+    box-shadow: 0 0 15px green;
+}
+
+
 .container {
     text-align: center;
 }
-/*Logo*/
+
 .container img {
-    width: 50%;
+    width: 42%;
     margin-bottom: 20px;
 }
-/*Inputs*/
+
 .container input[type="text"],
 .container input[type="password"] {
     width: 300px;
@@ -26,11 +43,8 @@ body {
     margin: 10px 0;
     border: none;
     border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
 }
+
 /*Botones*/
 .container button {
     cursor: pointer;
@@ -38,24 +52,23 @@ body {
     padding: 10px;
     margin: 10px 0;
     border: none;
-    border-radius: 5px;
     background-color: green;
+    box-shadow: 1 2px;
     color: white;
     font-size: 16px;
     border-radius: 100px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    -ms-border-radius: 100px;
-    -o-border-radius: 100px;
 }
+
 .container .create-account {
     color: lightgrey;
     text-decoration: none;
 }
-.back{
+
+.back {
     color: lightgreen;
     text-decoration: none;
 }
-.p-back{
+
+.p-back {
     padding-top: 10px;
 }
