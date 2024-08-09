@@ -15,8 +15,9 @@ include '../SCRIPTS/productos-dsh.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../CSS/DASHBOARD.css">
     <title>Productos</title>
-    <link rel="stylesheet" href="../CSS/dashboard.css">
+    
 </head>
 
 <script>
@@ -171,7 +172,7 @@ include '../SCRIPTS/productos-dsh.php';
 ?>
 
 <form action="../SCRIPTS/productos-dsh.php" method="post" enctype="multipart/form-data">
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
