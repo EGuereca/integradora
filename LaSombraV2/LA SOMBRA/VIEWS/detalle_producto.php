@@ -140,13 +140,32 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-            </select>
-                <button name="btncarrito" type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0) {
+            </select> <br> <br>
+                <button name="btncarrito" type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"]) || $_SESSION['sucursal'] == 2) {
                     echo "disabled";
                 }?>">AGREGAR A CARRITO</button>
                 </form>
-                
-            </div>
+                <?php 
+                    if (!isset($_SESSION["id"])) {                                            
+                ?>
+                <div class="alert alert-success" role="alert">
+                    Inicie sesión para poder ordenar
+                </div>
+                <?php } elseif (!isset($_SESSION['sucursal']) || $_SESSION['sucursal'] == 2) {                
+                 ?>
+                <div class="alert alert-success" role="alert">
+                    Seleccione una sucursal para poder ordenar
+                </div>
+                    <div class="container">
+                        <h5>Seleccione una sucursal:</h5> <br>
+                        <form method="post" action="">
+                            <button type="submit" class="btn btn-outline-primary" name="todo">Todo</button>
+                            <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
+                            <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
+                        </form>
+                    </div>
+                </div>
+                <?php } ?>
         </div>
         <h2 class="mt-5">Productos relacionados:</h2>
         <div class="row">
