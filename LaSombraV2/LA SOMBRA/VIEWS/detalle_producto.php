@@ -12,45 +12,29 @@
     <link rel="stylesheet" href="../CSS/detalle_producto.css">
 </head>
 <body>
-<!--
-<header id="inicio" class="row header">
-        <div class="user-cart col-lg-4 col-sm-4">
-            <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
-            <a href="../index.html"><img src="../ICONS/cart.png" alt="cart"></a>
-        </div>
-        <div class="logo col-lg-4 col-sm-4"><a href="../VIEWS/iniciov2.php"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a></div>
-        <nav class="navbar navbar-expand-lg col-lg-4 col-sm-4">
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/iniciov2.php">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/productos.php">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/perforaciones.php">Perforaciones</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
--->
+
 <header>
 <nav id="contenedor-todo" class="navbar navbar-dark  fixed-top">
     <div  class="container">
     <div class="row align-items-center">
     
 
-
     <div class="col-md-3 d-none d-lg-flex justify-content-start">
-            <div class="user-cart">
-                <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
-                <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
-            </div> 
+            <div class="user-cart dropdown">
+                <?php
+                    if(isset($_SESSION["id"])) 
+                    { ?>
+                    
+                    <a href='../VIEWS/detalle-cuenta.php'><img src='../ICONS/user.png' alt='cart'></a>
+                    <?php }
+
+                    else{ ?>
+                    <a href='../VIEWS/inicio-sesion.php'><img src='../ICONS/user.png' alt='cart'></a>
+                    
+                    <?php } ?>
+                    
+                    <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
+            </div>
         </div>
 
 
@@ -65,7 +49,6 @@
         </button>
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <!-- <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">LA SOMBRA</h5> -->
                 <div class="logo">
                 <a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a>
                 </div>
@@ -86,10 +69,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/carrito.php">CARRITO</a>
                     </li>
+                    
+                    <?php
+                    if(isset($_SESSION["id"])) 
+                    {
+                    
+                    echo "<li class='nav-item'>
+                        <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
+                        </li>";
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/inicio-sesion.php">CUENTA</a>
-                    </li>
+                    ECHO "<li class='nav-item'>
+                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>CERRAR SESION</a>
+                        </li>";
+                    }
+
+                    else{
+                    echo "<li class='nav-item'>
+                        <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
+                        </li>";
+                    }
+                    ?>
+                    
                     
                     <li class="nav-item">
                     <form class=" d-flex mt-3 " role="search">
@@ -97,6 +97,17 @@
                         <button id="btn-nav" class="btn btn-success" type="submit">Buscar</button>
                     </form>
                     </li>
+                    
+                    <div  class="admin">
+                    
+                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1) {?>
+                            <li id="panel" class='nav-item'>
+                                    <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                            </li>
+                    <?php } ?>
+            
+                    
+                    </div>
 
                     <div class="contacto">
                         <p>Whatsapp: 8715066383</P>

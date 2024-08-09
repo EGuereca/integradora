@@ -1,9 +1,17 @@
-/*TODO*/
+/*Todo*/
 *{
     scroll-behavior: smooth;
 }
+/*Cuerpo*/
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111111;
+    color: white;
+}
 
-/*HEADER*/
+/*Header*/
+
 #body-burger{
     background-color: black;
     text-align: center;
@@ -99,50 +107,20 @@
 .user-cart img{
     height: 25px;
 }
-/*Footer*/
-.rs{
-    align-items: center;
-}
-.rs a img{
-    height: 20px;
-}
-.footer {
-    text-align: center;
-    padding: 30px;
-}
-.footer p {
-    font-size: 14px;
-    margin: 0;
-}
-/**/
-body {
-    background-color:grey;
-}
-.container {
+
+
+/*BODY*/
+#data{
     padding-top: 150px;
 }
-.cart-item {
-    border-bottom: 1px solid #dee2e6;
-    padding: 15px 0;
-    display: flex;
-    align-items: center;
+
+.data p{
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 8px;
 }
-.cart-item img {
-    width: 200px;
-    max-height: 200px;
-    margin-right: 15px;
-}
-.cart-item-price, .cart-item-quantity, .cart-item-total {
-    text-align: center;
-    flex: 0 0 100px;
-}
-.cart-item:last-child {
-    border-bottom: none;
-}
-.cart-total {
-    padding: 15px 0;
-    text-align: center;
-}
-.cart-total .btn {
-    width: 100%;
+
+#panel{
+   
+    color: aqua;
 }

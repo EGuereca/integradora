@@ -16,8 +16,31 @@ include '../SCRIPTS/empleados-dsh.php';
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <title>Empleados</title>
+    <link rel="stylesheet" href="../CSS/dash-emp.css">
 </head>
 <body>
+<div class="d-flex">
+     <!-- Sidebar -->
+  <div class="sidebar">
+            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
+            <a href="../VIEWS/dash-ventas.php">Ventas</a>
+            <a href="../VIEWS/dash-apartados.php">Apartados</a>
+            <a href="../VIEWS/productos.php">Productos</a>
+            <a href="../VIEWS/dash-citas.php">Citas</a>
+            <a href="../VIEWS/dash-provee.php">Proveedor</a>
+            <a style="background-color: limegreen;" href="#">Registrar empleado</a>
+
+            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
+        </div>
+        
+        <div class="container-fluid">
+        <?php
+    if ($_SESSION['rol'] == 1) {
+        echo "<button type='button' class='btn btn-primary btn-emp' data-bs-toggle='modal' 
+        data-bs-target='#exampleModal'> Registrar Empleados </button>";
+    }
+
+?>
 <?php
     if ($results) {
         echo "<h2>Resultados de búsqueda:</h2>";        
@@ -45,13 +68,7 @@ include '../SCRIPTS/empleados-dsh.php';
 ?>
 <br>
 
-<?php
-    if ($_SESSION['rol'] == 1) {
-        echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar Empleados </button>";
-    }
 
-?>
 <form action="" method="post">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -123,6 +140,8 @@ include '../SCRIPTS/empleados-dsh.php';
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 </body>
 </html>

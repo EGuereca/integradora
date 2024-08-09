@@ -4,7 +4,7 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
-include '../SCRIPTS/productos-dsh.php';
+include '../SCRIPTS/dsh-reabas.php';
 
 ?>
 
@@ -19,30 +19,6 @@ include '../SCRIPTS/productos-dsh.php';
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
-<script>
-        function toggleInput() {
-            var selectedOption = document.querySelector('input[name="contact"]:checked').value;
-            var additionalInput = document.getElementById("otra_marca");
-
-            if (selectedOption === "otro") {
-                additionalInput.style.display = "block";
-            } else {
-                additionalInput.style.display = "none";
-            }
-          }           
-
-          function validarTamanioArchivo(input) {
-            const maxSize = 2 * 1024 * 1024; // 2 MB en bytes
-            const file = input.files[0];
-
-            if (file.size > maxSize) {
-                alert("El archivo es demasiado grande. El tamaño máximo permitido es de 2 MB.");
-                input.value = ''; 
-            }
-        }
-
-    </script>
-
 <body>
   <div class="d-flex">
   <!-- Sidebar -->
@@ -50,63 +26,42 @@ include '../SCRIPTS/productos-dsh.php';
             <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
             <a href="../VIEWS/dash-ventas.php">Ventas</a>
             <a href="../VIEWS/dash-apartados.php">Apartados</a>
-            <a style="background-color: limegreen;" href="#">Productos</a>
+            <a href="../VIEWS/dashboard.php">Productos</a>
             <a href="../VIEWS/dash-citas.php">Citas</a>
             <a href="../VIEWS/dash-provee.php">Proveedor</a>
             <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
+            <a style="background-color: limegreen;" href="#">Reabastecimiento</a>
 
             <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
         </div>
         <div class="container-fluid">
 <nav class="navbar bg-body-tertiary">
-    <form method="post" class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="ID Producto" aria-label="Search" id="id_prod" name="id_prod">
-      <input class="form-control me-2" type="search" placeholder="Nombre Producto" aria-label="Search" id="nm_prod" name="nm_prod">
-        <select class="form-select" aria-label="Default select example" name="categoria">
-            <option selected value="">Categoria</option>
-            <option value="1">Pipas</option>
-            <option value="2">Bongs</option>
-            <option value="3">Canalas</option>
-            <option value="4">Hitters</option>
-            <option value="5">Electronicos</option>
-            <option value="6">Ropa</option>            
-            <option value="8">Blunts</option>            
-            <option value="7">Accesorios</option>
-        </select>
-        <select class="form-select" aria-label="Default select example" name="sucursal">
-            <option selected value="">Sucursal</option>
-            <option value="3">Todo</option>
-            <option value="2">Nazas</option>
-            <option value="1">Matamoros</option>
-        </select>
-      <button class="btn btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
-    </form>
     <?php
     if ($_SESSION['rol'] == 1) {          
       echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar Producto </button>";
+        data-bs-target='#exampleModal'> Registrar </button>";
     }
     ?>
 </nav>
 <br>
 <?php
-    if ($results) {
+    if ($or) {
         echo "<h2>Resultados de búsqueda:</h2>";
         echo "<table border='1' class= 'table table-striped'>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Stock</th>
-                    <th>Precio</th>
-                    <th>Categoria</th>
+                    <th>PRODUCTO</th>
+                    <th>CANTIDAD</th>
+                    <th>FECHA</th>
+                    <th>MONTO</th>
+                    <th>SUCURSAL</th>
                 </tr>";
-        foreach ($results as $row) {
+        foreach ($or as $row) {
             echo "<tr>
-                    <td>" . htmlspecialchars($row["id_producto"]) . "</td>
-                    <td>" . htmlspecialchars($row["nombre"]) . "</td>
-                    <td>" . htmlspecialchars($row["stock"]) . "</td>
-                    <td>$" . htmlspecialchars($row["precio"]) . "</td>
-                    <td>" . htmlspecialchars($row["categoria"]) . "</td>
+                    <td>" . htmlspecialchars($row["producto"]) . "</td>
+                    <td>" . htmlspecialchars($row["cantidad"]) . "</td>
+                    <td>" . htmlspecialchars($row["fecha"]) . "</td>
+                    <td>$" . htmlspecialchars($row["monto"]) . "</td>
+                    <td>" . htmlspecialchars($row["sucursal"]) . "</td>
                   </tr>";
         }
         echo "</table>";
@@ -115,6 +70,8 @@ include '../SCRIPTS/productos-dsh.php';
     }
 ?>
 
+
+<!--  MODAL  
 <form action="../SCRIPTS/productos-dsh.php" method="post" enctype="multipart/form-data">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -168,24 +125,24 @@ include '../SCRIPTS/productos-dsh.php';
                     <fieldset>
                     <legend>Categoria(s)</legend>
                     <?php 
-                    foreach ($cat as $row) { ?>
+                    #foreach ($cat as $row) { ?>
                       <div>
-                        <input type="checkbox" id="coding" name="cate[]" value="<?php echo $row['id'];?>" />
-                        <label for="coding"><?php echo $row['nombre'];?></label>
+                        <input type="checkbox" id="coding" name="cate[]" value="<?php # echo $row['id'];?>" />
+                        <label for="coding"><?php # echo $row['nombre'];?></label>
                       </div>
-                        <?php } ?>
+                        <?php # } ?>
                     </fieldset>
 
                     <fieldset>
                     <legend>Proveedor(es)</legend>
                     <p>(EL PRECIO DE COMPRA SE REGISTRA, DESDE EL REABASTECIMIENTO)</p>
                     <?php 
-                    foreach ($prov as $row) { ?>
+                    #foreach ($prov as $row) { ?>
                       <div>
-                        <input type="checkbox" id="<?php echo $row['id']; ?>" name="proveedores[]" value="<?php echo $row['id'];?>" />
-                        <label for="coding"><?php echo $row['nombre'];?></label>
+                        <input type="checkbox" id="<?php #  echo $row['id']; ?>" name="proveedores[]" value="<?php # echo $row['id'];?>" />
+                        <label for="coding"><?php # echo $row['nombre'];?></label>
                       </div>
-                     <?php } ?>
+                     <?php # } ?>
                     </fieldset>
 
                     <div class="form-group">
@@ -231,6 +188,8 @@ include '../SCRIPTS/productos-dsh.php';
     </div>
   </div>
 </div>
+
+ -->
 
 </div>
 </div>

@@ -13,7 +13,7 @@ body{
 
 #body-burger{
     background-color: black;
-    text-align: left;
+    text-align: center;
 }
 
 .offcanvas-header{
@@ -21,7 +21,7 @@ body{
 }
 
 .offcanvas-header .logo{
-    text-align: left;
+    text-align: center;
 }
 
 #contenedor-todo{
@@ -234,6 +234,12 @@ body{
 .footer p {
     font-size: 14px;
     margin: 0;
+}
+
+
+
+#panel{
+    color: aqua;
 }
 
 @media (max-width: 991.98px) {

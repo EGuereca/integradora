@@ -29,5 +29,12 @@ class Database
     {
         return $this->PDOlOCAL;
     }
+
+    function cerrarsesion()
+    {
+        session_start();
+        session_destroy();
+        header("Location: ../VIEWS/iniciov2.php");
+    }
 }
 ?>

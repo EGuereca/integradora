@@ -1,22 +1,10 @@
 <?php  
-$hostname = "localhost";
-$user = "root";
-$password = "";
-$database = "la_sombra";
-$charset = "utf8";
-$dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";
 
-try {
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-    $pdo = new PDO($dsn, $user, $password, $options);
-} catch (PDOException $e) {
-    echo $e->getMessage();
-    exit; 
-}
+include "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
 
+$conexion = $db->getPDO();
 
 $nm_prod = isset($_POST["nm_prod"]) ? $_POST["nm_prod"] : '';
 $id_prod = isset($_POST["id_prod"]) ? $_POST["id_prod"] : '';
@@ -45,8 +33,8 @@ $material = isset($_POST["material"]) ? $_POST["material"] : '';
 $proveedores = "SELECT nombre, id_proveedor AS id FROM proveedores";
 $cate = "SELECT nombre, id_categoria AS id FROM categorias";
 
-$st = $pdo->prepare($proveedores);
-$s = $pdo->prepare($cate);
+$st = $conexion->prepare($proveedores);
+$s = $conexion->prepare($cate);
 
 $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre, 
         p.precio AS precio, p.stock AS stock, c.nombre AS categoria
@@ -80,7 +68,7 @@ if ($categoria) {
 }
 
 
-$stmt = $pdo->prepare($sql);
+$stmt = $conexion->prepare($sql);
 
 if ($nm_prod) {
     $stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
@@ -107,7 +95,7 @@ $cat = $s->fetchAll(PDO::FETCH_ASSOC);
 $prov = $st->fetchAll(PDO::FETCH_ASSOC);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$pral = $pdo->prepare("CALL REGISTRAR_PRODUCTO(?,?,?,?,?,?)");
+$pral = $conexion->prepare("CALL REGISTRAR_PRODUCTO(?,?,?,?,?,?)");
 if (isset($_POST['btnreg'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
         if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
@@ -136,11 +124,11 @@ if (isset($_POST['btnreg'])) {
 
     $pral->execute();
 
-    $ns = $pdo->prepare("SELECT id_producto FROM productos ORDER BY id_producto DESC LIMIT 1");
+    $ns = $conexion->prepare("SELECT id_producto FROM productos ORDER BY id_producto DESC LIMIT 1");
     $ns->execute();
     $id_p = $ns->fetch(PDO::FETCH_ASSOC)['id_producto'];
     
-    $ll_cat = $pdo->prepare("INSERT INTO producto_categoria (producto,categoria) VALUES (:id,:cat)");
+    $ll_cat = $conexion->prepare("INSERT INTO producto_categoria (producto,categoria) VALUES (:id,:cat)");
     foreach ($catego as $opcion) {
         $ll_cat->bindParam(':id', $id_p, PDO::PARAM_INT);
         $ll_cat->bindParam(':cat', $opcion, PDO::PARAM_STR);

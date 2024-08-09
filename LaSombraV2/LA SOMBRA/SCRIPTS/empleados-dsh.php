@@ -1,21 +1,10 @@
 <?php
-$hostname = "localhost";
-$user = "root";
-$password = "";
-$database = "la_sombra";
-$charset = "utf8";
-$dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";
 
-try {
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-    $pdo = new PDO($dsn, $user, $password, $options);
-} catch (PDOException $e) {
-    echo $e->getMessage();
-    exit; 
-}
+include "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
+
+$conexion = $db->getPDO();
 
 $sql = "SELECT id_empleado AS id,CONCAT(nombres,' ',ap_paterno,' ',ap_materno) AS nombre,
 ru.rol AS rol, u.email AS email, u.telefono AS telefono
@@ -23,14 +12,14 @@ FROM empleado AS e JOIN persona AS p ON e.persona = p.id_persona JOIN
 usuarios AS u ON p.usuario = u.id_usuario JOIN rol_usuario AS ru
 ON u.id_usuario = ru.usuario";
 
-$stmt = $pdo->prepare($sql);
+$stmt = $conexion->prepare($sql);
 $stmt->execute();
 
 echo "Número de resultados: " . $stmt->rowCount();
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt2 = $pdo->prepare("CALL REGISTRO_EMPLEADOS(?,?,?,?,?,?,?,?,?,?,?)");
+$stmt2 = $conexion->prepare("CALL REGISTRO_EMPLEADOS(?,?,?,?,?,?,?,?,?,?,?)");
 
 if (isset($_POST["btncrearemp"])) {
         $pass1 = $_POST['password'];
