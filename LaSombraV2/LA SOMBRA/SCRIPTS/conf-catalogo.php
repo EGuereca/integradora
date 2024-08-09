@@ -9,7 +9,7 @@ if (isset($_SESSION['sucursal'])) {
 } else {
     $_SESSION['sucursal'] = null;
 }
-
+-
 $hostname = "localhost";
 $user = "root";
 $password = "";

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apartados</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/dash-apartados.css">
+    <link rel="stylesheet" href="../CSS/ventas-dash.css">
 </head>
 <body>
 <div class="d-flex">
@@ -22,7 +22,31 @@
             <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
         </div>
         <!-- Main Content -->
-        <div class="container-fluid">
+        
+        <div class="container-fluid flex-grow-1">
+        <header class="header d-flex justify-content-between align-items-center w-100">
+            <div>
+            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Apartado</button>
+                <form action="" method="post" class="d-inline-block">
+                    <label for="id_apartado" class="me-2">ID o Nombre:</label>
+                    <input type="text" id="id_apartado" name="id_apartado" class="form-control d-inline-block w-auto me-2" placeholder="ID Apartado o Nombre" />
+
+                    <label for="start" class="me-2">Fecha:</label>
+                    <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto me-2" />
+
+                    <label for="sucursal" class="me-2">Sucursal:</label>
+                    <select id="sucursal" name="sucursal" class="form-control d-inline-block w-auto me-2">
+                        <option value="">Selecciona Sucursal</option>
+                        <option value="sucursal1">Sucursal 1</option>
+                        <option value="sucursal2">Sucursal 2</option>
+                        <option value="sucursal3">Sucursal 3</option>
+                    </select>
+
+                    <button type="submit" name="btnbuscar" class="btn btn-primary d-inline-block">BUSCAR</button>
+                </form>
+                <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
+            </div>
+        </header>
                     <div class="card card-custom">
                         <div class="card-header">
                            <h3>Apartados</h3> 

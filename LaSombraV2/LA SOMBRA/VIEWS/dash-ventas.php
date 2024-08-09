@@ -37,7 +37,7 @@ $fecha = date('Y-m-d');
                 <form action="" method="post" class="d-inline-block">
                     <label for="start">Fecha:</label>
                     <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto" />
-                    <button type="submit" name="btnfecha" class="btn btn-primary d-inline-block">BUSCAR</button>
+                    
                 </form>
                 <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
             </div>

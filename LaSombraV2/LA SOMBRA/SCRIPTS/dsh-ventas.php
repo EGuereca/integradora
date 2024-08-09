@@ -42,11 +42,6 @@ else {
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
-/*
-echo "Número de resultados: " . $stmt->rowCount();
-
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-*/
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $resultCount = $stmt->rowCount();
