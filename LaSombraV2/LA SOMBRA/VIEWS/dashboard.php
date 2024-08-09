@@ -45,7 +45,54 @@ include '../SCRIPTS/productos-dsh.php';
 
 <body>
   <div class="d-flex">
-  <!-- Sidebar -->
+  <header>
+    <nav id="contenedor-todo" class="navbar  fixed-top">
+    <div  class="container">
+    <div class="row align-items-center">
+    <div class="col-6 col-lg-4 order-2 order-lg-4">
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <div class="logo">
+                <a href="#in"><img src="../IMG/sombra-logo.png" alt="La Sombra"></a>
+                </div>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div  id="body-burger"   class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  href="../VIEWS/dash-apartados.php">APARTADOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="background-color: limegreen;" href="#">PRODUCTOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-citas.php">CITAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </nav>
+    </header>
+  <!-- Sidebar
   <div class="sidebar">
             <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
             <a href="../VIEWS/dash-ventas.php">Ventas</a>
@@ -56,12 +103,17 @@ include '../SCRIPTS/productos-dsh.php';
             <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
 
             <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>
+        </div>-->
         <div class="container-fluid">
-<nav class="navbar bg-body-tertiary">
+<div class="">
     <form method="post" class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="ID Producto" aria-label="Search" id="id_prod" name="id_prod">
-      <input class="form-control me-2" type="search" placeholder="Nombre Producto" aria-label="Search" id="nm_prod" name="nm_prod">
+      <div class="col-lg-2 col-sm-6 p-1">
+      <input class="form-control" type="search" placeholder="ID Producto" aria-label="Search" id="id_prod" name="id_prod">
+      </div>
+      <div class="col-lg-3 col-sm-6 p-1">
+        <input class="form-control" type="search" placeholder="Nombre Producto" aria-label="Search" id="nm_prod" name="nm_prod">
+      </div>
+      <div class="col-lg-2 col-md-6 p-1">
         <select class="form-select" aria-label="Default select example" name="categoria">
             <option selected value="">Categoria</option>
             <option value="1">Pipas</option>
@@ -73,21 +125,24 @@ include '../SCRIPTS/productos-dsh.php';
             <option value="8">Blunts</option>            
             <option value="7">Accesorios</option>
         </select>
+        </div>
+        <div class="col-lg-2 col-md-6 p-1">
         <select class="form-select" aria-label="Default select example" name="sucursal">
             <option selected value="">Sucursal</option>
             <option value="3">Todo</option>
             <option value="2">Nazas</option>
             <option value="1">Matamoros</option>
         </select>
-      <button class="btn btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
+        </div>
+      <button class="btn btn-outline-success col-lg-2 col-md-6 p-1" type="submit" name="btn-aplicar">Aplicar</button>
     </form>
     <?php
     if ($_SESSION['rol'] == 1) {          
-      echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' 
+      echo "<button type='button' class='btn btn-primary col-lg-4 offset-lg-4 p-1' data-bs-toggle='modal' 
         data-bs-target='#exampleModal'> Registrar Producto </button>";
     }
     ?>
-</nav>
+    </div>
 <br>
 <?php
     if ($results) {

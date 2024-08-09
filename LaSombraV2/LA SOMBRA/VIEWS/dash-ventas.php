@@ -27,7 +27,7 @@ $fecha = date('Y-m-d');
     <div class="sidebar">
         <img src="../IMG/sombra-logo.png" alt="La Sombra Logo" class="img-fluid mb-4">
         <a style="background-color: limegreen;" href="#">Ventas</a>
-        <a href="#">Apartados</a>
+        <a href="../VIEWS/dash-apartados.php">Apartados</a>
         <a href="../VIEWS/dashboard.php">Productos</a>
         <a href="../VIEWS/dash-citas.php">Citas</a>
         <a href="../VIEWS/dash-provee.php">Proveedor</a>
@@ -35,13 +35,13 @@ $fecha = date('Y-m-d');
         <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
     </div>
     <div class="main-container flex-grow-1">
-        <header class="header d-flex justify-content-between align-items-center w-100">
+        <header class="header d-flex justify-content-between align-items-center w-100 row">
             <div>
-                <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button>
+                <button type='button' class='btn btn-primary col-lg-2 col-sm-2' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button>
                 <form action="" method="post" class="d-inline-block">
-                    <label for="start">Fecha:</label>
-                    <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto" />
-                    <button type="submit" name="btnfecha" class="btn btn-primary d-inline-block">BUSCAR</button>
+                    <label class="col-lg-2 col-sm-2" for="start">Fecha:</label>
+                    <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto col-lg-3 col-sm-3" />
+                    <button type="submit" name="btnfecha" class="btn btn-primary d-inline-block col-lg-4">BUSCAR</button>
                 </form>
                 <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
             </div>
