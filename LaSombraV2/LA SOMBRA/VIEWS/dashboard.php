@@ -82,6 +82,9 @@ include '../SCRIPTS/productos-dsh.php';
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>

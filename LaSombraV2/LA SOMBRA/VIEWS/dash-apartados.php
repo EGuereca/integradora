@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apartados</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/ventas-dash.css">
+    <link rel="stylesheet" href="../CSS/dash-apartados.css">
 </head>
 <body>
 <div class="d-flex">
@@ -44,6 +44,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
