@@ -180,7 +180,7 @@ body {
     padding: 0.25rem 0.5rem; /* Reducir el padding del botón */
 }
 
-/* Asegurarse de que las tarjetas se alinean correctamente en la cuadrícula */
+
 #productList .col-md-4 {
     flex: 0 0 auto;
     width: auto;

@@ -9,7 +9,7 @@ if (isset($_SESSION['sucursal'])) {
 } else {
     $_SESSION['sucursal'] = null;
 }
-
+-
 include "../CLASS/database.php";
 $db = new Database();
 $db->conectarBD();
