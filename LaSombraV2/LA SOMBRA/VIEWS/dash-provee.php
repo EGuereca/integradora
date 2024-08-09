@@ -19,6 +19,54 @@ include '../SCRIPTS/provee-dsh.php';
 </head>
 <body>
 <div class="d-flex">
+<header>
+    <nav id="contenedor-todo" class="navbar  fixed-top">
+    <div  class="container">
+    <div class="row align-items-center">
+    <div class="col-6 col-lg-4 order-2 order-lg-4">
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <div class="logo">
+                <a href="#in"><img src="../IMG/sombra-logo.png" alt="La Sombra"></a>
+                </div>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div  id="body-burger"   class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-apartados.php">APARTADOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-citas.php">CITAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="background-color: limegreen;" href="#">PROVEEDOR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </nav>
+    </header>
+  <!--
 <div class="sidebar">
             <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
             <a href="../VIEWS/dash-ventas.php">Ventas</a>
@@ -29,16 +77,14 @@ include '../SCRIPTS/provee-dsh.php';
             <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
 
             <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>
+        </div>-->
         <div class="container-fluid">
-<nav class="navbar bg-body-tertiary">
   <?php 
     if ($_SESSION["rol"] == 1 ) {
         echo "<button type='button' class='btn btn-outline-success' data-bs-toggle='modal' 
-    data-bs-target='#exampleModal'> Registrar Producto </button>";
+    data-bs-target='#exampleModal'> Registrar Proveedor </button>";
     }
   ?>    
-</nav>
     <?php 
         if ($results) {
             $telefono = ""; $pagina = "";
@@ -68,7 +114,7 @@ include '../SCRIPTS/provee-dsh.php';
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Citas</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Proveedor</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -89,5 +135,7 @@ include '../SCRIPTS/provee-dsh.php';
   </div>
 </div>
 </div>
+
+<script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>
