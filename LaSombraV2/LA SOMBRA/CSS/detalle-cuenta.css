@@ -42,23 +42,15 @@ body{
 
 }
 
-
-#actu a{
-
-    color: white;
-    text-decoration: none;
-}
-
-#btn-nav{
+.btn{
     background-color: green;
-    color: white;
 }
 
 #buscar{
     width: 325px
 }
 .header{
-    height: 75;
+    height: 75px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -118,6 +110,23 @@ body{
 .user-cart img{
     height: 25px;
 }
+
+
+#actu a{
+
+    color: white;
+    text-decoration: none;
+}
+
+#btn-nav{
+    background-color: green;
+    color: white;
+}
+
+#buscar{
+    width: 325px
+}
+
 
 
 /*BODY*/

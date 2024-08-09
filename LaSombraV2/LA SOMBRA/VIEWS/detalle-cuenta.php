@@ -40,7 +40,7 @@ include "../SCRIPTS/detalle-usuario.php";
         </div>
 
 
-    <div id="logo" class="col-6 col-lg-4 order-1 order-lg-3 text-start text-lg-end justify-content-center logo">
+    <div id="logo" class="col-6 col-lg-4 order-1 order-lg-3 text-start text-lg-end logo">
         <a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a>
     </div>
 
@@ -125,6 +125,7 @@ include "../SCRIPTS/detalle-usuario.php";
     </div>
     </nav>
 </header>
+
 
 <div class="todo">
     

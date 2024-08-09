@@ -125,12 +125,12 @@ session_start();
 </header>
 
     <div class="container">
-            <div id="in" class="titulo row">
-                <h1>Perforaciones</h1>
+            <div id="in" class="titulo row col-12">
+                <h1>PERFORACIONES</h1>
             </div>
             <div class="content row">
                 <div class="about-text col-lg-6 col-sm-12">
-                    <h2>Info de perforador</h2>
+                    <h3>Info de perforador</h3>
                     <p>Subheading for description or instructions</p>
                     <p>Body text for your whole article or post. We'll put in some lorem ipsum to show how a filled-out page might look.</p>
                     <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla ut.</p>
@@ -165,10 +165,10 @@ session_start();
             </div>
         </div>
         <footer class="footer row">
-            <div class=" offset-1 col-lg-9 text">
+            <div class="  col-lg-9 text col-sm-12 ">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
             </div>
-            <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
+            <div class="col-lg-1  col-sm-12 text-lg-end"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
         </footer>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

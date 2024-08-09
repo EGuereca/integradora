@@ -103,3 +103,22 @@ img{
     -o-border-radius: 5px;
 }
 
+.boton{
+    padding-top: 70px;
+    text-align: right;
+    color: green;
+}
+
+#botonregis{
+    background-color: green;
+}
+
+#botonprinci{
+    background-color: green;
+    color: white;
+    text-align: right;
+}
+
+.botonprinci{
+    text-align: right;
+}
