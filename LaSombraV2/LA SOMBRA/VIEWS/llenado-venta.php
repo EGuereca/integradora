@@ -31,18 +31,13 @@ include '../SCRIPTS/llenar-venta.php';
                 </select>
                 <button type="submit" name="registrar_venta">Registrar Venta</button>                
             </form>
+        <?php echo "control: ".$control;
+        ?>
         </div>
         <?php
             if($_SESSION['sucursal'] == null){
                 
         ?>
-        <div class="container">
-            <h2>Seleccione una sucursal:</h2> <br>
-            <form method="post" action="">
-                <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
-                <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
-            </form>
-        </div>
         <?php } 
                 else{        
         ?>
@@ -70,7 +65,7 @@ include '../SCRIPTS/llenar-venta.php';
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>    
-                            <button type="submit">Agregar</button>
+                            <button name="btn-reg" type="submit">Agregar</button>
                         </form>
                     </div>                
                 </div>
