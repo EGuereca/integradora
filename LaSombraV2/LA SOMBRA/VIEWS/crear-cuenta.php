@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../CSS/crear-cuenta.css">
 </head>
 <body>
+<div class="outer-container">
     <div class="container">
         <img src="../IMG/sombra-logo.jpg" alt="La Sombra">
         <h2>Crea tu cuenta</h2>
@@ -49,5 +50,6 @@
         window.location.href = 'inicio-sesion.php';
         }
     </script>
+</div>
 </body>
 </html>
