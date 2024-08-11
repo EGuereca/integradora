@@ -13,6 +13,19 @@ body {
 .container {
     text-align: center;
 }
+.outer-container {
+    border: 2px solid rgb(0, 0, 0); 
+    width: 40%;
+    height: 95%;
+    box-shadow: 1 5px;
+    padding: 10px;           
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px green;
+}
+
+
+
 /*Logo*/
 .container img {
     width: 50%;
