@@ -6,10 +6,14 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 } else {    
-    header("location: ../VIEWS/iniciov2.php");
+    header("location: ../VIEWS/inicio-sesion.php");
     exit();
 }
 
+if($id == '1'){
+    header("location: ../VIEWS/iniciov2.php");
+    exit();
+}
 
 include "../CLASS/database.php";
 $db = new Database();
@@ -31,7 +35,7 @@ $stmtCliente->execute();
 $idCliente = $stmtCliente->fetch(PDO::FETCH_ASSOC)['id'];
 
 if ($idCliente === null) {
-    echo "Cliente no encontrado.";
+    header("location: ../VIEWS/iniciov2.php");
     exit();
 }
 

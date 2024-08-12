@@ -15,7 +15,9 @@ s.nombre AS sucursal FROM orden_compra AS oc JOIN
 proveedor_producto AS prpr ON oc.producto_proveedor =
 prpr.id_provee_producto JOIN productos AS p ON prpr.producto
 = p.id_producto JOIN sucursales AS s ON oc.sucursal =
-s.id_sucursal");
+s.id_sucursal
+ORDER BY 
+oc.fecha_orden_compra DESC;");
 
 $ordenes->execute();
 

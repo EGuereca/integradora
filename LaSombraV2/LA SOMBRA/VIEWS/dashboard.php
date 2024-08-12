@@ -139,15 +139,15 @@ include '../SCRIPTS/productos-dsh.php';
         </select>
         </div>
         <div class="col-lg-2 col-sm-6 p-1">
-      <button class="boton btn btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
+      <button id="regprod" class="boton btn" type="submit" name="btn-aplicar">Aplicar</button>
       </div>
     </form>
     <?php
-    if ($_SESSION['rol'] == 1) {          
-      echo "<button type='button' class='btn btn-primary col-lg-4 offset-4 p-1' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar Producto </button>";
-    }
-    ?>
+    if ($_SESSION['rol'] == 1) {  ?>         
+        <button id="regprod" type='button' class='btn col-lg-4 offset-4 p-1' data-bs-toggle='modal' 
+        data-bs-target='#exampleModal'> Registrar Producto </button>
+    <?php } ?>
+    
     </div>
 <br>
 <?php
@@ -290,7 +290,7 @@ include '../SCRIPTS/productos-dsh.php';
                     <legend>DESCRIPCIÓN:</legend>
                      <textarea name="desc" class="form-control" rows="5"></textarea><br><br>
                 </div> 
-                <button type="submit" name="btnreg" class="btn btn-primary">Registrar</button>     
+                <button id="regprod" type="submit" name="btnreg" class="btn">Registrar</button>     
             </form>
         </div>
       <div class="modal-footer">

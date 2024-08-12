@@ -15,8 +15,8 @@ include '../SCRIPTS/dsh-reabas.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
-    <title>Productos</title>
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <title>Reabastecimiento</title>
+    <link rel="stylesheet" href="../CSS/dashboard.css">
 </head>
 
 <body>
@@ -71,32 +71,20 @@ include '../SCRIPTS/dsh-reabas.php';
     </div>
     </nav>
     </header>
-  <!-- Sidebar
-  <div class="sidebar">
-            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
-            <a href="../VIEWS/dash-ventas.php">Ventas</a>
-            <a href="../VIEWS/dash-apartados.php">Apartados</a>
-            <a href="../VIEWS/dashboard.php">Productos</a>
-            <a href="../VIEWS/dash-citas.php">Citas</a>
-            <a href="../VIEWS/dash-provee.php">Proveedor</a>
-            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
-            <a style="background-color: limegreen;" href="in#">Reabastecimiento</a>
 
-            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>-->
         <div class="container-fluid">
 <nav class="navbar bg-body-tertiary">
     <?php
-    if ($_SESSION['rol'] == 1) {          
-      echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar </button>";
-    }
+    if ($_SESSION['rol'] == 1) {  ?>        
+      <button id="btnregistrar" type='button' class='btn' data-bs-toggle="modal" 
+      data-bs-target="#exampleModal"'> Registrar compra </button>
+    <?php }
     ?>
 </nav>
 <br>
 <?php
     if ($or) {
-        echo "<h2>Resultados de búsqueda:</h2>";
+        echo "<h2>Reabastecimientos anteriores:</h2>";
         echo "<div class='tabla'><table border='1' class= 'table table-striped'>
                 <tr>
                     <th>PRODUCTO</th>
@@ -120,128 +108,120 @@ include '../SCRIPTS/dsh-reabas.php';
     }
 ?>
 
-
-<!--  MODAL  
-<form action="../SCRIPTS/productos-dsh.php" method="post" enctype="multipart/form-data">
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Producto</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Citas</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            <form action="" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="form-group">
-                        <label for="username">Nombre del Producto:</label><br>
-                        <input type="text" id="nombre" placeholder="Ingresa el nombre del producto" name="nombre">
-                    </div>                   
+    </div>
+        <div class="modal-body">
 
-                    <fieldset>
-                      <legend>MARCA:</legend>
-                      <div>
-                        <input type="radio" id="contactChoice1" name="contact" value="Raw" onclick="toggleInput()"/>
-                        <label for="contactChoice1">Raw</label>
+        <form action="" method="post" id="form-producto">
+          
 
-                        <input type="radio" id="contactChoice2" name="contact" value="Blazy Susan" onclick="toggleInput()"/>
-                        <label for="contactChoice2">Blazy Susan</label>
+        <label for="producto">Producto:</label>
+        <select class="form-select" aria-label="Default select example" name="producto" id="producto" required>
+            <option value="">Seleccione un producto</option>
+            <?php 
+                $sql = "SELECT id_producto, nombre FROM productos";
+                $stmt = $conexion->prepare($sql);
+                $stmt->execute();
+                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                foreach ($productos as $producto) {
+                  $selected = (isset($_POST['producto']) && $_POST['producto'] == $producto['id_producto']) ? 'selected' : '';
+                  echo "<option value='{$producto['id_producto']}' $selected>{$producto['nombre']}</option>";
+              }
+                ?>         
+        </select> <br>
+        </form>
+        
+        <!-- Formulario para registro de reabastecimiento -->
+        <form action="../SCRIPTS/register_reabastecimiento.php" method="post">
+        <!-- Campo oculto para mantener el producto seleccionado -->
+        <input type="hidden" name="producto" value="<?php echo isset($_POST['producto']) ? $_POST['producto'] : ''; ?>">
 
-                        <input type="radio" id="contactChoice3" name="contact" value="Rolling Circus" onclick="toggleInput()"/>
-                        <label for="contactChoice3">Rolling Circus</label>
 
-                        <input type="radio" id="contactChoice3" name="contact" value="OCB" onclick="toggleInput()"/>
-                        <label for="contactChoice3">OCB</label>
+        <form action="../SCRIPTS/register_reabastecimiento.php" method="post">
+            <!-- Selección del Proveedor -->
+        <label for="proveedor">Proveedor:</label>
+        <select name="proveedor" id="proveedor" required>
+            <option value="">Seleccione un proveedor:</option>
+            <?php
+            if (isset($_POST['producto'])) {
+                $producto_id = $_POST['producto'];
 
-                        <input type="radio" id="contactChoice3" name="contact" value="Kush" onclick="toggleInput()"/>
-                        <label for="contactChoice3">Kush</label>
+                $sql = "SELECT pp.id_provee_producto, p.nombre
+                        FROM proveedor_producto pp
+                        JOIN proveedores p ON pp.proveedor = p.id_proveedor
+                        WHERE pp.producto = :producto_id";
+                $stmt = $conexion->prepare($sql);
+                $stmt->bindParam(':producto_id', $producto_id);
+                $stmt->execute();
+                $proveedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                        <input type="radio" id="contactChoice3" name="contact" value="Blunt Wrap" onclick="toggleInput()"/>
-                        <label for="contactChoice3">Blunt Wrap</label>
+                foreach ($proveedores as $proveedor) {
+                    echo "<option value='{$proveedor['id_provee_producto']}'>{$proveedor['nombre']}</option>";
+                }
+            }
+            ?>
+        </select>
+        <br><br>
 
-                        <input type="radio" id="contactChoice3" name="contact" value="EYCE" onclick="toggleInput()"/>
-                        <label for="contactChoice3">EYCE</label>
+        <label for="sucursal">Sucursal:</label>
+        <select name="sucursal" id="sucursal" required>
+            <option value="">Seleccione una sucursal:</option>
+            <?php
+            // Consulta de sucursales
+            $sql = "SELECT id_sucursal, nombre FROM sucursales";
+            $stmt = $conexion->prepare($sql);
+            $stmt->execute();
+            $sucursales = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                        <input type="radio" id="contactChoice3" name="contact" value="otro" onclick="toggleInput()"/>
-                        <label for="contactChoice3">OTRO</label>
-                      </div>                
-                    </fieldset>
+            foreach ($sucursales as $sucursal) {
+                echo "<option value='{$sucursal['id_sucursal']}'>{$sucursal['nombre']}</option>";
+            }
+            ?>
+        </select>
+        <br><br>
 
-                    <div id="otra_marca" style="display:none;">
-                      <label for="extra">Ingrese el Nombre de la Marca:</label>
-                      <input type="text" id="extra" name="extra">
-                    </div>
-                  
-                    <fieldset>
-                    <legend>Categoria(s)</legend>
-                    <?php 
-                    #foreach ($cat as $row) { ?>
-                      <div>
-                        <input type="checkbox" id="coding" name="cate[]" value="<?php # echo $row['id'];?>" />
-                        <label for="coding"><?php # echo $row['nombre'];?></label>
-                      </div>
-                        <?php # } ?>
-                    </fieldset>
-
-                    <fieldset>
-                    <legend>Proveedor(es)</legend>
-                    <p>(EL PRECIO DE COMPRA SE REGISTRA, DESDE EL REABASTECIMIENTO)</p>
-                    <?php 
-                    #foreach ($prov as $row) { ?>
-                      <div>
-                        <input type="checkbox" id="<?php #  echo $row['id']; ?>" name="proveedores[]" value="<?php # echo $row['id'];?>" />
-                        <label for="coding"><?php # echo $row['nombre'];?></label>
-                      </div>
-                     <?php # } ?>
-                    </fieldset>
-
-                    <div class="form-group">
-                        <label for="precio">Precio al publico:</label><br>
-                        <input type="text" id="nombre" placeholder="Ingresa el nombre del producto" name="precio">
-                    </div>
-
-                    <fieldset>
-                      <legend>MATERIAL:</legend>
-                      <div>
-                        <input type="radio" id="mt1" name="material" value="ceramica"/>
-                        <label for="contactChoice1">Ceramica</label>
-
-                        <input type="radio" id="mt22" name="material" value="metal"/>
-                        <label for="contactChoice2">Metal</label>
-
-                        <input type="radio" id="mt3" name="material" value="plastico"/>
-                        <label for="contactChoice3">Plastico</label>
-
-                        <input type="radio" id="mt4" name="material" value="cristal"/>
-                        <label for="contactChoice3">Cristal</label>
-
-                        <input type="radio" id="mt5" name="material" value="madera"/>
-                        <label for="contactChoice3">Madera</label> 
-                        
-                        <input type="radio" id="mt4" name="material" value="otro"/>
-                        <label for="contactChoice3">Otro</label>
-                      </div>                
-                    </fieldset>
-
-                    <label for="avatar">Seleccione una imagen del producto:</label>
-                    <input type="file" id="img" name="img" required/>
-                      
-                    <legend>DESCRIPCIÓN:</legend>
-                    <textarea name="desc" class="form-control" rows="5"></textarea><br><br>
-                </div> 
-                <button type="submit" name="btnreg" class="btn btn-primary">Registrar</button>     
-            </form>
+            <!-- Cantidad -->
+        <div class="form-group">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" required>
         </div>
+        
+        
+        
+
+        <!-- Fecha de Reabastecimiento -->
+        <div class="form-group">
+            <label for="fecha">Fecha de Reabastecimiento:</label>
+            <input type="datetime-local" name="fecha" id="fecha" required>
+        </div>
+        
+
+        <!-- Botón de Enviar -->
+        <button type="submit" class="btn btn-success" name="submit" value="Registrar">Registrar</button>
+  
+
+        </form>     
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>        
       </div>
+      <script>
+        document.getElementById('producto').addEventListener('change', function() {
+            document.getElementById('form-producto').submit();
+        });
+    </script>
     </div>
   </div>
 </div>
 
- -->
 
 </div>
 </div>
 </body>
-</html>
+</html> 
