@@ -141,24 +141,26 @@ elseif ($_SESSION['rol'] != 3) {
             foreach ($productos as $row) { 
             $total = $total + $row['precio'];   ?>
     <div class="row cart-item">
-        <div class="col-md-3">
+        <div class="col-lg-3 col-sm-12 col">
             <img src="../IMG/bicho.jpg" class="img-fluid" alt="Producto 1">
         </div>
-        <div class="cart-item-details col-md-4">
+        <div class="cart-item-details col-lg-4 col-sm-12">
             <p><?php echo $row['nombre'] ?></p>
         </div>
-        <div class="col-md-2">
-            <p>$ <?php echo $row['precio'] ?></p>
+        <div class="col-lg-2 col-sm-12">
+            <p class="product-price">$ <?php echo $row['precio']; ?></p>
         </div>
         <div class="col-md-2">
+            <div class="product">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-dark" type="button">-</button>
+                    <button class="btn btn-outline-dark decrement" type="button">-</button>
                 </div>
-                <input type="text" class="form-control text-center" value="1">
+                <input type="text" class="form-control text-center quantity" value="1" data-precio="<?php echo $row['precio']; ?>">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-dark" type="button">+</button>
+                    <button class="btn btn-outline-dark increment" type="button">+</button>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -179,7 +181,7 @@ elseif ($_SESSION['rol'] != 3) {
     </div>
 </div>
     <footer class="footer row">
-            <div class=" offset-1 col-lg-9 text">
+            <div class=" offset-lg-1 col-lg-9 text">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
             </div>
             <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
@@ -189,5 +191,57 @@ elseif ($_SESSION['rol'] != 3) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const quantityInputs = document.querySelectorAll('.quantity');
+    const totalElement = document.querySelector('.cart-total p');
+    let total = <?php echo $total; ?>;
+
+    // Funcion para actualizar precios
+    function updatePrices() {
+        total = 0;
+        quantityInputs.forEach(input => {
+            const price = parseFloat(input.getAttribute('data-precio'));
+            const quantity = parseInt(input.value);
+            const productTotal = price * quantity;
+            
+            // Actualiza producto individual
+            const productPriceElement = input.closest('.product').parentElement.previousElementSibling.querySelector('.product-price');
+            productPriceElement.textContent = `$ ${productTotal.toFixed(2)}`;
+
+            // Total
+            total += productTotal;
+        });
+        totalElement.textContent = `Subtotal: $${total.toFixed(2)}`;
+    }
+
+    // Increment0
+    document.querySelectorAll('.increment').forEach(button => {
+        button.addEventListener('click', function() {
+            let input = this.closest('.product').querySelector('.quantity');
+            let value = parseInt(input.value);
+            if (value < 10) {
+                input.value = value + 1;
+                updatePrices();
+            }
+        });
+    });
+
+    // Decrement0
+    document.querySelectorAll('.decrement').forEach(button => {
+        button.addEventListener('click', function() {
+            let input = this.closest('.product').querySelector('.quantity');
+            let value = parseInt(input.value);
+            if (value > 1) {
+                input.value = value - 1;
+                updatePrices();
+            }
+        });
+    });
+
+    // Precio inicial
+    updatePrices();
+});
+</script>
 </body>
 </html>
