@@ -158,16 +158,22 @@ include '../SCRIPTS/productos-dsh.php';
                     <th>Stock</th>
                     <th>Precio</th>
                     <th>Categoria</th>
+                    <th><th>
                 </tr>";
-        foreach ($results as $row) {
-            echo "<tr>
-                    <td>" . htmlspecialchars($row["id_producto"]) . "</td>
-                    <td>" . htmlspecialchars($row["nombre"]) . "</td>
-                    <td>" . htmlspecialchars($row["stock"]) . "</td>
-                    <td>$" . htmlspecialchars($row["precio"]) . "</td>
-                    <td>" . htmlspecialchars($row["categoria"]) . "</td>
-                  </tr>";
-        }
+                foreach ($results as $row) {
+                  echo "<tr>";
+                  echo "<td>" . htmlspecialchars($row["id_producto"]) . "</td>";
+                  echo "<td>" . htmlspecialchars($row["nombre"]) . "</td>";
+                  echo "<td>" . htmlspecialchars($row["stock"]) . "</td>";
+                  echo "<td>" . htmlspecialchars($row["precio"]) . "</td>";
+                  echo "<td>" . htmlspecialchars($row["categoria"]) . "</td>";
+                  echo "<td>";
+                  echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-warning'>Modificar</a> ";
+                  echo "<a href='eliminar_producto.php?id=" . $row['id_producto'] . "' class='btn btn-danger' onclick='return confirm(\"¿Estás seguro de que quieres eliminar este producto?\");'>Eliminar</a>";
+                  echo "</td>";
+                  echo "</tr>";
+              }
+
         echo "</table>";
     } else {
         echo "<p>No se encontraron productos.</p>";
@@ -279,7 +285,7 @@ include '../SCRIPTS/productos-dsh.php';
                     <input type="file" id="img" name="img"/>
                       
                     <legend>DESCRIPCIÓN:</legend>
-                    <textarea name="desc" class="form-control" rows="5"></textarea><br><br>
+                     <textarea name="desc" class="form-control" rows="5"></textarea><br><br>
                 </div> 
                 <button type="submit" name="btnreg" class="btn btn-primary">Registrar</button>     
             </form>
