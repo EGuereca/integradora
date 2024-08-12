@@ -53,7 +53,7 @@ $q_productos = "
 
 $update = "
     UPDATE venta 
-    SET estado = 'PENDIENTE' 
+    SET estado = 'PENDIENTE', sucursal = :idsucursal
     WHERE id_venta = (
         SELECT id_venta  
         FROM venta 
@@ -67,6 +67,10 @@ $insert = "
     VALUES(:idCliente, 'CARRITO', 'LINEA')
 ";
 
+
+
+
+
 $stmtProductos = $conexion->prepare($q_productos);
 $stmtProductos->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtProductos->execute();
@@ -74,8 +78,12 @@ $stmtProductos->execute();
 $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_POST['btn'])) {    
+    $sucu = $_POST['sucursal'];
+
+
     $stmtUpdate = $conexion->prepare($update);
     $stmtUpdate->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
+    $stmtUpdate->bindParam(':idsucursal', $sucu, PDO::PARAM_INT);
     $stmtUpdate->execute();
 
     $stmtInsert = $conexion->prepare($insert);
