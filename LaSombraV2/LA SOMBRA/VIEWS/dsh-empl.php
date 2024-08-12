@@ -42,7 +42,7 @@ include '../SCRIPTS/empleados-dsh.php';
                         <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dash-apartados.php">APARTADOS</a>
+                        <a class="nav-link" href="../VIEWS/dash-apartados.php">PEDIDOS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
