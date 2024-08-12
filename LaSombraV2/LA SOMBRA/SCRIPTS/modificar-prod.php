@@ -1,4 +1,10 @@
 <?php
+require_once "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
+$PDOLOCAL = $db->getPDO();
+
+
 function get_selected_categories($producto_id, $PDOLOCAL) {
     $selected_categories = [];
 
@@ -38,24 +44,37 @@ if (!empty($_POST["btnreg"])) {
         !empty($_POST["material"]) && 
         !empty($_POST["desc"])
     ) {
-    $id = $_POST["id"];
-    $nombre = $_POST["nombre"];
-    $marca = $_POST["marca"];
-    $categorias = $_POST["cate"]; 
-    $proveedores = $_POST["proveedores"]; 
-    $precio = $_POST["precio"];
-    $material = $_POST["material"];
-    $descripcion = $_POST["desc"];
-    $stmt = $PDOLOCAL->query("UPDATE productos SET nombre='$nombre', marca='$marca', 
-            precio='$precio', material='$material', descripcion='$descripcion' WHERE id_producto='$id'");
+        $id = $_POST["id"];
+        $nombre = $_POST["nombre"];
+        $marca = $_POST["marca"];
+        $categorias = $_POST["cate"]; 
+        $proveedores = $_POST["proveedores"]; 
+        $precio = $_POST["precio"];
+        $material = $_POST["material"];
+        $descripcion = $_POST["desc"];
 
-        if ($stmt) {
-            echo "ANIMOOO";
+        // Usar prepare y execute para la consulta de actualización
+        $stmt = $PDOLOCAL->prepare("UPDATE productos SET nombre=:nombre, marca=:marca, 
+            precio=:precio, material=:material, descripcion=:descripcion WHERE id_producto=:id");
+        
+        // Vincular los parámetros con las variables
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':marca', $marca);
+        $stmt->bindParam(':precio', $precio);
+        $stmt->bindParam(':material', $material);
+        $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
+            header("Location: ../VIEWS/dashboard.php");
+            exit();
         } else {
-            echo "No se pudo actualizar el producto";
+            echo "<div class='alert alert-danger' role='alert'>No se pudo actualizar el producto.</div>";
         }
     } else {
         echo "<div class='alert alert-warning'>Campos vacíos</div>";
     }
 }
+
 ?>

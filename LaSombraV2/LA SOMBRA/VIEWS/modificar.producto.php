@@ -161,7 +161,7 @@ while ($datos = $sql->fetch(PDO::FETCH_OBJ)) {
 
 <?php } ?> 
                  
-    <button type="submit" name="btnreg" class="btn btn-primary">Registrar</button> 
+    <button type="submit" name="btnreg" class="btn btn-primary" value="ok">Registrar</button> 
 </form>
 
 </body>
