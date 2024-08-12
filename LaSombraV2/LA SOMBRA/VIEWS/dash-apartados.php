@@ -59,18 +59,6 @@
     </div>
     </nav>
     </header>
-        <!-- Sidebar
-        <div class="sidebar">
-        <img src="../IMG/sombra-logo.png" alt="La Sombra Logo" class="img-fluid mb-4">
-        <a href="../VIEWS/dash-ventas.php">Ventas</a>
-        <a style="background-color: limegreen;" href="#">Apartados</a>
-        <a href="../VIEWS/dashboard.php">Productos</a>
-        <a href="../VIEWS/dash-citas.php">Citas</a>
-        <a href="../VIEWS/dash-provee.php">Proveedor</a>
-        <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
-        <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>-->
-        <!-- Main Content -->
         <div class="container-fluid">
                     <div class="card card-custom row">
                         <div class="card-header">
