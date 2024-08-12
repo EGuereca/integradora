@@ -43,7 +43,7 @@ $fecha = date('Y-m-d');
                 <a href="../VIEWS/llenado-venta.php"><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button></a>
                 <form action="" method="post" class="d-inline-block">
                     <label class="col-lg-2 col-sm-2" for="start">Fecha:</label>
-                    <input type="date" id="start" name="fecha" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto col-lg-3 col-sm-3" />
+                    <input type="date" id="start" name="fecha" min="2024-01-01" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto col-lg-3 col-sm-3" />
                     <button type="submit" name="btnfecha" class="btn btn-primary d-inline-block col-lg-4">BUSCAR</button>
                 </form>
                 <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
@@ -95,7 +95,12 @@ $fecha = date('Y-m-d');
                 <div class="col-md-4">
                     <div class="card card-custom">
                         <div class="card-header">
-                            Monto total del día <?php echo $fecha; ?>
+                            Monto total del día <?php 
+                            if (!isset($date)) {
+                                echo $fecha;
+                            }
+                            else{
+                            echo $date; }?>
                         </div>
                         <div class="card-body">
                             <h3>$ <?php echo $tot; ?></h3>
@@ -230,12 +235,6 @@ $fecha = date('Y-m-d');
 </div>
 -->
 
-<div id="cart-details" class="mt-4">
-    <h4>Carrito</h4>
-    <ul id="cart-items">
-        <!-- Los productos añadidos se mostrarán aquí -->
-    </ul>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

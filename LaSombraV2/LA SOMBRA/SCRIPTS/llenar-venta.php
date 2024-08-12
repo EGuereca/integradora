@@ -11,6 +11,8 @@ $cantidad = isset($_POST["cantidad"]) ? $_POST["cantidad"] : '';
 $control = isset($_SESSION['control']) ? $_SESSION['control'] : 1;
 $venta = isset($_SESSION['venta']) ? $_SESSION['venta'] : null;
 
+$dv =  isset($_POST["dv"]) ? $_POST["dv"] : '';
+
 
 include "../CLASS/database.php";
 $db = new Database();
@@ -49,13 +51,20 @@ if ($_SESSION['sucursal'] == '1') {
 $stmt->execute();
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$details=[];
 
 $llenado = $conexion->prepare("INSERT INTO detalle_venta(venta,producto,cantidad) 
 VALUES(?,?,?)");
 
-
+$detalles = $conexion->prepare("SELECT dv.id_detalle AS id, dv.producto AS id_producto, dv.cantidad AS cantidad, 
+p.nombre AS nombre, (p.precio * dv.cantidad) AS precio
+FROM detalle_venta AS dv 
+JOIN productos AS p ON dv.producto = p.id_producto
+WHERE dv.venta = ?");
 
 $registrar = $conexion->prepare("UPDATE venta SET estado = 'COMPLETADA', tipo_pago = ? WHERE id_venta = ?");
+
+$eliminar = $conexion->prepare("DELETE FROM detalle_venta WHERE id_detalle = ?");
 
 if (isset($_POST['btn-reg'])) {
     if ($control == 1) {    
@@ -78,6 +87,10 @@ if (isset($_POST['btn-reg'])) {
         $llenado->bindParam(2, $id, PDO::PARAM_INT);
         $llenado->bindParam(3, $cantidad, PDO::PARAM_INT);
         $llenado->execute();
+
+        $detalles->bindParam(1, $venta, PDO::PARAM_INT);
+        $detalles->execute();
+        $details = $detalles->fetchAll(PDO::FETCH_ASSOC);
     }
 }    
 
@@ -93,6 +106,15 @@ if (isset($_POST['registrar_venta'])) {
     }
 
     header("Location: ../VIEWS/dash-ventas.php");
+}
+
+if (isset($_POST['eliminar'])) {
+    $eliminar->bindParam(1, $dv, PDO::PARAM_INT);
+    $eliminar->execute();
+
+    $detalles->bindParam(1, $venta, PDO::PARAM_INT);
+    $detalles->execute();
+    $details = $detalles->fetchAll(PDO::FETCH_ASSOC);
 }
 
 $pdo = null; 
