@@ -97,7 +97,7 @@ include '../SCRIPTS/dsh-reabas.php';
 <?php
     if ($or) {
         echo "<h2>Resultados de búsqueda:</h2>";
-        echo "<table border='1' class= 'table table-striped'>
+        echo "<div class='tabla'><table border='1' class= 'table table-striped'>
                 <tr>
                     <th>PRODUCTO</th>
                     <th>CANTIDAD</th>
@@ -114,7 +114,7 @@ include '../SCRIPTS/dsh-reabas.php';
                     <td>" . htmlspecialchars($row["sucursal"]) . "</td>
                   </tr>";
         }
-        echo "</table>";
+        echo "</table></div>";
     } else {
         echo "<p>No se encontraron productos.</p>";
     }

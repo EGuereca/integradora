@@ -98,11 +98,13 @@ $hoy = date('Y-m-d');
         </div>
         -->
   <div class="container-fluid">
-    <form method="post" class="d-flex" role="search">
-      <div class="col-lg-3">
+    <div class="forms">
+        
+    <form method="post" class="d-flex row" role="search">
+      <div class="col-lg-3 col-sm-6 p-1">
       <input type="date" id="start" name="fecha" value="" min="2024-01-01" max="<?php echo $hoy;?>" />     
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-3 col-sm-6 p-1">
         <select class="form-select" aria-label="Default select example" name="perforador">
             <option selected value="">Perforador</option>
             <?php 
@@ -113,7 +115,7 @@ $hoy = date('Y-m-d');
             
         </select>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-sm-6 p-1">
         <select class="form-select" aria-label="Default select example" name="sucursal">
             <option selected value="">Sucursal</option>
             <option value="">Todo</option>
@@ -121,13 +123,15 @@ $hoy = date('Y-m-d');
             <option value="1">Matamoros</option>
         </select>
         </div>
-        <div class="col-lg-3">
-      <button class="btn btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
+        <div class="col-lg-3 col-sm-6 p-1">
+      <button class="btn boton btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
       </div>
     </form>
 
     <button type="button" class="btn btn-primary offset-4 col-4" data-bs-toggle="modal" 
     data-bs-target="#exampleModal"> Registrar Cita </button>
+    
+    </div>
     <!-- Main Content -->
                 <?php
 $fecha = date('Y-m-d H:i:s');
@@ -139,7 +143,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
 
     if ($results) {
         echo "<h2>Resultados de búsqueda:</h2>";
-        echo "<table border='1' class= 'table table-striped'>
+        echo "<div class='tabla'><table border='1' class= 'table table-striped'>
                 <tr>
                     <th>ESTADO</th>
                     <th>Perforador</th>
@@ -173,7 +177,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
               </tr>";
             }            
         }
-        echo "</table>";
+        echo "</table><div>";
     } else {
         echo "<p>No se encontraron citas.</p>";
     }

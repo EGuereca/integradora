@@ -94,7 +94,7 @@ include '../SCRIPTS/empleados-dsh.php';
 <?php
     if ($results) {
         echo "<h2>Resultados de búsqueda:</h2>";        
-        echo "<table border='1' class= 'table table-striped'>
+        echo "<div class='tabla'><table border='1' class= 'table table-striped'>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
@@ -111,7 +111,7 @@ include '../SCRIPTS/empleados-dsh.php';
                     <td>" . htmlspecialchars($row["telefono"]) . "</td>
                   </tr>";
         }
-        echo "</table>";
+        echo "</table></div>";
     } else {
         echo "<p>No se encontraron productos.</p>";
     }

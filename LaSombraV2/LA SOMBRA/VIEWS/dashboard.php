@@ -109,15 +109,15 @@ include '../SCRIPTS/productos-dsh.php';
             <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
         </div>-->
         <div class="container-fluid">
-<div class="">
-    <form method="post" class="d-flex" role="search">
+<div class="forms">
+    <form method="post" class="d-flex row" role="search">
       <div class="col-lg-2 col-sm-6 p-1">
       <input class="form-control" type="search" placeholder="ID Producto" aria-label="Search" id="id_prod" name="id_prod">
       </div>
       <div class="col-lg-3 col-sm-6 p-1">
         <input class="form-control" type="search" placeholder="Nombre Producto" aria-label="Search" id="nm_prod" name="nm_prod">
       </div>
-      <div class="col-lg-2 col-md-6 p-1">
+      <div class="col-lg-2 col-sm-6 p-1">
         <select class="form-select" aria-label="Default select example" name="categoria">
             <option selected value="">Categoria</option>
             <option value="1">Pipas</option>
@@ -130,7 +130,7 @@ include '../SCRIPTS/productos-dsh.php';
             <option value="7">Accesorios</option>
         </select>
         </div>
-        <div class="col-lg-2 col-md-6 p-1">
+        <div class="col-lg-2 col-sm-6 p-1">
         <select class="form-select" aria-label="Default select example" name="sucursal">
             <option selected value="">Sucursal</option>
             <option value="3">Todo</option>
@@ -138,11 +138,13 @@ include '../SCRIPTS/productos-dsh.php';
             <option value="1">Matamoros</option>
         </select>
         </div>
-      <button class="btn btn-outline-success col-lg-2 col-md-6 p-1" type="submit" name="btn-aplicar">Aplicar</button>
+        <div class="col-lg-2 col-sm-6 p-1">
+      <button class="boton btn btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
+      </div>
     </form>
     <?php
     if ($_SESSION['rol'] == 1) {          
-      echo "<button type='button' class='btn btn-primary col-lg-4 offset-lg-4 p-1' data-bs-toggle='modal' 
+      echo "<button type='button' class='btn btn-primary col-lg-4 offset-4 p-1' data-bs-toggle='modal' 
         data-bs-target='#exampleModal'> Registrar Producto </button>";
     }
     ?>
@@ -151,7 +153,8 @@ include '../SCRIPTS/productos-dsh.php';
 <?php
     if ($results) {
         echo "<h2>Resultados de búsqueda:</h2>";
-        echo "<table border='1' class= 'table table-striped'>
+        
+        echo "<div class='tabla'><table border='1' class= 'table table-striped'>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
@@ -168,7 +171,7 @@ include '../SCRIPTS/productos-dsh.php';
                     <td>" . htmlspecialchars($row["categoria"]) . "</td>
                   </tr>";
         }
-        echo "</table>";
+        echo "</table></div>";
     } else {
         echo "<p>No se encontraron productos.</p>";
     }
