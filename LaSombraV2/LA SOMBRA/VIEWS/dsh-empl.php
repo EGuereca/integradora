@@ -15,6 +15,8 @@ include '../SCRIPTS/empleados-dsh.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
+
     <title>Empleados</title>
     <link rel="stylesheet" href="../CSS/dash-emp.css">
 </head>
@@ -101,6 +103,7 @@ include '../SCRIPTS/empleados-dsh.php';
                     <th>Rol</th>
                     <th>Email</th>
                     <th>Telefono</th>
+                    <th></th>
                 </tr>";
         foreach ($results as $row) {
             echo "<tr>
@@ -109,6 +112,7 @@ include '../SCRIPTS/empleados-dsh.php';
                     <td>" . htmlspecialchars($row["rol"]) . "</td>
                     <td>" . htmlspecialchars($row["email"]) . "</td>
                     <td>" . htmlspecialchars($row["telefono"]) . "</td>
+                     <td><a href='modificar-empleado.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a></td>
                   </tr>";
         }
         echo "</table></div>";
