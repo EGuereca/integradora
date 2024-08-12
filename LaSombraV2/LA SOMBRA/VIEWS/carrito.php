@@ -177,7 +177,7 @@ elseif ($_SESSION['rol'] != 3) {
             <form action="" method="post">
             <div class="form-group">
                 <label for="estado">Seleccione la sucursal para recoger:</label>
-                <select name="sucursal" id="sucursal" class="form-control" required>
+                <select name="sucursal" id="sucursal" class="form-control sel-suc" required>
                     <option value="1">Matamoros</option>
                     <option value="2">Nazas</option>
                 </select>
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         totalElement.textContent = `Subtotal: $${total.toFixed(2)}`;
     }
 
-    // Increment0
+    // Incremento
     document.querySelectorAll('.increment').forEach(button => {
         button.addEventListener('click', function() {
             let input = this.closest('.product').querySelector('.quantity');
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Decrement0
+    // Decremento
     document.querySelectorAll('.decrement').forEach(button => {
         button.addEventListener('click', function() {
             let input = this.closest('.product').querySelector('.quantity');

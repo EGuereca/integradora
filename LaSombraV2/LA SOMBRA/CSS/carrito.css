@@ -152,8 +152,15 @@ body {
 .container{
     margin-top: 100px;
 }
+.sel-suc{
+    margin: 20px 0;
+    text-align: center;
+}
 /*Car*/
 .col-sm-12{
     align-items: center;
     text-align: center;
+}
+.btn-outline-dark{
+    background-color: green;
 }
