@@ -9,6 +9,19 @@ body {
 img{
     width: 150px;
 }
+
+#btncita{
+background-color: rgb(30, 143, 30);
+color: white;
+
+}
+#btncita:hover{
+    background-color: green;
+    color: white;
+    
+    }
+
+
 .sidebar a {
     color: black;
     display: block;
@@ -149,6 +162,17 @@ input{
     margin-bottom: 0;
 }
 
+#btnaplicar{
+    background-color: rgb(30, 143, 30);
+    color: white;
+    
+}
+#btnaplicar:hover{
+        background-color: green;
+        color: white;
+        
+}
+
 /*modal*/
 .modal-content {
     background-color: #f9f9f9;
@@ -259,3 +283,16 @@ textarea {
 h2{
     padding-left: 30px;
 }
+
+
+#regcita{
+    background-color: rgb(30, 143, 30);
+    color: white;
+    
+    }
+    #regcita:hover{
+        background-color: green;
+        color: white;
+        
+        }
+    

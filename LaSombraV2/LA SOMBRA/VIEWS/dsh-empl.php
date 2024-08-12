@@ -42,7 +42,7 @@ include '../SCRIPTS/empleados-dsh.php';
                         <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dash-apartados.php">APARTADOS</a>
+                        <a class="nav-link" href="../VIEWS/dash-apartados.php">PEDIDOS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
@@ -85,12 +85,12 @@ include '../SCRIPTS/empleados-dsh.php';
         -->
         <div class="container-fluid">
         <?php
-    if ($_SESSION['rol'] == 1) {
-        echo "<button type='button' class='btn btn-primary btn-emp' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar Empleados </button>";
-    }
+    if ($_SESSION['rol'] == 1) { ?>
+        <button id="regemp" type='button' class='btn btn-emp' data-bs-toggle='modal' 
+        data-bs-target='#exampleModal'> Registrar Empleados </button>
+    <?php } ?>
 
-?>
+
 <?php
     if ($results) {
         echo "<h2>Resultados de búsqueda:</h2>";        
@@ -182,7 +182,7 @@ include '../SCRIPTS/empleados-dsh.php';
                         <option value="7">Perforador</option>                        
                     </select> 
                 </div> 
-                <button type="submit" name="btncrearemp" class="btn btn-primary">Registrar</button>     
+                <button id="regemp" type="submit" name="btncrearemp" class="btn">Registrar</button>     
             </form>
         </div>
       <div class="modal-footer">

@@ -29,7 +29,7 @@ $fecha = date('Y-m-d');
     <div class="sidebar">
         <img src="../IMG/sombra-logo.png" alt="La Sombra Logo" class="img-fluid mb-4">
         <a style="background-color: limegreen;" href="#">Ventas</a>
-        <a href="../VIEWS/dash-apartados.php">Apartados</a>
+        <a href="../VIEWS/dash-apartados.php">Pedidos</a>
         <a href="../VIEWS/dashboard.php">Productos</a>
         <a href="../VIEWS/dash-citas.php">Citas</a>
         <a href="../VIEWS/dash-provee.php">Proveedor</a>

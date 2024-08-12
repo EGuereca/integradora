@@ -131,6 +131,18 @@ img{
     padding: 20px;
 }
 
+#regemp{
+    background-color: rgb(30, 143, 30);
+    color: white;
+    
+    }
+    #regemp:hover{
+        background-color: green;
+        color: white;
+        
+        }
+    
+
 /* Estilos para los campos del formulario */
 .form-group {
     margin-bottom: 15px;

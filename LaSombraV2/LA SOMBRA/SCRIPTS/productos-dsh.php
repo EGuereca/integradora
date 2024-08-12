@@ -135,7 +135,7 @@ if (isset($_POST['btnreg'])) {
         $ll_cat->execute(); 
     }
     
-    $ll_prpro = $pdo->prepare("INSERT INTO proveedor_producto (proveedor,producto,precio_unitario_proveedor) VALUES (:prove,:id,0)");
+    $ll_prpro = $conexion->prepare("INSERT INTO proveedor_producto (proveedor,producto,precio_unitario_proveedor) VALUES (:prove,:id,0)");
     foreach ($provee as $opcion) {
         $opcion_int = intval($opcion);
         $ll_prpro->bindParam(':prove', $opcion_int, PDO::PARAM_INT);

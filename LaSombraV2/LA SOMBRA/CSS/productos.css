@@ -37,8 +37,10 @@ body{
 
 }
 
-.btn{
-    background-color: green;
+#seleccione{
+    align-items: center;
+    margin: auto;
+    text-align: center;
 }
 
 #buscar{

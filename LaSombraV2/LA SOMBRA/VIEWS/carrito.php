@@ -82,24 +82,25 @@ elseif ($_SESSION['rol'] != 3) {
                     
                     <?php
                     if(isset($_SESSION["id"])) 
-                    {
+                    { ?>
                     
-                    echo "<li class='nav-item'>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
-                        </li>";
+                        </li>
 
-                    ECHO "<li class='nav-item'>
-                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>CERRAR SESION</a>
-                        </li>";
-                    }
+                        <li class='nav-item'>
 
-                    else{
-                    echo "<li class='nav-item'>
+                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
+                            <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
+                        </a>
+                        </li>
+                    <?php }
+
+                    else{ ?>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
-                        </li>";
-                    }
-                    ?>
-                    
+                        </li>
+                    <?php } ?>
                     
                     <li class="nav-item">
                     <form class=" d-flex mt-3 " role="search">
@@ -141,24 +142,26 @@ elseif ($_SESSION['rol'] != 3) {
             foreach ($productos as $row) { 
             $total = $total + $row['precio'];   ?>
     <div class="row cart-item">
-        <div class="col-md-3">
+        <div class="col-lg-3 col-sm-12 col">
             <img src="../IMG/bicho.jpg" class="img-fluid" alt="Producto 1">
         </div>
-        <div class="cart-item-details col-md-4">
+        <div class="cart-item-details col-lg-4 col-sm-12">
             <p><?php echo $row['nombre'] ?></p>
         </div>
-        <div class="col-md-2">
-            <p>$ <?php echo $row['precio'] ?></p>
+        <div class="col-lg-2 col-sm-12">
+            <p class="product-price">$ <?php echo $row['precio']; ?></p>
         </div>
         <div class="col-md-2">
+            <div class="product">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-dark" type="button">-</button>
+                    <button class="btn btn-outline-dark decrement" type="button">-</button>
                 </div>
-                <input type="text" class="form-control text-center" value="1">
+                <input type="text" class="form-control text-center quantity" value="1" data-precio="<?php echo $row['precio']; ?>">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-dark" type="button">+</button>
+                    <button class="btn btn-outline-dark increment" type="button">+</button>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -171,15 +174,22 @@ elseif ($_SESSION['rol'] != 3) {
     <div class="row cart-total">
         <div>
             <p>Subtotal: $<?php echo $total ?></p>
-            <p>Dirección de recolección: Sucursal Nazas</p>
             <form action="" method="post">
+            <div class="form-group">
+                <label for="estado">Seleccione la sucursal para recoger:</label>
+                <select name="sucursal" id="sucursal" class="form-control sel-suc" required>
+                    <option value="1">Matamoros</option>
+                    <option value="2">Nazas</option>
+                </select>
+
                 <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+            </div>      
             </form>
         </div>
     </div>
 </div>
     <footer class="footer row">
-            <div class=" offset-1 col-lg-9 text">
+            <div class=" offset-lg-1 col-lg-9 text">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
             </div>
             <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
@@ -189,5 +199,57 @@ elseif ($_SESSION['rol'] != 3) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const quantityInputs = document.querySelectorAll('.quantity');
+    const totalElement = document.querySelector('.cart-total p');
+    let total = <?php echo $total; ?>;
+
+    // Funcion para actualizar precios
+    function updatePrices() {
+        total = 0;
+        quantityInputs.forEach(input => {
+            const price = parseFloat(input.getAttribute('data-precio'));
+            const quantity = parseInt(input.value);
+            const productTotal = price * quantity;
+            
+            // Actualiza producto individual
+            const productPriceElement = input.closest('.product').parentElement.previousElementSibling.querySelector('.product-price');
+            productPriceElement.textContent = `$ ${productTotal.toFixed(2)}`;
+
+            // Total
+            total += productTotal;
+        });
+        totalElement.textContent = `Subtotal: $${total.toFixed(2)}`;
+    }
+
+    // Incremento
+    document.querySelectorAll('.increment').forEach(button => {
+        button.addEventListener('click', function() {
+            let input = this.closest('.product').querySelector('.quantity');
+            let value = parseInt(input.value);
+            if (value < 10) {
+                input.value = value + 1;
+                updatePrices();
+            }
+        });
+    });
+
+    // Decremento
+    document.querySelectorAll('.decrement').forEach(button => {
+        button.addEventListener('click', function() {
+            let input = this.closest('.product').querySelector('.quantity');
+            let value = parseInt(input.value);
+            if (value > 1) {
+                input.value = value - 1;
+                updatePrices();
+            }
+        });
+    });
+
+    // Precio inicial
+    updatePrices();
+});
+</script>
 </body>
 </html>
