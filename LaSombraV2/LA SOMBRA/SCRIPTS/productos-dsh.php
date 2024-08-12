@@ -146,4 +146,87 @@ if (isset($_POST['btnreg'])) {
     header("refresh:3  ; ../VIEWS/dashboard.php");
 }
 
+
+function get_selected_categories($producto_id, $PDOLOCAL) {
+    $selected_categories = [];
+
+    
+    $stmt = $PDOLOCAL->prepare("SELECT categoria FROM producto_categoria WHERE producto = :producto_id");
+    $stmt->bindParam(':producto_id', $producto_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $selected_categories[] = $row['categoria'];
+    }
+
+    return $selected_categories;
+}
+
+
+
+function get_selected_providers($producto_id, $PDOLOCAL) {
+    $selected_providers = [];
+
+    
+    $stmt = $PDOLOCAL->prepare("SELECT proveedor FROM proveedor_producto WHERE producto = :producto_id");
+    $stmt->bindParam(':producto_id', $producto_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $selected_providers[] = $row['proveedor'];
+    }
+
+    return $selected_providers;
+}
+
+
+
+
+?>
+
+<?php
+
+ 
+if (!empty($_POST["btnsubmit"])) {
+    if (!empty($_POST["nombre"]) && !empty($_POST["marca"]) && !empty($_POST["cate"]) 
+        && !empty($_POST["proveedores"]) && !empty($_POST["precio"]) 
+        && !empty($_POST["material"]) && !empty($_POST["desc"])) {
+        
+        $id = $_POST["id"];
+        $nombre = $_POST["nombre"];
+        $marca = $_POST["marca"];
+        $precio = $_POST["precio"];
+        $material = $_POST["material"];
+        $descripcion = $_POST["desc"];
+        
+        include '../CLASS/database.php';
+        $db = new Database();
+        $db->conectarBD();
+        $conexion = $db->getPDO();
+
+        $sql = "UPDATE productos SET nombre = :nombre, marca = :marca, precio = :precio, 
+                material = :material, descripcion = :descripcion WHERE id_producto = :id";
+        
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        $stmt->bindParam(':marca', $marca, PDO::PARAM_STR);
+        $stmt->bindParam(':precio', $precio, PDO::PARAM_STR);
+        $stmt->bindParam(':material', $material, PDO::PARAM_STR);
+        $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
+        
+        if ($stmt->execute()) {
+            echo "<div class='alert alert-success'>Producto actualizado exitosamente.</div>";
+            header("Location: ../VIEWS/dashboard.php");
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            echo "<div class='alert alert-danger'>Error al actualizar el producto: " . $errorInfo[2] . "</div>";
+        }
+        
+    } else {
+        echo "<div class='alert alert-warning'>Por favor, complete todos los campos requeridos.</div>";
+    }
+}
 ?>

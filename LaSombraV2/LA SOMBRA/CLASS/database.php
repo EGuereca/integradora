@@ -5,7 +5,7 @@ class Database
     private $user = 'root';
     private $password = '';
     private $server = "mysql:host=localhost;dbname=la_sombra"; // Ajuste de espacio en blanco
-    
+        
     function conectarBD()
     {
         try {
