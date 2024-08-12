@@ -165,7 +165,7 @@ session_start();
             </div>
         </div>
         <footer class="footer row">
-            <div class="  col-lg-9 text col-sm-12 ">
+            <div class=" offset-lg-1 col-lg-9 text col-sm-12 ">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
             </div>
             <div class="col-lg-1  col-sm-12 text-lg-end"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>

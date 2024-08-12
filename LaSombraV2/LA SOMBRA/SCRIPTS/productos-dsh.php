@@ -95,7 +95,7 @@ $cat = $s->fetchAll(PDO::FETCH_ASSOC);
 $prov = $st->fetchAll(PDO::FETCH_ASSOC);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$pral = $conexion->prepare("CALL REGISTRAR_PRODUCTO(?,?,?,?,?,?)");
+$pral = $conexion->prepare("INSERT INTO productos(nombre,marca,precio,stock,material,descripcion,url) VALUES(?,?,?,0,?,?,?)");
 if (isset($_POST['btnreg'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
         if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {

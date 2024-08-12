@@ -126,7 +126,28 @@ button{
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
-
+/*forms*/
+.forms{
+    width: 100%;
+}
+input{
+    padding: 4px 20px;
+    width: 90%;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    margin-bottom: 0;
+}
+.form-select{
+    width: 90%;
+    margin-bottom: 0;
+}
+.boton{
+    width: 90%;
+    margin-bottom: 0;
+}
 
 /*modal*/
 .modal-content {
@@ -230,4 +251,11 @@ textarea {
     padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
+}
+/*Tabla*/
+.tabla{
+    padding: 30px;
+}
+h2{
+    padding-left: 30px;
 }

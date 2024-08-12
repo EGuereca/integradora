@@ -186,3 +186,10 @@ button {
 .btn-secondary:hover {
     background-color: #5a6268;
 }
+/*Tabla*/
+.tabla{
+    padding: 10px;
+}
+h2{
+    padding-left: 30px;
+}

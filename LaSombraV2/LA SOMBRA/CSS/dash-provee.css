@@ -122,3 +122,10 @@ img{
 .botonprinci{
     text-align: right;
 }
+/*Tabla*/
+.tabla{
+    padding: 30px;
+}
+h2{
+    padding-left: 30px;
+}

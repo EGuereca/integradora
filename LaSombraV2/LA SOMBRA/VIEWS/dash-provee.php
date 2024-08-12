@@ -95,7 +95,7 @@ include '../SCRIPTS/provee-dsh.php';
         if ($results) {
             $telefono = ""; $pagina = "";
             echo "<h2>Proveedores:</h2>";
-            echo "<table border='1' class='table table-striped'>
+            echo "<div class='tabla'><table border='1' class='table table-striped'>
                 <tr>
                     <th>NOMBRE</th>
                     <th>TELEFONO</th>
@@ -110,6 +110,7 @@ include '../SCRIPTS/provee-dsh.php';
                             <td>" . htmlspecialchars($pagina) . "</td>
                             </tr>";                    
         }
+        echo "</table></div>";
     }
     else {
         echo "NO SE ENCONTRARON PROVEEDORES";

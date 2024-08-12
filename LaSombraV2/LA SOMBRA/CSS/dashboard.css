@@ -102,6 +102,18 @@ img{
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+/*forms*/
+.forms{
+    padding: 0 20px;
+    width: 100%;
+}
+input{
+    padding: 0 20px;
+}
+.boton{
+    width: 100%;
+    margin-left: 5px;
+}
 
 /*modal*/
 /* Encapsula todos los estilos del modal dentro de una clase específica */
@@ -172,4 +184,11 @@ img{
 
 .modal-content .btn-secondary:hover {
     background-color: #5a6268;
+}
+/*Tabla*/
+.tabla{
+    padding: 30px;
+}
+h2{
+    padding-left: 30px;
 }

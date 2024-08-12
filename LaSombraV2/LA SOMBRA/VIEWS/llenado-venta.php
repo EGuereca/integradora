@@ -5,6 +5,11 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
     exit();    
 }
 
+if ($_SESSION["sucursal"] == null) {
+    header("location: ../VIEWS/CONTROL-SUCURSAL.php");
+    exit();    
+}
+
 
 include '../SCRIPTS/llenar-venta.php';
 ?>
@@ -36,13 +41,6 @@ include '../SCRIPTS/llenar-venta.php';
             if($_SESSION['sucursal'] == null){
                 
         ?>
-        <div class="container">
-            <h2>Seleccione una sucursal:</h2> <br>
-            <form method="post" action="">
-                <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
-                <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
-            </form>
-        </div>
         <?php } 
                 else{        
         ?>
@@ -51,8 +49,8 @@ include '../SCRIPTS/llenar-venta.php';
         if (!empty($productos)) {
             foreach ($productos as $row) { ?>
 
-                <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">                
+                <div class="col-lg-3 col-sm-12">
+                <div class="card mb-3">                
                     <div class="card-img-container">
                         <img src="../IMG/blazy-susan.svg" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
                     </div>
@@ -70,7 +68,7 @@ include '../SCRIPTS/llenar-venta.php';
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>    
-                            <button type="submit">Agregar</button>
+                            <button name="btn-reg" type="submit">Agregar</button>
                         </form>
                     </div>                
                 </div>
@@ -81,17 +79,7 @@ include '../SCRIPTS/llenar-venta.php';
             echo "No hay productos disponibles";
         }
         ?>           
-            </div>
-
-            <div class="paginacion">
-            <?php
-            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-            for ($i = 1; $i <= $total_paginas; $i++) {
-                $active_class = $i == $pagina_actual ? 'active' : '';
-                echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
-            }
-            ?>
-            </div>
+            </div>            
         <?php } ?>
     </div>
                         
