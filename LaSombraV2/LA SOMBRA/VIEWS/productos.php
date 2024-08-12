@@ -86,31 +86,26 @@
                     
                     <?php
                     if(isset($_SESSION["id"])) 
-                    {
+                    { ?>
                     
-                    echo "<li class='nav-item'>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
-                        </li>";
+                        </li>
 
-                    ECHO "<li class='nav-item'>
-                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>CERRAR SESION</a>
-                        </li>";
-                    }
+                        <li class='nav-item'>
 
-                    else{
-                    echo "<li class='nav-item'>
+                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
+                            <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
+                        </a>
+                        </li>
+                    <?php }
+
+                    else{ ?>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
-                        </li>";
-                    }
-                    ?>
+                        </li>
+                    <?php } ?>
                     
-                    
-                    <li class="nav-item">
-                    <form class=" d-flex mt-3 " role="search">
-                        <input id="buscar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                        <button id="btn-nav" class="btn btn-success" type="submit">Buscar</button>
-                    </form>
-                    </li>
                     
                     <div  class="admin">
                     
@@ -147,12 +142,14 @@
                 
         ?>
         <div class="container">
-            <h2>Seleccione una sucursal:</h2> <br>
+            <div id="seleccionar" class="col-12">
+            <h2>Seleccione una sucursal para visualizar los productos de la seleccionada:</h2> <br>
             <form method="post" action="">
                 <button type="submit" class="btn btn-outline-primary" name="todo">Todo</button>
                 <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
                 <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
             </form>
+            </div>
         </div>
         <?php } 
                 else{        

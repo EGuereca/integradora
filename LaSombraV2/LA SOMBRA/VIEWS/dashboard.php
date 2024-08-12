@@ -16,6 +16,7 @@ include '../SCRIPTS/productos-dsh.php';
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../CSS/dashboard.css">
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
     <title>Productos</title>
     
 </head>
@@ -68,7 +69,7 @@ include '../SCRIPTS/productos-dsh.php';
                         <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  href="../VIEWS/dash-apartados.php">APARTADOS</a>
+                        <a class="nav-link"  href="../VIEWS/dash-apartados.php">PEDIDOS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="background-color: limegreen;" href="#">PRODUCTOS</a>
@@ -139,20 +140,21 @@ include '../SCRIPTS/productos-dsh.php';
         </select>
         </div>
         <div class="col-lg-2 col-sm-6 p-1">
-      <button class="boton btn btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
+      <button id="regprod" class="boton btn" type="submit" name="btn-aplicar">Aplicar</button>
       </div>
     </form>
     <?php
-    if ($_SESSION['rol'] == 1) {          
-      echo "<button type='button' class='btn btn-primary col-lg-4 offset-4 p-1' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar Producto </button>";
-    }
-    ?>
+    if ($_SESSION['rol'] == 1) {  ?>         
+        <button id="regprod" type='button' class='btn col-lg-4 offset-4 p-1' data-bs-toggle='modal' 
+        data-bs-target='#exampleModal'> Registrar Producto </button>
+    <?php } ?>
+    
     </div>
 <br>
 <?php
     if ($results) {
         echo "<h2>Resultados de búsqueda:</h2>";
+        
         
         echo "<div class='tabla'><table border='1' class= 'table table-striped'>
                 <tr>
@@ -171,8 +173,7 @@ include '../SCRIPTS/productos-dsh.php';
                   echo "<td>" . htmlspecialchars($row["precio"]) . "</td>";
                   echo "<td>" . htmlspecialchars($row["categoria"]) . "</td>";
                   echo "<td>";
-                  echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-warning'>Modificar</a> ";
-                  echo "<a href='eliminar_producto.php?id=" . $row['id_producto'] . "' class='btn btn-danger' onclick='return confirm(\"¿Estás seguro de que quieres eliminar este producto?\");'>Eliminar</a>";
+                  echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>";
                   echo "</td>";
                   echo "</tr>";
               }
@@ -290,7 +291,7 @@ include '../SCRIPTS/productos-dsh.php';
                     <legend>DESCRIPCIÓN:</legend>
                      <textarea name="desc" class="form-control" rows="5"></textarea><br><br>
                 </div> 
-                <button type="submit" name="btnreg" class="btn btn-primary">Registrar</button>     
+                <button id="regprod" type="submit" name="btnreg" class="btn">Registrar</button>     
             </form>
         </div>
       <div class="modal-footer">

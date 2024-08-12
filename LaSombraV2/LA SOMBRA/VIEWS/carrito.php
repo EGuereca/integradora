@@ -82,24 +82,25 @@ elseif ($_SESSION['rol'] != 3) {
                     
                     <?php
                     if(isset($_SESSION["id"])) 
-                    {
+                    { ?>
                     
-                    echo "<li class='nav-item'>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
-                        </li>";
+                        </li>
 
-                    ECHO "<li class='nav-item'>
-                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>CERRAR SESION</a>
-                        </li>";
-                    }
+                        <li class='nav-item'>
 
-                    else{
-                    echo "<li class='nav-item'>
+                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
+                            <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
+                        </a>
+                        </li>
+                    <?php }
+
+                    else{ ?>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
-                        </li>";
-                    }
-                    ?>
-                    
+                        </li>
+                    <?php } ?>
                     
                     <li class="nav-item">
                     <form class=" d-flex mt-3 " role="search">
@@ -173,9 +174,16 @@ elseif ($_SESSION['rol'] != 3) {
     <div class="row cart-total">
         <div>
             <p>Subtotal: $<?php echo $total ?></p>
-            <p>Dirección de recolección: Sucursal Nazas</p>
             <form action="" method="post">
+            <div class="form-group">
+                <label for="estado">Seleccione la sucursal para recoger:</label>
+                <select name="sucursal" id="sucursal" class="form-control sel-suc" required>
+                    <option value="1">Matamoros</option>
+                    <option value="2">Nazas</option>
+                </select>
+
                 <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+            </div>      
             </form>
         </div>
     </div>
@@ -215,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         totalElement.textContent = `Subtotal: $${total.toFixed(2)}`;
     }
 
-    // Increment0
+    // Incremento
     document.querySelectorAll('.increment').forEach(button => {
         button.addEventListener('click', function() {
             let input = this.closest('.product').querySelector('.quantity');
@@ -227,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Decrement0
+    // Decremento
     document.querySelectorAll('.decrement').forEach(button => {
         button.addEventListener('click', function() {
             let input = this.closest('.product').querySelector('.quantity');

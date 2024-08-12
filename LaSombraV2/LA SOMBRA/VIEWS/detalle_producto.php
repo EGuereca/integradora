@@ -135,11 +135,9 @@
                 <p><strong>Cantidad disponible:</strong> <?php echo $stock;?> piezas</p>
                 <form action="" method="post">
                 <select class="form-control" name="cantidad">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <?php for ($i = 1; $i <= $stock && $i <= 5; $i++) { ?>
+                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+            <?php } ?>
             </select> <br> <br>
                 <button name="btncarrito" type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"]) || $_SESSION['sucursal'] == 2) {
                     echo "disabled";

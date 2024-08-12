@@ -31,7 +31,7 @@
                         <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="background-color: limegreen;" href="#">APARTADOS</a>
+                        <a class="nav-link" style="background-color: limegreen;" href="#">PEDIDOS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
@@ -59,62 +59,95 @@
     </div>
     </nav>
     </header>
-        <div class="container-fluid">
-                    <div class="card card-custom row">
-                        <div class="card-header">
-                           <h3>Apartados</h3> 
-                        </div>
-                        <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Estado</th>
-                            <th>ID Apartado</th>
-                            <th>Username</th>
-                            <th>Total</th>
-                            <th>Fecha</th>
-                            <th>Sucursal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-warning">Pendiente</td>
-                            <td>00001</td>
-                            <td>juanito</td>
-                            <td>$100.80</td>
-                            <td>02/09/2024</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td class="text-danger">Cancelado</td>
-                            <td>00001</td>
-                            <td>pablito</td>
-                            <td>$100.80</td>
-                            <td>02/09/2024</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td class="text-success">Entregado</td>
-                            <td>00001</td>
-                            <td>pepe</td>
-                            <td>$100.80</td>
-                            <td>02/09/2024</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td class="text-success">Entregado</td>
-                            <td>00001</td>
-                            <td>chuyito</td>
-                            <td>$100.80</td>
-                            <td>02/09/2024</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                </div>
+        
+        <!-- Main Content -->
+        <div id="gestion" class="container-fluid">
+        <h1 class="mt-5">Gestión de pedidos</h1>
+        <form action="" method="post" class="mb-5">
+            <div class="form-group">
+                <label for="numero_pedido">Número de Pedido:</label>
+                <input type="number" name="numero_pedido" id="numero_pedido" class="form-control" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select name="estado" id="estado" class="form-control" required>
+                    <option value="PENDIENTE">Pendientes</option>
+                    <option value="COMPLETADA">Completadas</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+
+
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            include "../CLASS/database.php";
+            $db = new Database();
+            $db->conectarBD();
+            $conexion = $db->getPDO();
+
+            $numero_pedido = $_POST['numero_pedido'];
+            $estado = $_POST['estado'];
+
+            $sql = "SELECT v.id_venta, u.nombre_usuario, v.estado, v.tipo_venta, v.monto_total, s.nombre AS sucursal
+                    FROM venta v
+                    JOIN cliente c ON v.id_cliente = c.id_cliente
+                    JOIN persona p ON c.persona = p.id_persona
+                    JOIN usuarios u ON p.usuario = u.id_usuario
+                    JOIN sucursales s ON v.sucursal = s.id_sucursal
+                    WHERE v.id_venta = :numero_pedido AND v.estado = :estado";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':numero_pedido', $numero_pedido);
+            $stmt->bindParam(':estado', $estado);
+            $stmt->execute();
+            $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            
+
+            if ($ventas) {
+                echo '<table class="table table-bordered">';
+                echo '<thead class="thead-dark"><tr>';
+                echo '<th>ID Venta</th>';
+                echo '<th>Nombre de Usuario</th>';
+                echo '<th>Estado</th>';
+                echo '<th>Tipo de Venta</th>';
+                echo '<th>Monto del pedido</th>';
+                echo '<th>Sucursal</th>';
+
+    
+                if ($estado == 'PENDIENTE') {
+                    echo '<th>Acciones</th>';
+                }
+                echo '</tr></thead>';
+                echo '<tbody>';
+                foreach ($ventas as $venta) {
+                    echo '<tr>';
+                    echo '<td>' . $venta['id_venta'] . '</td>';
+                    echo '<td>' . $venta['nombre_usuario'] . '</td>';
+                    echo '<td>' . $venta['estado'] . '</td>';
+                    echo '<td>' . $venta['tipo_venta'] . '</td>';
+                    echo '<td>' . $venta['monto_total'] . '</td>';
+                    echo '<td>' . $venta['sucursal'] . '</td>';
+                    if ($estado == 'PENDIENTE') {
+                        echo '<td>';
+                        echo '<form action="../SCRIPTS/confirmar-pedido.php" method="post">';
+                        echo '<input type="hidden" name="id_venta" value="' . $venta['id_venta'] . '">';
+                        echo '<button type="submit" class="btn btn-success">Confirmar pedido</button>';
+                        echo '</form>';
+                        echo '</td>';
+                    }
+                    echo '</tr>';
+                }
+                echo '</tbody></table>';
+            } else {
+                echo '<div class="alert alert-warning">No se encontraron ventas con el estado seleccionado.</div>';
+            }
+        }
+        ?>
+    </div>  
+
+
         <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>

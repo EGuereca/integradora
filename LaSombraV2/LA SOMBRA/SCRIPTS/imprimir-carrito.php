@@ -6,10 +6,14 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 } else {    
-    header("location: ../VIEWS/iniciov2.php");
+    header("location: ../VIEWS/inicio-sesion.php");
     exit();
 }
 
+if($id == '1'){
+    header("location: ../VIEWS/iniciov2.php");
+    exit();
+}
 
 include "../CLASS/database.php";
 $db = new Database();
@@ -31,7 +35,7 @@ $stmtCliente->execute();
 $idCliente = $stmtCliente->fetch(PDO::FETCH_ASSOC)['id'];
 
 if ($idCliente === null) {
-    echo "Cliente no encontrado.";
+    header("location: ../VIEWS/iniciov2.php");
     exit();
 }
 
@@ -49,7 +53,7 @@ $q_productos = "
 
 $update = "
     UPDATE venta 
-    SET estado = 'PENDIENTE' 
+    SET estado = 'PENDIENTE', sucursal = :idsucursal
     WHERE id_venta = (
         SELECT id_venta  
         FROM venta 
@@ -63,6 +67,10 @@ $insert = "
     VALUES(:idCliente, 'CARRITO', 'LINEA')
 ";
 
+
+
+
+
 $stmtProductos = $conexion->prepare($q_productos);
 $stmtProductos->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtProductos->execute();
@@ -70,8 +78,12 @@ $stmtProductos->execute();
 $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_POST['btn'])) {    
+    $sucu = $_POST['sucursal'];
+
+
     $stmtUpdate = $conexion->prepare($update);
     $stmtUpdate->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
+    $stmtUpdate->bindParam(':idsucursal', $sucu, PDO::PARAM_INT);
     $stmtUpdate->execute();
 
     $stmtInsert = $conexion->prepare($insert);

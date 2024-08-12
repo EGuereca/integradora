@@ -192,3 +192,52 @@ input{
 h2{
     padding-left: 30px;
 }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="number"],
+.form-group input[type="datetime"],
+select.form-select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+textarea {
+    resize: vertical;
+}
+
+#btnregistrar{
+    background-color: rgb(30, 143, 30);
+    color: white;
+    
+}
+#btnresgistrar:hover{
+        background-color: green;
+        color: white;
+        
+}
+
+#regprod{
+    background-color: rgb(30, 143, 30);
+    color: white;
+    
+    }
+    #regprod:hover{
+        background-color: green;
+        color: white;
+        
+        }
+    

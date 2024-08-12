@@ -56,7 +56,7 @@ $hoy = date('Y-m-d');
                         <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dash-apartados.php">APARTADOS</a>
+                        <a class="nav-link" href="../VIEWS/dash-apartados.php">PEDIDOS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
@@ -124,11 +124,11 @@ $hoy = date('Y-m-d');
         </select>
         </div>
         <div class="col-lg-3 col-sm-6 p-1">
-      <button class="btn boton btn-outline-success" type="submit" name="btn-aplicar">Aplicar</button>
+      <button  id="btnaplicar" class="btn boton" type="submit" name="btn-aplicar">Aplicar</button>
       </div>
     </form>
 
-    <button type="button" class="btn btn-primary offset-4 col-4" data-bs-toggle="modal" 
+    <button id="btncita" type="button" class="btn offset-4 col-4" data-bs-toggle="modal" 
     data-bs-target="#exampleModal"> Registrar Cita </button>
     
     </div>
@@ -163,7 +163,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
                     <td>" . htmlspecialchars($row["fecha"]) . "</td>
                     <td>" . htmlspecialchars($row["sucursal"]) . "</td>
                     <td>" . htmlspecialchars($row["telefono"]) . "</td>
-                  </tr>";
+                    </tr>";
             }
             else {
                 echo "<tr>
@@ -174,7 +174,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
                 <td>" . htmlspecialchars($row["fecha"]) . "</td>
                 <td>" . htmlspecialchars($row["sucursal"]) . "</td>
                 <td>" . htmlspecialchars($row["telefono"]) . "</td>
-              </tr>";
+                </tr>";
             }            
         }
         echo "</table><div>";
@@ -195,8 +195,8 @@ $fecha_min = $f->format('Y-m-d\TH:i');
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Citas</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+    </div>
+        <div class="modal-body">
         <form action="" method="post">
         <label for="nombre">Ingrese el nombre del cliente</label>
         <input type="text" name="nombre" id="nombre"> <br>
@@ -254,11 +254,11 @@ $fecha_min = $f->format('Y-m-d\TH:i');
                     <legend>Comentarios:</legend>
                     <textarea name="coments" class="form-control" rows="5"></textarea><br><br>
 
-                <button type="submit" name="btnreg" class="btn btn-primary">Registrar Cita</button>
+                <button id="regcita" type="submit" name="btnreg" class="btn">Registrar Cita</button>
         </form>     
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>        
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>        
       </div>
     </div>
   </div>
