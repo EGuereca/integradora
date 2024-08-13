@@ -19,7 +19,7 @@ if (isset($_POST["btncrearclient"])) {
             $email = $_POST["email"];
             $telefono = $_POST["telefono"];
 
-            // Verificación de si el nombre de usuario ya existe
+       
             $checkUser = $conexion->prepare("SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = :usuario");
             $checkUser->bindParam(':usuario', $usuario, PDO::PARAM_STR);
             $checkUser->execute();
@@ -28,7 +28,7 @@ if (isset($_POST["btncrearclient"])) {
             if ($userExists > 0) {
                 echo "<p style='color: red;'>Este nombre de usuario ya está siendo utilizado.</p>";
             } else {
-                // Verificación de si el correo electrónico ya existe
+                
                 $checkEmail = $conexion->prepare("SELECT COUNT(*) FROM usuarios WHERE email = :email");
                 $checkEmail->bindParam(':email', $email, PDO::PARAM_STR);
                 $checkEmail->execute();
@@ -37,7 +37,7 @@ if (isset($_POST["btncrearclient"])) {
                 if ($emailExists > 0) {
                     echo "<p style='color: red;'>Este correo electrónico ya está registrado.</p>";
                 } else {
-                    // Verificación de si el teléfono ya existe
+                    
                     $checkPhone = $conexion->prepare("SELECT COUNT(*) FROM usuarios WHERE telefono = :telefono");
                     $checkPhone->bindParam(':telefono', $telefono, PDO::PARAM_STR);
                     $checkPhone->execute();
@@ -46,7 +46,7 @@ if (isset($_POST["btncrearclient"])) {
                     if ($phoneExists > 0) {
                         echo "<p style='color: red;'>Este número de teléfono ya está registrado.</p>";
                     } else {
-                        // Si usuario, correo y teléfono no existen, procede con el registro
+                        
                         $stmt = $conexion->prepare("CALL REGISTRO_CLIENTES(?,?,?,?)");
 
                         $stmt->bindParam(1, $usuario, PDO::PARAM_STR);
@@ -55,7 +55,7 @@ if (isset($_POST["btncrearclient"])) {
                         $stmt->bindParam(4, $telefono, PDO::PARAM_STR);
                         $stmt->execute();
 
-                        // Obtener el ID del usuario recién registrado
+                        
                         $ns = $conexion->prepare("SELECT id_usuario FROM usuarios ORDER BY id_usuario DESC LIMIT 1");
                         $ns->execute();
                         $id = $ns->fetch(PDO::FETCH_ASSOC)['id_usuario'];
