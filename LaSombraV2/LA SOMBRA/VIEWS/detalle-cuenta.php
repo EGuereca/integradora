@@ -133,16 +133,46 @@ include "../SCRIPTS/detalle-usuario.php";
                 <p><strong>Email :</strong> <?php echo htmlspecialchars($user['email']); ?></p>
                 <p><strong>Telefono :</strong> <?php echo htmlspecialchars($user['telefono']); ?></p>
                 <br>
-                <button class="btn btn-success" id="actu"><a  href="updateuser.php?upd=<?=$iduser?>">Actualizar datos</a></button>
+                <button class="btn btn-success" id="actu"><a href="updateuser.php?upd=<?=$iduser?>">Actualizar datos</a></button>
                 <br><br>
                 <a id="actu" class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
-                            <button id="cerrar" class="btn btn-danger"> Cerrar Sesion</button>
+                    <button id="cerrar" class="btn btn-danger">Cerrar Sesión</button>
                 </a>
             <?php else: ?>
                 <p>No se encontraron datos del usuario.</p>
             <?php endif; ?>
         </div>
-<!-- PEDIDOS EN ESPERA -->
+        <br><br>
+        <div class="detalles-venta">
+            <?php if (isset($_POST['ver_detalles'])): ?>
+            <h2>Detalles del Pedido: <?php echo htmlspecialchars($_POST['venta_id']); ?></h2>
+                <?php if ($detalles && count($detalles) > 0): ?>
+                            <table class="table table-dark table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio del producto</th>
+                                    <th>Cantidad de producto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($detalles as  $detalle): ?>
+                            <tr>
+                                <td><?php  echo htmlspecialchars($detalle['nombre']); ?> </td>
+                                <td><?php echo htmlspecialchars($detalle['precio']); ?></td>
+                                <td><?php echo htmlspecialchars($detalle['cantidad']); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                            </table>
+                    
+                <?php else: ?>
+                    <p>No se encontraron detalles para este pedido.</p>
+                <?php endif; ?>
+            <?php endif; ?>
+</div>
+
+        <!-- PEDIDOS EN ESPERA -->
         <div class="historial">
             <h1>Pedidos pendientes a completar:</h1>
             <?php if ($pendientes && count($pendientes) > 0): ?>
@@ -154,6 +184,7 @@ include "../SCRIPTS/detalle-usuario.php";
                         <th>Total</th>
                         <th>Estado</th>
                         <th>Nombre de la Sucursal</th>
+                        <th>Detalles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,17 +195,22 @@ include "../SCRIPTS/detalle-usuario.php";
                             <td><?php echo htmlspecialchars($pen['monto_total']); ?></td>
                             <td><?php echo htmlspecialchars($pen['estado']); ?></td>
                             <td><?php echo htmlspecialchars($pen['sucursal']); ?></td>
+                            <td>
+                                <form method="post" action="">
+                                    <input type="hidden" name="venta_id" value="<?php echo $pen['ID']; ?>">
+                                    <button type="submit" name="ver_detalles" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        <?php else: ?>
-            <p>No se encontraron pedidos pendientes a recoger.</p>
-        <?php endif; ?>
+            <?php else: ?>
+                <p>No se encontraron pedidos pendientes a recoger.</p>
+            <?php endif; ?>
         </div>
-    
 
-    <!--PEDIDOS COMPLETADOS-->
+        <!-- PEDIDOS COMPLETADOS -->
         <div class="historial">
             <h1>Historial de pedidos</h1>
             <?php if ($completadas && count($completadas) > 0): ?>
@@ -186,6 +222,7 @@ include "../SCRIPTS/detalle-usuario.php";
                         <th>Total</th>
                         <th>Estado</th>
                         <th>Nombre de la Sucursal</th>
+                        <th>Detalles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -196,20 +233,24 @@ include "../SCRIPTS/detalle-usuario.php";
                             <td><?php echo htmlspecialchars($venta['monto_total']); ?></td>
                             <td><?php echo htmlspecialchars($venta['estado']); ?></td>
                             <td><?php echo htmlspecialchars($venta['sucursal']); ?></td>
+                            <td>
+                                <form method="post" action="">
+                                    <input type="hidden" name="venta_id" value="<?php echo $venta['ID']; ?>">
+                                    <button type="submit" name="ver_detalles" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        <?php else: ?>
-            <p>No se encontraron pedidos completados.</p>
-        <?php endif; ?>
+            <?php else: ?>
+                <p>No se encontraron pedidos completados.</p>
+            <?php endif; ?>
         </div>
-
     </div>
-
-    
-
 </div>
+
+
 
 
 
