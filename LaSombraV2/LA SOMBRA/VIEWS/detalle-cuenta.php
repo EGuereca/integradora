@@ -124,7 +124,7 @@ include "../SCRIPTS/detalle-usuario.php";
 
 
 <div class="todo">
-    
+    <!-- DATOS DE USUARIO -->
     <div id="data" class="container data">
         <div class="detalles">
             <h1>Detalles</h1>
@@ -142,7 +142,39 @@ include "../SCRIPTS/detalle-usuario.php";
                 <p>No se encontraron datos del usuario.</p>
             <?php endif; ?>
         </div>
+<!-- PEDIDOS EN ESPERA -->
+        <div class="historial">
+            <h1>Pedidos pendientes a completar:</h1>
+            <?php if ($pendientes && count($pendientes) > 0): ?>
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID Venta</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Nombre de la Sucursal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($pendientes as $pen): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($pen['ID']); ?></td>
+                            <td><?php echo htmlspecialchars($pen['fecha_venta']); ?></td>
+                            <td><?php echo htmlspecialchars($pen['monto_total']); ?></td>
+                            <td><?php echo htmlspecialchars($pen['estado']); ?></td>
+                            <td><?php echo htmlspecialchars($pen['sucursal']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No se encontraron pedidos pendientes a recoger.</p>
+        <?php endif; ?>
+        </div>
+    
 
+    <!--PEDIDOS COMPLETADOS-->
         <div class="historial">
             <h1>Historial de pedidos</h1>
             <?php if ($completadas && count($completadas) > 0): ?>
@@ -172,6 +204,7 @@ include "../SCRIPTS/detalle-usuario.php";
             <p>No se encontraron pedidos completados.</p>
         <?php endif; ?>
         </div>
+
     </div>
 
     
