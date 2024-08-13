@@ -39,9 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':sucursal', $sucursal);
 
         if ($stmt->execute()) {
-            echo "Reabastecimiento registrado exitosamente.";
+            header("location: ../VIEWS/reabastecimiento.php");
+            exit();
         } else {
             echo "Error al registrar el reabastecimiento.";
+            header("refresh:3  ; ../VIEWS/reabastecimiento.php");
+            exit();
         }
     }
 }

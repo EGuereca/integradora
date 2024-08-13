@@ -29,13 +29,9 @@ include '../SCRIPTS/llenar-venta.php';
 
 <div class="container" id="in">
         <div class="search-bar mb-3">
-            <form action="" method="post">
-                <select name="pago" id="">
-                    <option value="EFECTIVO">EFECTIVO</option>
-                    <option value="TARJETA">TARJETA</option>
-                </select>
-                <button type="submit" name="registrar_venta">Registrar Venta</button>                
-            </form>
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                REGISTRAR
+            </button>            
         </div>
         <?php
             if($_SESSION['sucursal'] == null){
@@ -44,11 +40,11 @@ include '../SCRIPTS/llenar-venta.php';
         <?php } 
                 else{        
         ?>
+
         <div class="row">      
         <?php
         if (!empty($productos)) {
-            foreach ($productos as $row) { ?>
-
+            foreach ($productos as $row) { ?>                
                 <div class="col-lg-3 col-sm-12">
                 <div class="card mb-3">                
                     <div class="card-img-container">
@@ -82,7 +78,47 @@ include '../SCRIPTS/llenar-venta.php';
             </div>            
         <?php } ?>
     </div>
-                        
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+  <div class="offcanvas-header">    
+    <h5 class="offcanvas-title" id="staticBackdropLabel">REGISTRO</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>            
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach ($details as $row) {?>
+                <tr>
+                    <td><?php echo $row['nombre']; ?></td>
+                    <td><?php echo $row['cantidad']; ?></td>
+                    <td><?php echo $row['precio']; ?></td>
+                    <td>
+                        <form action="" method="post">
+                            <input type="hidden" name="dv" value="<?php echo $row['id'];?>">
+                            <button type="submit" name="eliminar">Eliminar</button>
+                        </form>
+                    </td>                    
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <form action="" method="post">
+                <select name="pago" id="">
+                    <option value="EFECTIVO">EFECTIVO</option>
+                    <option value="TARJETA">TARJETA</option>
+                </select>
+                <button type="submit" name="registrar_venta">Registrar Venta</button>                
+    </form>
+  </div>
+</div>
     
 </body>
 </html>

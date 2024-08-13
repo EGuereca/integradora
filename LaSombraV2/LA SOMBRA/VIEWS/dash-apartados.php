@@ -93,9 +93,9 @@
             $sql = "SELECT v.id_venta, u.nombre_usuario, v.estado, v.tipo_venta, v.monto_total, s.nombre AS sucursal
                     FROM venta v
                     JOIN cliente c ON v.id_cliente = c.id_cliente
-                    JOIN persona p ON c.persona = p.id_persona
-                    JOIN usuarios u ON p.usuario = u.id_usuario
-                    JOIN sucursales s ON v.sucursal = s.id_sucursal
+                    LEFT JOIN persona p ON c.persona = p.id_persona
+                    LEFT JOIN usuarios u ON p.usuario = u.id_usuario
+                    LEFT JOIN sucursales s ON v.sucursal = s.id_sucursal
                     WHERE v.id_venta = :numero_pedido AND v.estado = :estado";
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':numero_pedido', $numero_pedido);
