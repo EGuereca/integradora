@@ -17,13 +17,12 @@ $fecha_hora = isset($_POST["datetime"]) ? $_POST["datetime"] : '';
 $comentarios = isset($_POST["coments"]) ? $_POST["coments"] : '';
 $costo = isset($_POST["costo"]) ? $_POST["costo"] : '';
 
-$tipo = '';
+$tipo_perforacion = '';
 if (isset($_POST["perfo"])) {
     if ($_POST["perfo"] == 'otro') {
-        $marca = $_POST["extra"];
-    }
-    else  {
-        $marca = isset($_POST["perfo"]);
+        $tipo_perforacion = $_POST["extra"];
+    } else {
+        $tipo_perforacion = $_POST["perfo"];
     }
 }
 
@@ -73,7 +72,7 @@ VALUES(?,?,?,?,?,?,?,?)");
 if (isset($_POST['btnreg'])) {
     $insert->bindParam(1, $nombre, PDO::PARAM_STR);
     $insert->bindParam(2, $empleado, PDO::PARAM_INT);
-    $insert->bindParam(3, $tipo, PDO::PARAM_STR);
+    $insert->bindParam(3, $tipo_perforacion, PDO::PARAM_STR);
     $insert->bindParam(4, $fecha_hora, PDO::PARAM_STR);
     $insert->bindParam(5, $sucursal, PDO::PARAM_INT);
     $insert->bindParam(6, $comentarios, PDO::PARAM_STR);
