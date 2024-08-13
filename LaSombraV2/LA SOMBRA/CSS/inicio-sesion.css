@@ -97,3 +97,14 @@ body {
         padding: 12px;
     }
 }
+
+.back {
+    color: lightgreen;
+    text-decoration: none;
+}
+
+.create-account{
+    color: lightgreen;
+    text-decoration: none;
+}
+
