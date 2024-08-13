@@ -38,7 +38,7 @@ if (isset($_POST["btningreso"])) {
                 exit();
             }
             else {
-                header("location: ../VIEWS/dash-ventas.php");
+                header("location: ../VIEWS/dashboard.php");
                 exit();
             }
         } else {

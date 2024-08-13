@@ -198,7 +198,7 @@ include "../SCRIPTS/detalle-usuario.php";
                             <td>
                                 <form method="post" action="">
                                     <input type="hidden" name="venta_id" value="<?php echo $pen['ID']; ?>">
-                                    <button type="submit" name="ver_detalles" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
+                                    <button type="submit" name="ver_detalles" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
                                 </form>
                             </td>
                         </tr>
@@ -236,7 +236,7 @@ include "../SCRIPTS/detalle-usuario.php";
                             <td>
                                 <form method="post" action="">
                                     <input type="hidden" name="venta_id" value="<?php echo $venta['ID']; ?>">
-                                    <button type="submit" name="ver_detalles" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
+                                    <button type="submit" name="ver_detalles" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
                                 </form>
                             </td>
                         </tr>
