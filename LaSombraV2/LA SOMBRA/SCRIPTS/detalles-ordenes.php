@@ -49,10 +49,10 @@ if ($iduser) {
         if (isset($_POST['ver_detalles'])) {
             $idVenta = $_POST['venta_id'];
             $stmt_detalles = $pdo->prepare("
-                SELECT p.nombre, p.precio, dv.cantidad
-                FROM detalle_venta dv
-                JOIN productos p ON dv.producto = p.id_producto
-                WHERE dv.venta = :idVenta;
+                SELECT p.nombre, dv.cantidad
+                FROM detalle_venta dv 
+                JOIN productos p ON dv.producto = p.id_producto 
+                WHERE dv.venta = :idVenta
             ");
             $stmt_detalles->bindParam(':idVenta', $idVenta, PDO::PARAM_INT);
             $stmt_detalles->execute();
@@ -70,4 +70,17 @@ if ($iduser) {
 }
 ?>
 
-
+<div class="detalles-venta">
+    <?php if (isset($_POST['ver_detalles'])): ?>
+        <h2>Detalles del Pedido ID: <?php echo htmlspecialchars($_POST['venta_id']); ?></h2>
+        <?php if ($detalles && count($detalles) > 0): ?>
+            <ul>
+                <?php foreach ($detalles as $detalle): ?>
+                    <li><?php echo htmlspecialchars($detalle['nombre']); ?> - Cantidad: <?php echo htmlspecialchars($detalle['cantidad']); ?> - Precio: $<?php echo htmlspecialchars($detalle['precio']); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>No se encontraron detalles para este pedido.</p>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
