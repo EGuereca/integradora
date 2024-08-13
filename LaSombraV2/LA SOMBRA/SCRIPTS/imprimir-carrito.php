@@ -39,6 +39,18 @@ if ($idCliente === null) {
     exit();
 }
 
+// Consulta para verificar si hay algún pedido pendiente
+$queryPedidoPendiente = "
+    SELECT COUNT(*) AS pendientes 
+    FROM venta 
+    WHERE id_cliente = :idCliente 
+    AND estado = 'PENDIENTE'
+";
+$stmtPendiente = $conexion->prepare($queryPedidoPendiente);
+$stmtPendiente->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
+$stmtPendiente->execute();
+$pedidoPendiente = $stmtPendiente->fetch(PDO::FETCH_ASSOC)['pendientes'];
+
 $q_productos = "
     SELECT dv.cantidad AS cantidad, p.nombre AS nombre, p.precio AS precio
     FROM detalle_venta AS dv

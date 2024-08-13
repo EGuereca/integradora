@@ -39,7 +39,18 @@ if($iduser){
                 }
 
 
-            
+        $stmt_pendientes = $pdo ->prepare("SELECT v.id_venta as ID, v.fecha_venta as fecha_venta, v.monto_total as monto_total, v.estado as estado, s.nombre as sucursal
+                FROM venta v 
+                JOIN cliente c ON v.id_cliente = c.id_cliente
+                JOIN persona p ON c.persona = p.id_persona
+                JOIN usuarios u  ON p.usuario = u.id_usuario
+                JOIN sucursales s ON v.sucursal = s.id_sucursal
+                WHERE u.id_usuario = :id AND v.estado = 'PENDIENTE'");
+        
+        $stmt_pendientes->bindParam(':id', $iduser, PDO::PARAM_INT);
+        $stmt_pendientes->execute();
+
+        $pendientes = $stmt_pendientes->fetchAll(PDO::FETCH_ASSOC);
 
 }catch (PDOException $e) {
     echo "Error: " . $e->getMessage();

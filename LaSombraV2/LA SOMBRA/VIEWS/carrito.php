@@ -181,8 +181,11 @@ elseif ($_SESSION['rol'] != 3) {
                     <option value="1">Matamoros</option>
                     <option value="2">Nazas</option>
                 </select>
-
-                <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+                <?php if ($pedidoPendiente == 0) { ?>
+                        <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+                    <?php } else { ?>
+                        <p>Tienes un pedido pendiente. Espera a que se confirme antes de hacer un nuevo pedido.</p>
+                    <?php } ?>
             </div>      
             </form>
         </div>
