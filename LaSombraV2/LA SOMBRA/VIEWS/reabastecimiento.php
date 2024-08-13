@@ -121,42 +121,39 @@ include '../SCRIPTS/dsh-reabas.php';
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Precio</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-        <div class="modal-body">
+      </div>
+      <div class="modal-body">
 
-        <form action="" method="post" id="form-producto">
-          
-
-        <label for="producto">Producto:</label>
-        <select class="form-select" aria-label="Default select example" name="producto" id="producto" required>
+        <!-- Formulario para seleccionar producto -->
+        <form action="" method="post" id="form-producto-precio">
+          <label for="producto">Producto:</label>
+          <select class="form-select" aria-label="Default select example" name="producto" id="producto-precio" required>
             <option value="">Seleccione un producto</option>
             <?php 
-                $sql = "SELECT id_producto, nombre FROM productos";
-                $stmt = $conexion->prepare($sql);
-                $stmt->execute();
-                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-                foreach ($productos as $producto) {
-                  $selected = (isset($_POST['producto']) && $_POST['producto'] == $producto['id_producto']) ? 'selected' : '';
-                  echo "<option value='{$producto['id_producto']}' $selected>{$producto['nombre']}</option>";
+              $sql = "SELECT id_producto, nombre FROM productos";
+              $stmt = $conexion->prepare($sql);
+              $stmt->execute();
+              $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+              foreach ($productos as $producto) {
+                $selected = (isset($_POST['producto']) && $_POST['producto'] == $producto['id_producto']) ? 'selected' : '';
+                echo "<option value='{$producto['id_producto']}' $selected>{$producto['nombre']}</option>";
               }
-                ?>         
-        </select> <br>
+            ?>         
+          </select> <br>
         </form>
         
-        <!-- Formulario para registro de reabastecimiento -->
+        <!-- Formulario para actualizar el precio del proveedor -->
         <form action="../SCRIPTS/register_preciopro.php" method="post">
-        <!-- Campo oculto para mantener el producto seleccionado -->
-        <input type="hidden" name="producto" value="<?php echo isset($_POST['producto']) ? $_POST['producto'] : ''; ?>">
+          <!-- Campo oculto para mantener el producto seleccionado -->
+          <input type="hidden" name="producto" value="<?php echo isset($_POST['producto']) ? $_POST['producto'] : ''; ?>">
 
-
-        <form action="../SCRIPTS/register_reabastecimiento.php" method="post">
-            <!-- Selección del Proveedor -->
-        <label for="proveedor">Proveedor:</label>
-        <select name="proveedor" id="proveedor" required>
+          <!-- Selección del Proveedor -->
+          <label for="proveedor">Proveedor:</label>
+          <select name="proveedor" id="proveedor-precio" required>
             <option value="">Seleccione un proveedor:</option>
             <?php
-            if (isset($_POST['producto'])) {
+              if (isset($_POST['producto'])) {
                 $producto_id = $_POST['producto'];
 
                 $sql = "SELECT pp.id_provee_producto, p.nombre
@@ -169,34 +166,31 @@ include '../SCRIPTS/dsh-reabas.php';
                 $proveedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($proveedores as $proveedor) {
-                    echo "<option value='{$proveedor['id_provee_producto']}'>{$proveedor['nombre']}</option>";
+                  echo "<option value='{$proveedor['id_provee_producto']}'>{$proveedor['nombre']}</option>";
                 }
-            }
+              }
             ?>
-        </select>
-        <br><br>
+          </select>
+          <br><br>
 
-            <!-- Cantidad -->
-        <div class="form-group">
+          <!-- Cantidad -->
+          <div class="form-group">
             <label for="cantidad">Precio unitario:</label>
             <input type="number" name="cantidad" id="cantidad" required>
-        </div>
-        
+          </div>
 
-        <!-- Botón de Enviar -->
-        <button type="submit" class="btn btn-success" name="submit" value="Registrar">Registrar</button>
-  
-
+          <!-- Botón de Enviar -->
+          <button type="submit" class="btn btn-success" name="submit" value="Registrar">Registrar</button>
         </form>     
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>        
       </div>
       <script>
-        document.getElementById('producto').addEventListener('change', function() {
-            document.getElementById('form-producto').submit();
+        document.getElementById('producto-precio').addEventListener('change', function() {
+          document.getElementById('form-producto-precio').submit();
         });
-    </script>
+      </script>
     </div>
   </div>
 </div>
@@ -207,44 +201,41 @@ include '../SCRIPTS/dsh-reabas.php';
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Citas</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Compra</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-        <div class="modal-body">
+      </div>
+      <div class="modal-body">
 
-        <form action="" method="post" id="form-producto">
-          
-
-        <label for="producto">Producto:</label>
-        <select class="form-select" aria-label="Default select example" name="producto" id="producto" required>
+        <!-- Formulario para seleccionar producto -->
+        <form action="" method="post" id="form-producto-reabastecimiento">
+          <label for="producto">Producto:</label>
+          <select class="form-select" aria-label="Default select example" name="producto" id="producto-reabastecimiento" required>
             <option value="">Seleccione un producto</option>
             <?php 
-                $sql = "SELECT id_producto, nombre FROM productos";
-                $stmt = $conexion->prepare($sql);
-                $stmt->execute();
-                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-                foreach ($productos as $producto) {
-                    $selected = (isset($_POST['producto']) && $_POST['producto'] == $producto['id_producto']) ? 'selected' : '';
-                    echo "<option value='{$producto['id_producto']}' $selected>{$producto['nombre']}</option>";
+              $sql = "SELECT id_producto, nombre FROM productos";
+              $stmt = $conexion->prepare($sql);
+              $stmt->execute();
+              $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+              foreach ($productos as $producto) {
+                $selected = (isset($_POST['producto']) && $_POST['producto'] == $producto['id_producto']) ? 'selected' : '';
+                echo "<option value='{$producto['id_producto']}' $selected>{$producto['nombre']}</option>";
               }
-                ?>         
-        </select> <br>
+            ?>         
+          </select> <br>
         </form>
         
         <!-- Formulario para registro de reabastecimiento -->
         <form action="../SCRIPTS/register_reabastecimiento.php" method="post">
-        <!-- Campo oculto para mantener el producto seleccionado -->
-        <input type="hidden" name="producto" value="<?php echo isset($_POST['producto']) ? $_POST['producto'] : ''; ?>">
+          <!-- Campo oculto para mantener el producto seleccionado -->
+          <input type="hidden" name="producto" value="<?php echo isset($_POST['producto']) ? $_POST['producto'] : ''; ?>">
 
-
-        <form action="../SCRIPTS/register_reabastecimiento.php" method="post">
-            <!-- Selección del Proveedor -->
-        <label for="proveedor">Proveedor:</label>
-        <select name="proveedor" id="proveedor" required>
+          <!-- Selección del Proveedor -->
+          <label for="proveedor">Proveedor:</label>
+          <select name="proveedor" id="proveedor-reabastecimiento" required>
             <option value="">Seleccione un proveedor:</option>
             <?php
-            if (isset($_POST['producto'])) {
+              if (isset($_POST['producto'])) {
                 $producto_id = $_POST['producto'];
 
                 $sql = "SELECT pp.id_provee_producto, p.nombre
@@ -257,64 +248,58 @@ include '../SCRIPTS/dsh-reabas.php';
                 $proveedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($proveedores as $proveedor) {
-                    echo "<option value='{$proveedor['id_provee_producto']}'>{$proveedor['nombre']}</option>";
+                  echo "<option value='{$proveedor['id_provee_producto']}'>{$proveedor['nombre']}</option>";
                 }
-            }
+              }
             ?>
-        </select>
-        <br><br>
+          </select>
+          <br><br>
 
-        <label for="sucursal">Sucursal:</label>
-        <select name="sucursal" id="sucursal" required>
+          <!-- Selección de Sucursal -->
+          <label for="sucursal">Sucursal:</label>
+          <select name="sucursal" id="sucursal" required>
             <option value="">Seleccione una sucursal:</option>
             <?php
-            // Consulta de sucursales
-            $sql = "SELECT id_sucursal, nombre FROM sucursales";
-            $stmt = $conexion->prepare($sql);
-            $stmt->execute();
-            $sucursales = $stmt->fetchAll(PDO::FETCH_ASSOC);
+              // Consulta de sucursales
+              $sql = "SELECT id_sucursal, nombre FROM sucursales";
+              $stmt = $conexion->prepare($sql);
+              $stmt->execute();
+              $sucursales = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($sucursales as $sucursal) {
+              foreach ($sucursales as $sucursal) {
                 echo "<option value='{$sucursal['id_sucursal']}'>{$sucursal['nombre']}</option>";
-            }
+              }
             ?>
-        </select>
-        <br><br>
+          </select>
+          <br><br>
 
-            <!-- Cantidad -->
-        <div class="form-group">
+          <!-- Cantidad -->
+          <div class="form-group">
             <label for="cantidad">Cantidad:</label>
             <input type="number" name="cantidad" id="cantidad" required>
-        </div>
-        
-        
-        
+          </div>
 
-        <!-- Fecha de Reabastecimiento -->
-        <div class="form-group">
+          <!-- Fecha de Reabastecimiento -->
+          <div class="form-group">
             <label for="fecha">Fecha de Reabastecimiento:</label>
             <input type="datetime-local" name="fecha" id="fecha" required>
-        </div>
-        
+          </div>
 
-        <!-- Botón de Enviar -->
-        <button type="submit" class="btn btn-success" name="submit" value="Registrar">Registrar</button>
-  
-
+          <!-- Botón de Enviar -->
+          <button type="submit" class="btn btn-success" name="submit" value="Registrar">Registrar</button>
         </form>     
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>        
       </div>
       <script>
-        document.getElementById('producto').addEventListener('change', function() {
-            document.getElementById('form-producto').submit();
+        document.getElementById('producto-reabastecimiento').addEventListener('change', function() {
+          document.getElementById('form-producto-reabastecimiento').submit();
         });
-    </script>
+      </script>
     </div>
   </div>
 </div>
-
 
 </div>
 </div>
