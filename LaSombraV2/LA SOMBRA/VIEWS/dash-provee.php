@@ -14,6 +14,8 @@ include '../SCRIPTS/provee-dsh.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
+
     <title>Proveedor</title>
     <link rel="stylesheet" href="../CSS/dash-provee.css">
 </head>
@@ -85,8 +87,8 @@ include '../SCRIPTS/provee-dsh.php';
   <?php 
     if ($_SESSION["rol"] == 1 ) { ?>
         <div class="botonprinci">
-            <button id="botonprinci" type='button' class='btn' data-bs-toggle='modal' 
-            data-bs-target='#exampleModal'> Registrar Proveedor </button>
+        <button id="botonprinci" type='button' class='btn btn-success' data-bs-toggle='modal' 
+        data-bs-target='#exampleModal'> Registrar Proveedor </button>
         </div>
         
     <?php }
@@ -100,6 +102,7 @@ include '../SCRIPTS/provee-dsh.php';
                     <th>NOMBRE</th>
                     <th>TELEFONO</th>
                     <th>PAGINA</th>
+                    <th></th>
                 </tr>";
                 foreach ($results as $row) {
                     if ($row['telefono'] == null) { $telefono = "-";} else{ $telefono = $row['telefono'];}
@@ -108,6 +111,10 @@ include '../SCRIPTS/provee-dsh.php';
                             <td>" . htmlspecialchars($row["nombre"]) . "</td>
                             <td>" . htmlspecialchars($telefono) . "</td>
                             <td>" . htmlspecialchars($pagina) . "</td>
+                            <td>
+                        <a href='modificar-proveedor.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
+                    </td>
+                           
                             </tr>";                    
         }
         echo "</table></div>";

@@ -154,7 +154,7 @@ if ($results) {
                 <th>Fecha y Hora</th>
                 <th>Sucursal</th>
                 <th>Telefono</th>
-                <th>Acciones</th>
+                <th></th>
             </tr>";
     foreach ($results as $row) {
         

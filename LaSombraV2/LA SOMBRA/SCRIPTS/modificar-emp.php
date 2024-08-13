@@ -45,7 +45,7 @@ if (isset($_POST["btnupdateemp"])) {
 
     if ($stmt->execute()) {
         echo "Empleado actualizado exitosamente.";
-        header("Location: ../VIEWS/dsh-empl.php"); /
+        header("Location: ../VIEWS/dsh-empl.php"); 
         exit();
     } else {
         echo "Error al actualizar empleado.";
