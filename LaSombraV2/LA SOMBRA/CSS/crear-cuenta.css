@@ -25,6 +25,12 @@ body {
     border-color: green;
     box-shadow: 0 0 15px green;
 }
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none; /* Oculto por defecto */
+}
 
 .container {
     text-align: center;
