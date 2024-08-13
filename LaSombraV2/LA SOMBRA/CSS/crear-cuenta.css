@@ -1,4 +1,3 @@
-/*Body*/
 body {
     background-color: black;
     color: white;
@@ -9,73 +8,109 @@ body {
     height: 100vh;
     margin: 0;
 }
-/*Container*/
-.container {
-    text-align: center;
-}
+
+/* Outer Container */
 .outer-container {
-    border: 2px solid rgb(0, 0, 0); 
-    width: 40%;
-    height: 95%;
-    box-shadow: 1 5px;
-    padding: 10px;           
+    border: 2px solid rgb(0, 0, 0);
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
     border-radius: 15px;
     transition: all 0.3s ease;
+    
+    background-color: #000000;
+}
+
+.outer-container:hover {
+    border-color: green;
     box-shadow: 0 0 15px green;
 }
 
+.container {
+    text-align: center;
+}
 
-
-/*Logo*/
 .container img {
     width: 50%;
+    margin-bottom: 20px;
 }
-/*Titulo*/
+
 .container h2 {
     font-size: 24px;
     margin-bottom: 20px;
 }
-/*Form*/
+
 .form-group {
     margin-bottom: 15px;
 }
+
 .form-group input {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     padding: 10px;
     border: none;
     border-radius: 10px;
     margin-top: 5px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    box-sizing: border-box;
 }
-/*Botones*/
+
 .btn {
-    width: 170px;
+    width: 100%;
+    max-width: 300px;
     font-size: 16px;
     padding: 10px 20px;
     border: none;
     border-radius: 100px;
     cursor: pointer;
-    margin: 10px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    -ms-border-radius: 100px;
-    -o-border-radius: 100px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease;
 }
+
 .btn-green {
     background-color: green;
     color: white;
 }
+
+.btn-green:hover {
+    background-color: #2ecc71;
+}
+
 .btn-grey {
     background-color: grey;
     color: white;
 }
-.back{
+
+.btn-grey:hover {
+    background-color: #7f8c8d;
+}
+
+.back {
     color: lightgreen;
     text-decoration: none;
 }
-.p-back{
+
+.p-back {
     padding-top: 10px;
+}
+
+
+@media (max-width: 600px) {
+    .outer-container {
+        width: 70%;
+        padding: 15px;
+    }
+
+    .container img {
+        width: 60%;
+    }
+
+    .container h2 {
+        font-size: 20px;
+    }
+
+    .form-group input,
+    .btn {
+        font-size: 14px;
+        padding: 12px;
+    }
 }
