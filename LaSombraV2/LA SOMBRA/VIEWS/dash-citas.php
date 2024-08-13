@@ -16,6 +16,8 @@ $hoy = date('Y-m-d');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
+
     <title>CITAS</title>
     <link rel="stylesheet" href="../CSS/dash-citas.css">
 </head>
@@ -141,46 +143,42 @@ $max_fecha->modify('+2 month');
 $fecha_max = $max_fecha->format('Y-m-d\TH:i');
 $fecha_min = $f->format('Y-m-d\TH:i');
 
-    if ($results) {
-        echo "<h2>Resultados de búsqueda:</h2>";
-        echo "<div class='tabla'><table border='1' class= 'table table-striped'>
-                <tr>
-                    <th>ESTADO</th>
-                    <th>Perforador</th>
-                    <th>Cliente</th>
-                    <th>Perforación</th>
-                    <th>Fecha y Hora</th>
-                    <th>Sucursal</th>
-                    <th>Telefono</th>
-                </tr>";
-        foreach ($results as $row) {
-            if ($fecha <= $row['fecha']) {
-                echo "<tr>
-                    <td>PENDIENTE</td>
-                    <td>" . htmlspecialchars($row["perforador"]) . "</td>
-                    <td>" . htmlspecialchars($row["cliente"]) . "</td>
-                    <td>" . htmlspecialchars($row["perforacion"]) . "</td>
-                    <td>" . htmlspecialchars($row["fecha"]) . "</td>
-                    <td>" . htmlspecialchars($row["sucursal"]) . "</td>
-                    <td>" . htmlspecialchars($row["telefono"]) . "</td>
-                    </tr>";
-            }
-            else {
-                echo "<tr>
-                <td>COMPLETADA</td>
-                <td>" . htmlspecialchars($row["perforador"]) . "</td>
-                <td>" . htmlspecialchars($row["cliente"]) . "</td>
-                <td>" . htmlspecialchars($row["perforacion"]) . "</td>
-                <td>" . htmlspecialchars($row["fecha"]) . "</td>
-                <td>" . htmlspecialchars($row["sucursal"]) . "</td>
-                <td>" . htmlspecialchars($row["telefono"]) . "</td>
-                </tr>";
-            }            
-        }
-        echo "</table><div>";
-    } else {
-        echo "<p>No se encontraron citas.</p>";
+if ($results) {
+    echo "<h2>Resultados de búsqueda:</h2>";
+    echo "<div class='tabla'><table border='1' class='table table-striped'>
+            <tr>
+                <th>ESTADO</th>
+                <th>Perforador</th>
+                <th>Cliente</th>
+                <th>Perforación</th>
+                <th>Fecha y Hora</th>
+                <th>Sucursal</th>
+                <th>Telefono</th>
+                <th>Acciones</th>
+            </tr>";
+    foreach ($results as $row) {
+        
+        $estado = ($fecha <= $row['fecha']) ? "PENDIENTE" : "COMPLETADA";
+
+        
+        echo "<tr>
+            <td>" . htmlspecialchars($estado) . "</td>
+            <td>" . htmlspecialchars($row["perforador"]) . "</td>
+            <td>" . htmlspecialchars($row["cliente"]) . "</td>
+            <td>" . htmlspecialchars($row["perforacion"]) . "</td>
+            <td>" . htmlspecialchars($row["fecha"]) . "</td>
+            <td>" . htmlspecialchars($row["sucursal"]) . "</td>
+            <td>" . htmlspecialchars($row["telefono"]) . "</td>
+            <td>
+                <a href='modificar-citas.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
+            </td>
+        </tr>";
     }
+    echo "</table></div>";
+} else {
+    echo "<p>No se encontraron citas.</p>";
+}
+
 ?>
             </div>
             
