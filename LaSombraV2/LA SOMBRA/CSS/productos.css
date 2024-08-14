@@ -125,6 +125,7 @@ body{
 .card {
     background-color: #222;
     color: white;
+    height: 400px;
 }
 .card a{
     color: white;
