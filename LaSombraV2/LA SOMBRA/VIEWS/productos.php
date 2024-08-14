@@ -1,4 +1,6 @@
+
 <?php
+
     define('SESSION_STARTED', true);
     session_start();
 
@@ -27,8 +29,8 @@
     $conexion = $db->getPDO();
 
     $nm_prod = isset($_POST["nm_prod"]) ? $_POST["nm_prod"] : '';
-    $categoria = isset($_POST["categoria"]) ? $_POST["categoria"] : '';
-    $productos_por_pagina = 9;
+    $categoria = isset($_POST["id_categoria"]) ? $_POST["id_categoria"] : '';
+    $productos_por_pagina = 18;
     $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
     $pagina = $pagina > 0 ? $pagina : 1;
     $inicio = ($pagina - 1) * $productos_por_pagina;
@@ -230,7 +232,8 @@
     </div>
     </nav>
 </header>
-
+<?php 
+/*
     <div class="container" id="in">
         <div class="search-bar mb-3">
         <form method="post" action="">
@@ -242,7 +245,6 @@
                     <select class="form-control" name="categoria">
                         <option value="">Todas las Categorías</option>
                         <?php
-                        // Supongamos que tienes una lista de categorías
                         $categorias = $conexion->query("SELECT id_categoria, nombre FROM categorias")->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($categorias as $cat) { ?>
                             <option value="<?php echo $cat['nombre']; ?>" <?php if ($categoria == $cat['nombre']) echo 'selected'; ?>><?php echo $cat['nombre']; ?></option>
@@ -290,6 +292,18 @@
         ?>           
             </div>
 
+<<<<<<< HEAD
+            <div class="paginacion">
+            <?php
+            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+            for ($i = 1; $i <= $total_paginas; $i++) {
+                $active_class = $i == $pagina_actual ? 'active' : '';
+                echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
+            }
+            ?>
+            </div>
+         
+=======
             <nav aria-label="Paginación de productos">
                     <ul class="pagination justify-content-center">
                         <?php if ($pagina > 1) { ?>
@@ -309,16 +323,84 @@
                         <?php } ?>
                     </ul>
                 </nav>
-            
-        <?php /**/  ?>
+        <?php  ?>
+>>>>>>> 0f2b350bf1e4dc433cde8699ffa4192c070745f4
     </div>
+    */?>
+    <div class="container" id="in">
+    <div class="search-bar mb-3">
+        <form method="post" action="">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Buscar artículo..." name="nm_prod" value="<?php echo htmlspecialchars($nm_prod); ?>">
+                </div>
+                <div class="col">
+                    <select class="form-control" name="categoria">
+                        <option value="">Todas las Categorías</option>
+                        <?php
+                        $categorias = $conexion->query("SELECT id_categoria, nombre FROM categorias")->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($categorias as $cat) { ?>
+                            <option value="<?php echo $cat['id_categoria']; ?>" <?php if ($categoria == $cat['id_categoria']) echo 'selected'; ?>><?php echo $cat['nombre']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col">
+                    <select class="form-control" name="sucursal">
+                        <?php foreach ($sucursales as $id => $nombre) { ?>
+                            <option value="<?php echo $id; ?>" <?php if ($sucursal == $id) echo 'selected'; ?>><?php echo $nombre; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">      
+        <?php
+        if (!empty($results)) {
+            foreach ($results as $row) { ?>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="card mb-4">
+                        <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
+                            <div class="card-img-container">                 
+                                <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                                <p class="card-text">$ <?php echo $row['precio']; ?></p>
+                                <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>          
+            <?php
+            }
+        } else {
+            echo "No hay productos disponibles";
+        }
+        ?>           
+    </div>
+
+    <div class="paginacion">
+        <?php
+        $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        for ($i = 1; $i <= $total_paginas; $i++) {
+            $active_class = $i == $pagina_actual ? 'active' : '';
+            echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
+        }
+        ?>
+    </div>
+</div>
         <footer class="footer row">
             <div class="offset-lg-1 col-lg-9 text">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
             </div>
             <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
         </footer>
-    </div>
+    </div> 
+ 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -326,3 +408,7 @@
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>
+
+
+
+

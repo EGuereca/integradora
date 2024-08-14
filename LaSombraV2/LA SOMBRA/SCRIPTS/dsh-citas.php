@@ -32,7 +32,7 @@ FROM empleado AS e
 JOIN persona AS p ON e.persona = p.id_persona 
 JOIN usuarios AS u ON p.usuario = u.id_usuario 
 JOIN rol_usuario AS ru ON u.id_usuario = ru.usuario
-WHERE ru.rol = 7;";
+WHERE ru.rol = 4;";
 
 $sql = "SELECT c.id_cita AS id, e.nombres AS perforador, c.nombre_cliente AS cliente, 
 c.tipo_perforacion AS perforacion, c.fecha_hora AS fecha,

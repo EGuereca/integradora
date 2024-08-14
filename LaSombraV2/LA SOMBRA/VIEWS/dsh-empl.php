@@ -183,7 +183,7 @@ include '../SCRIPTS/empleados-dsh.php';
                     <select class="form-select" aria-label="Default select example" name="rol" require>
                         <option selected value="2">Empleado</option>
                         <option value="1">Administrador</option>
-                        <option value="7">Perforador</option>                        
+                        <option value="4">Perforador</option>                        
                     </select> 
                 </div> 
                 <button id="regemp" type="submit" name="btncrearemp" class="btn">Registrar</button>     

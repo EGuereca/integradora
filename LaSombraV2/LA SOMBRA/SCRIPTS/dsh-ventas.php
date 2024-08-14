@@ -18,7 +18,7 @@ $date = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
 
 $sql = "SELECT DISTINCT v.id_venta AS id, r.monto_total AS total,
 e.nombres AS vendedor FROM venta AS v LEFT JOIN empleado AS e 
-ON v.id_empleado = e.id_empleado JOIN repore_ventas AS r
+ON v.id_empleado = e.id_empleado JOIN reporte_ventas AS r
 ON v.id_venta = r.venta
 WHERE v.estado = 'COMPLETADA'";
 
