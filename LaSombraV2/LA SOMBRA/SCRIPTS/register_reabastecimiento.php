@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['producto']) && !isset($_POST['proveedor'])) {
         $producto_id = $_POST['producto'];
         // Redirecciona de nuevo a la página del formulario para mostrar los proveedores
-        header("Location: ../VIEWS/register_reabastecimiento.php");
+        header("Location: ../VIEWS/reabastecimiento.php");
         exit;
     }
 
@@ -39,9 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':sucursal', $sucursal);
 
         if ($stmt->execute()) {
-            echo "Reabastecimiento registrado exitosamente.";
+            header("location: ../VIEWS/reabastecimiento.php");
+            exit();
         } else {
             echo "Error al registrar el reabastecimiento.";
+            header("refresh:3  ; ../VIEWS/reabastecimiento.php");
+            exit();
         }
     }
 }

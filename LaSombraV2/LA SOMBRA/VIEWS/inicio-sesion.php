@@ -21,8 +21,8 @@
             ?>
             <button type="submit"  name="btningreso" value="INICIAR SESION">Entrar</button>
         </form>
-        <p>¿No tienes cuenta? <a href="../VIEWS/crear-cuenta.php" class="create-account">Crear cuenta</a></p>
-        <p class="p-back"><a href="../VIEWS/iniciov2.php" class="back">Regresar a inicio</a></p>
+        <p>¿No tienes cuenta? <a href="../VIEWS/crear-cuenta.php" class="create-account"><p id="texto">Crear cuenta</p></a></p>
+        <p class="p-back"><a href="../VIEWS/iniciov2.php" class="back"><p id="texto">Regresar a inicio</p></a></p>
     </div>
 </div>
 </body>

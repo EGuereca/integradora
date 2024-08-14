@@ -52,20 +52,37 @@ if (!empty($_POST["btnreg"])) {
         $precio = $_POST["precio"];
         $material = $_POST["material"];
         $descripcion = $_POST["desc"];
+        $url = '';
+        if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
+            $nombreArchivo = $_FILES['img']['name'];
+            $temporal = $_FILES['img']['tmp_name'];
+            $carpeta = '../IMG/PRODUCTOS'; // Ruta donde se guardará la imagen
 
-        // Usar prepare y execute para la consulta de actualización
-        $stmt = $PDOLOCAL->prepare("UPDATE productos SET nombre=:nombre, marca=:marca, 
-            precio=:precio, material=:material, descripcion=:descripcion WHERE id_producto=:id");
+            $url = $carpeta . '/' . $nombreArchivo;
+
+            if (!move_uploaded_file($temporal, $url)) {
+                echo "<div class='alert alert-danger' role='alert'>Hubo un error al subir la imagen.</div>";
+                exit;
+            }
+            $stmt = $PDOLOCAL->prepare("UPDATE productos SET url = :url WHERE id_producto = :id");
+            $stmt->bindParam(':url', $url);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        }
+
         
-        // Vincular los parámetros con las variables
+        $stmt = $PDOLOCAL->prepare("UPDATE productos SET nombre=:nombre, marca=:marca, 
+            precio=:precio, material=:material, descripcion=:descripcion, url=:url WHERE id_producto=:id");
+        
+        
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':marca', $marca);
         $stmt->bindParam(':precio', $precio);
         $stmt->bindParam(':material', $material);
         $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':url', $url);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         
-        // Ejecutar la consulta
+        
         if ($stmt->execute()) {
             header("Location: ../VIEWS/dashboard.php");
             exit();
