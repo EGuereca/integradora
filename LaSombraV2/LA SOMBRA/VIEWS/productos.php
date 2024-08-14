@@ -1,118 +1,7 @@
-
 <?php
-
-    define('SESSION_STARTED', true);
-    session_start();
-
-    $_SESSION['marca'] = null;
-    if (isset($_SESSION['sucursal'])) {
-        $sucursal = $_SESSION['sucursal'];
-    } else {
-        $_SESSION['sucursal'] = null;
-    }
-    include "../CLASS/database.php";
+    include '../SCRIPTS/productos-bien.php';
     require '../SCRIPTS/config-prod.php';
-
-    //sucursales
-    $sucursales = array(
-        '1' => 'Nazas',
-        '2' => 'Matamoros'
-    );
-    if (isset($_POST['sucursal'])) {
-        $_SESSION['sucursal'] = $_POST['sucursal'];
-    }
-
-    $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : 1;
-
-    $db = new Database();
-    $db->conectarBD();
-    $conexion = $db->getPDO();
-
-    $nm_prod = isset($_POST["nm_prod"]) ? $_POST["nm_prod"] : '';
-    $categoria = isset($_POST["id_categoria"]) ? $_POST["id_categoria"] : '';
-    $productos_por_pagina = 18;
-    $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-    $pagina = $pagina > 0 ? $pagina : 1;
-    $inicio = ($pagina - 1) * $productos_por_pagina;
-
-    $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre, 
-            p.precio AS precio, ins.cantidad AS stock, c.nombre AS categoria, p.url
-            FROM productos AS p
-            JOIN producto_categoria AS pc ON p.id_producto = pc.producto
-            JOIN categorias AS c ON pc.categoria = c.id_categoria
-            JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
-            WHERE 1=1";
-
-    // Filtrar por sucursal
-    if ($sucursal !== null) {
-        $sql .= " AND ins.id_sucursal = :sucursal";
-    }
-
-    // Filtrar por nombre de producto
-    if ($nm_prod) {
-        $sql .= " AND p.nombre LIKE :nm_prod";
-    }
-
-    // Filtrar por categoría
-    if ($categoria) {
-        $sql .= " AND c.nombre = :categoria";
-    }
-
-    // Paginación
-    $sql .= " LIMIT :inicio, :productos_por_pagina";
-
-    $stmt = $conexion->prepare($sql);
-
-    if ($nm_prod) {
-        $stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
-    }
-    if ($sucursal !== null) {
-        $stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
-    }
-    if ($categoria) {
-        $stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
-    }
-    $stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
-    $stmt->bindValue(':productos_por_pagina', $productos_por_pagina, PDO::PARAM_INT);
-
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $total_sql = "SELECT COUNT(DISTINCT p.id_producto)
-                FROM productos AS p
-                JOIN producto_categoria AS pc ON p.id_producto = pc.producto
-                JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
-                JOIN categorias AS c ON pc.categoria = c.id_categoria
-                WHERE 1=1";
-    
-    if ($sucursal !== null) {
-        $total_sql .= " AND ins.id_sucursal = :sucursal";
-    }
-    if ($nm_prod) {
-        $total_sql .= " AND p.nombre LIKE :nm_prod";
-    }
-    if ($categoria) {
-        $total_sql .= " AND c.nombre = :categoria";
-    }
-
-    $total_stmt = $conexion->prepare($total_sql);
-    if ($nm_prod) {
-        $total_stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
-    }
-    if ($sucursal !== null) {
-        $total_stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
-    }
-    if ($categoria) {
-        $total_stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
-    }
-    $total_stmt->execute();
-    $total_productos = $total_stmt->fetchColumn();
-    $total_paginas = ceil($total_productos / $productos_por_pagina);
-
-    $pdo = null;
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -232,121 +121,48 @@
     </div>
     </nav>
 </header>
-<?php 
-/*
-    <div class="container" id="in">
-        <div class="search-bar mb-3">
-        <form method="post" action="">
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Buscar artículo..." name="nm_prod" value="<?php echo htmlspecialchars($nm_prod); ?>">
-                </div>
-                <div class="col">
-                    <select class="form-control" name="categoria">
-                        <option value="">Todas las Categorías</option>
-                        <?php
-                        $categorias = $conexion->query("SELECT id_categoria, nombre FROM categorias")->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($categorias as $cat) { ?>
-                            <option value="<?php echo $cat['nombre']; ?>" <?php if ($categoria == $cat['nombre']) echo 'selected'; ?>><?php echo $cat['nombre']; ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="col">
-                    <select class="form-control" name="sucursal">
-                        <?php foreach ($sucursales as $id => $nombre) { ?>
-                            <option value="<?php echo $id; ?>" <?php if ($sucursal == $id) echo 'selected'; ?>><?php echo $nombre; ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
-                </div>
-            </div>
-        </form>
-        </div>
-        <div class="row">      
-        <?php
-        if (!empty($results)) {
-            foreach ($results as $row) { ?>
-
-                <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
-                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
-                    <div class="card-img-container">                 
-                    <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
-                        <p class="card-text">$ <?php echo $row['precio']; ?></p>
-                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
-                    </div>
-                    </a>
-                </div>
-            </div>          
-        <?php
-            }
-        } else {
-            echo "No hay productos disponibles";
-        }
-        ?>           
-            </div>
-
-<<<<<<< HEAD
-            <div class="paginacion">
-            <?php
-            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-            for ($i = 1; $i <= $total_paginas; $i++) {
-                $active_class = $i == $pagina_actual ? 'active' : '';
-                echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
-            }
-            ?>
-            </div>
-         
-=======
-            <nav aria-label="Paginación de productos">
-                    <ul class="pagination justify-content-center">
-                        <?php if ($pagina > 1) { ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?pagina=<?= $pagina - 1 ?>">Anterior</a>
-                            </li>
-                        <?php } ?>
-                        <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
-                            <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-                                <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
-                            </li>
-                        <?php } ?>
-                        <?php if ($pagina < $total_paginas) { ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?pagina=<?= $pagina + 1 ?>">Siguiente</a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </nav>
-        <?php  ?>
->>>>>>> 0f2b350bf1e4dc433cde8699ffa4192c070745f4
-    </div>
-    */?>
     <div class="container" id="in">
     <div class="search-bar mb-3">
-        <form method="post" action="">
+        <form method="get" action="">
             <div class="row">
                 <div class="col">
                     <input type="text" class="form-control" placeholder="Buscar artículo..." name="nm_prod" value="<?php echo htmlspecialchars($nm_prod); ?>">
                 </div>
                 <div class="col">
                     <select class="form-control" name="categoria">
+                        <?php /*
                         <option value="">Todas las Categorías</option>
-                        <?php
-                        $categorias = $conexion->query("SELECT id_categoria, nombre FROM categorias")->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($categorias as $cat) { ?>
-                            <option value="<?php echo $cat['id_categoria']; ?>" <?php if ($categoria == $cat['id_categoria']) echo 'selected'; ?>><?php echo $cat['nombre']; ?></option>
-                        <?php } ?>
+                            <option value="1" >Pipas</option>
+                            <option value="2" >Bongs</option>
+                            <option value="3" >Canalas</option>
+                            <option value="4" >Hitters</option>
+                            <option value="5" >Electrónicos</option>
+                            <option value="6" >Ropa</option>
+                            <option value="7" >Blunts</option>
+                            <option value="8" >Piercings</option>
+                            <option value="9" >Grinders</option>
+                            <option value="10" >Charolas</option>
+                            <option value="11" >Accesorios</option>
+                        */ ?>
+                        <option value="">Todas las Categorías</option>
+                    <option value="1" <?php if ($categoria == 1) echo 'selected'; ?>>Pipas</option>
+                    <option value="2" <?php if ($categoria == 2) echo 'selected'; ?>>Bongs</option>
+                    <option value="3" <?php if ($categoria == 3) echo 'selected'; ?>>Canalas</option>
+                    <option value="4" <?php if ($categoria == 4) echo 'selected'; ?>>Hitters</option>
+                    <option value="5" <?php if ($categoria == 5) echo 'selected'; ?>>Electrónicos</option>
+                    <option value="6" <?php if ($categoria == 6) echo 'selected'; ?>>Ropa</option>
+                    <option value="7" <?php if ($categoria == 7) echo 'selected'; ?>>Blunts</option>
+                    <option value="8" <?php if ($categoria == 8) echo 'selected'; ?>>Piercings</option>
+                    <option value="9" <?php if ($categoria == 9) echo 'selected'; ?>>Grinders</option>
+                    <option value="10" <?php if ($categoria == 10) echo 'selected'; ?>>Charolas</option>
+                    <option value="11" <?php if ($categoria == 11) echo 'selected'; ?>>Accesorios</option>
+            
                     </select>
                 </div>
                 <div class="col">
                     <select class="form-control" name="sucursal">
-                        <?php foreach ($sucursales as $id => $nombre) { ?>
+                        <?php
+                            foreach ($sucursales as $id => $nombre) { ?>
                             <option value="<?php echo $id; ?>" <?php if ($sucursal == $id) echo 'selected'; ?>><?php echo $nombre; ?></option>
                         <?php } ?>
                     </select>
@@ -359,11 +175,13 @@
     </div>
     <div class="row">      
         <?php
+        
         if (!empty($results)) {
             foreach ($results as $row) { ?>
                 <div class="col-lg-4 col-sm-12">
                     <div class="card mb-4">
-                        <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
+                        <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
+                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
                             <div class="card-img-container">                 
                                 <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
                             </div>
@@ -382,16 +200,48 @@
         }
         ?>           
     </div>
-
-    <div class="paginacion">
         <?php
-        $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-        for ($i = 1; $i <= $total_paginas; $i++) {
-            $active_class = $i == $pagina_actual ? 'active' : '';
-            echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
-        }
-        ?>
-    </div>
+        /*
+    <nav aria-label="Paginación de productos">
+        <ul class="pagination justify-content-center">
+            <?php if ($pagina > 1) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>">Anterior</a>
+                </li>
+            <?php } ?>
+            <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
+                <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                    <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
+                </li>
+            <?php } ?>
+            <?php if ($pagina < $total_paginas) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>">Siguiente</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </nav>
+    */
+    ?>
+    <nav aria-label="Paginación de productos">
+    <ul class="pagination justify-content-center">
+        <?php if ($pagina > 1) { ?>
+            <li class="page-item">
+                <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Anterior</a>
+            </li>
+        <?php } ?>
+        <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
+            <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                <a class="page-link" href="?pagina=<?= $i ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>"><?= $i ?></a>
+            </li>
+        <?php } ?>
+        <?php if ($pagina < $total_paginas) { ?>
+            <li class="page-item">
+                <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Siguiente</a>
+            </li>
+        <?php } ?>
+    </ul>
+</nav>
 </div>
         <footer class="footer row">
             <div class="offset-lg-1 col-lg-9 text">
