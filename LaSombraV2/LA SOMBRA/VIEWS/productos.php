@@ -116,9 +116,9 @@
                 </ul>
             </div>
         </div>
+    </div> 
     </div>
-    </div>
-    </div> <!-- hol -->
+    </div> 
     </nav>
 </header>
     <div class="container" id="in">
@@ -144,7 +144,7 @@
                     <option value="11" <?php if ($categoria == 11) echo 'selected'; ?>>Accesorios</option>
             
                     </select>
-                </div>
+                </div> 
                 <div class="col">
                     <select class="form-control" name="sucursal">
                         <?php
