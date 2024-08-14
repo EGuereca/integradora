@@ -33,7 +33,7 @@
     $inicio = ($pagina - 1) * $productos_por_pagina;
 
     $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre, 
-            p.precio AS precio, ins.cantidad AS stock, c.nombre AS categoria
+            p.precio AS precio, ins.cantidad AS stock, c.nombre AS categoria, p.url
             FROM productos AS p
             JOIN producto_categoria AS pc ON p.id_producto = pc.producto
             JOIN categorias AS c ON pc.categoria = c.id_categoria
@@ -68,10 +68,10 @@
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $total_sql = "SELECT COUNT(DISTINCT p.id_producto)
-                  FROM productos AS p
-                  JOIN producto_categoria AS pc ON p.id_producto = pc.producto
-                  JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
-                  ";
+                    FROM productos AS p
+                    JOIN producto_categoria AS pc ON p.id_producto = pc.producto
+                    JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
+                    ";
     if ($sucursal !== 3) {
         $total_sql .= " AND ins.id_sucursal = :sucursal";
     }
@@ -253,12 +253,8 @@
                 <div class="card mb-4">
                 <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
                 echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
-                    <div class="card-img-container">
-                        <img src="<?php if ($row['url'] == null) {
-                            echo "../IMG/PRODUCTOS/notfound.png";
-                        }else{
-                            echo $row['url'];
-                        } ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
+                    <div class="card-img-container">                 
+                    <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
