@@ -6,11 +6,18 @@ $db->conectarBD();
 
 $conexion = $db->getPDO();
 
-$sql = "SELECT id_empleado AS id,CONCAT(nombres,' ',ap_paterno,' ',ap_materno) AS nombre,
-ru.rol AS rol, u.email AS email, u.telefono AS telefono
-FROM empleado AS e JOIN persona AS p ON e.persona = p.id_persona JOIN
-usuarios AS u ON p.usuario = u.id_usuario JOIN rol_usuario AS ru
-ON u.id_usuario = ru.usuario";
+
+$sql = "SELECT id_empleado AS id,
+        CONCAT(nombres,' ',ap_paterno,' ',ap_materno) AS nombre,
+        r.rol AS rol,
+        u.email AS email,
+        u.telefono AS telefono
+        FROM empleado AS e
+        JOIN persona AS p ON e.persona = p.id_persona
+        JOIN usuarios AS u ON p.usuario = u.id_usuario
+        JOIN rol_usuario AS ru ON u.id_usuario = ru.usuario
+        JOIN roles AS r ON ru.rol = r.id_rol";
+
 
 $stmt = $conexion->prepare($sql);
 $stmt->execute();
