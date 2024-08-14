@@ -118,7 +118,7 @@
         </div>
     </div>
     </div>
-    </div>
+    </div> <!-- hol -->
     </nav>
 </header>
     <div class="container" id="in">
@@ -130,20 +130,6 @@
                 </div>
                 <div class="col">
                     <select class="form-control" name="categoria">
-                        <?php /*
-                        <option value="">Todas las Categorías</option>
-                            <option value="1" >Pipas</option>
-                            <option value="2" >Bongs</option>
-                            <option value="3" >Canalas</option>
-                            <option value="4" >Hitters</option>
-                            <option value="5" >Electrónicos</option>
-                            <option value="6" >Ropa</option>
-                            <option value="7" >Blunts</option>
-                            <option value="8" >Piercings</option>
-                            <option value="9" >Grinders</option>
-                            <option value="10" >Charolas</option>
-                            <option value="11" >Accesorios</option>
-                        */ ?>
                         <option value="">Todas las Categorías</option>
                     <option value="1" <?php if ($categoria == 1) echo 'selected'; ?>>Pipas</option>
                     <option value="2" <?php if ($categoria == 2) echo 'selected'; ?>>Bongs</option>
@@ -200,29 +186,7 @@
         }
         ?>           
     </div>
-        <?php
-        /*
-    <nav aria-label="Paginación de productos">
-        <ul class="pagination justify-content-center">
-            <?php if ($pagina > 1) { ?>
-                <li class="page-item">
-                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>">Anterior</a>
-                </li>
-            <?php } ?>
-            <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
-                <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-                    <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
-                </li>
-            <?php } ?>
-            <?php if ($pagina < $total_paginas) { ?>
-                <li class="page-item">
-                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>">Siguiente</a>
-                </li>
-            <?php } ?>
-        </ul>
-    </nav>
-    */
-    ?>
+        
     <nav aria-label="Paginación de productos">
     <ul class="pagination justify-content-center">
         <?php if ($pagina > 1) { ?>
@@ -250,7 +214,7 @@
             <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
         </footer>
     </div> 
- 
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
