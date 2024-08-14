@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('SESSION_STARTED')) {
     session_start();
 }
@@ -17,7 +18,7 @@ $db->conectarBD();
 $conexion = $db->getPDO();
 
 
-$productos_por_pagina = 9;
+$productos_por_pagina = 18;
 
 $marca = isset($_SESSION['marca']) ? $_SESSION['marca'] : null;
 
@@ -127,5 +128,7 @@ $total_productos = $total_stmt->fetchColumn();
 $total_paginas = ceil($total_productos / $productos_por_pagina);
 
 $pdo = null; 
+
+
 
 ?>

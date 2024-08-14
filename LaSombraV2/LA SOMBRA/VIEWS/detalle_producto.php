@@ -157,7 +157,7 @@
                     Inicie sesión para poder ordenar
                 </div>
                 <?php } elseif (!isset($_SESSION['sucursal']) || $_SESSION['sucursal'] == 2) {                
-                 ?>
+                    ?>
                 <div class="alert alert-success" role="alert">
                     Seleccione una sucursal para poder ordenar
                 </div>
@@ -188,8 +188,8 @@
                                 <img src="../IMG/PRODUCTOS/notfound.png" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
                             <?php } 
                             else { ?>
-                               <img src="<?php echo $row['url']; ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
-                           <?php } ?>                                                                        
+                                <img src="<?php echo $row['url']; ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
+                            <?php } ?>                                                                        
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
