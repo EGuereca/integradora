@@ -27,19 +27,19 @@ $pagina = $pagina > 0 ? $pagina : 1;
 $inicio = ($pagina - 1) * $productos_por_pagina;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nazas'])) {
-    $_SESSION['sucursal'] = '1';
-    
-    header("Location: ../VIEWS/productos.php");
-    exit();
-}
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['todo'])) {
     $_SESSION['sucursal'] = '2';
     
     header("Location: ../VIEWS/productos.php");
     exit();
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['matamoros'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['todo'])) {
     $_SESSION['sucursal'] = '3';
+    
+    header("Location: ../VIEWS/productos.php");
+    exit();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['matamoros'])) {
+    $_SESSION['sucursal'] = '1';
     
     header("Location: ../VIEWS/productos.php");
     exit();
@@ -54,7 +54,7 @@ if ($marca !== null) {
         $total_sql = "SELECT COUNT(*) FROM productos WHERE marca = :marca";
     }
     else{
-    if ($_SESSION['sucursal'] == '1') {
+    if ($_SESSION['sucursal'] == '2') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
         FROM productos_nazas WHERE marca = :marca AND stock > 0
         LIMIT $inicio, $productos_por_pagina";
@@ -63,7 +63,7 @@ if ($marca !== null) {
         $total_sql = "SELECT COUNT(*) FROM productos_nazas WHERE marca = :marca 
         AND stock > 0";
     }
-    if ($_SESSION['sucursal'] == '2') {
+    if ($_SESSION['sucursal'] == '3') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
         FROM productos WHERE marca = :marca AND stock > 0
         LIMIT $inicio, $productos_por_pagina";
@@ -72,7 +72,7 @@ if ($marca !== null) {
         $total_sql = "SELECT COUNT(*) FROM productos WHERE marca = :marca
         AND stock > 0";
     }
-    if ($_SESSION['sucursal'] == '3') {
+    if ($_SESSION['sucursal'] == '1') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
         FROM productos_matamoros WHERE marca = :marca AND stock > 0
         LIMIT $inicio, $productos_por_pagina";
@@ -91,21 +91,21 @@ if ($marca !== null) {
         $total_sql = "SELECT COUNT(*) FROM productos";
     }
     else{
-    if ($_SESSION['sucursal'] == '1') {
+    if ($_SESSION['sucursal'] == '2') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
         FROM productos_nazas WHERE stock > 0
         LIMIT $inicio, $productos_por_pagina";
         $stmt = $conexion->prepare($sql);
         $total_sql = "SELECT COUNT(*) FROM productos_nazas WHERE stock > 0";
     }
-    if ($_SESSION['sucursal'] == '2') {
+    if ($_SESSION['sucursal'] == '3') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
         FROM productos WHERE stock > 0
         LIMIT $inicio, $productos_por_pagina";
         $stmt = $conexion->prepare($sql);
         $total_sql = "SELECT COUNT(*) FROM productos WHERE stock > 0";
     }
-    if ($_SESSION['sucursal'] == '3') {
+    if ($_SESSION['sucursal'] == '1') {
         $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
         FROM productos_matamoros WHERE stock > 0
         LIMIT $inicio, $productos_por_pagina";

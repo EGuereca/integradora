@@ -17,8 +17,8 @@ session_start();
         <div class="logo"><img src="IMG/sombra-logo.jpg" alt=""></div>
         <h1>SELECCIONE UNA SUCURSAL</h1>
         <div class="buttons">
-            <a href="../SCRIPTS/cdss.php?sucursal=2"><button  class="entrar">Nazas</button></a>
-            <a href="../SCRIPTS/cdss.php?sucursal=1"><button  class="entrar">Matamoros</button></a>            
+            <a href="../SCRIPTS/cdsss.php?sucursal=2"><button  class="entrar">Nazas</button></a>
+            <a href="../SCRIPTS/cdsss.php?sucursal=1"><button  class="entrar">Matamoros</button></a>            
         </div>
     </div>
 </body>

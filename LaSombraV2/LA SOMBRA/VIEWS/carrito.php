@@ -143,7 +143,14 @@ elseif ($_SESSION['rol'] != 3) {
             $total = $total + $row['precio'];   ?>
     <div class="row cart-item">
         <div class="col-lg-3 col-sm-12 col">
-            <img src="../IMG/bicho.jpg" class="img-fluid" alt="Producto 1">
+            <img src="<?php
+                if ($row['url']) {
+                    echo $row['url'];
+                }
+                else {
+                    echo "../IMG/PRODUCTOS/notfound.png";
+                }
+            ?>" class="img-fluid" alt="Producto 1">
         </div>
         <div class="cart-item-details col-lg-4 col-sm-12">
             <p><?php echo $row['nombre'] ?></p>
@@ -152,17 +159,20 @@ elseif ($_SESSION['rol'] != 3) {
             <p class="product-price">$ <?php echo $row['precio']; ?></p>
         </div>
         <div class="col-md-2">
+            <p class="product-price"><?php echo $row['cantidad']; ?></p>
+            <!--
             <div class="product">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <button class="btn btn-outline-dark decrement" type="button">-</button>
-                </div>
-                <input type="text" class="form-control text-center quantity" value="1" data-precio="<?php echo $row['precio']; ?>">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-dark increment" type="button">+</button>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-dark decrement" type="button">-</button>
+                    </div>
+                    <input type="text" class="form-control text-center quantity" value="1" data-precio="<?php echo $row['precio']; ?>">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-dark increment" type="button">+</button>
+                    </div>
                 </div>
             </div>
-            </div>
+            -->
         </div>
     </div>
     <?php
@@ -176,11 +186,6 @@ elseif ($_SESSION['rol'] != 3) {
             <p>Subtotal: $<?php echo $total ?></p>
             <form action="" method="post">
             <div class="form-group">
-                <label for="estado">Seleccione la sucursal para recoger:</label>
-                <select name="sucursal" id="sucursal" class="form-control sel-suc" required>
-                    <option value="1">Matamoros</option>
-                    <option value="2">Nazas</option>
-                </select>
                 <?php if ($pedidoPendiente == 0) { ?>
                         <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
                     <?php } else { ?>
@@ -202,6 +207,7 @@ elseif ($_SESSION['rol'] != 3) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+<!--
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const quantityInputs = document.querySelectorAll('.quantity');
@@ -254,5 +260,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updatePrices();
 });
 </script>
+-->
 </body>
 </html>
