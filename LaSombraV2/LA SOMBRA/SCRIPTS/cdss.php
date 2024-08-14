@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if ($_SESSION['rol'] == 3) {
+if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 1 || $_SESSION['rol'] == 2 || $_SESSION['rol'] == 4 || $_SESSION['rol'] == null) {
     if (isset($_GET['marca'])) {    
         $_SESSION['marca'] = $_GET['marca'];    
     }
@@ -9,13 +9,7 @@ if ($_SESSION['rol'] == 3) {
     exit();
 }
 
-if ($_SESSION['rol'] != 3) {
-    if (isset($_GET['sucursal'])) {    
-        $_SESSION['sucursal'] = $_GET['sucursal'];    
-    }
-    header("Location: ../VIEWS/dash-ventas.php");
-    exit();
-}
+
 
 
 ?>

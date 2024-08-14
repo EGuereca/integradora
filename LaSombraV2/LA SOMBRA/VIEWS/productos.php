@@ -1,17 +1,6 @@
 <?php
-    define('SESSION_STARTED', true);
-    session_start();
-
-    $_SESSION['marca'] = null;
-
-    include '../SCRIPTS/conf-catalogo.php';
+    include '../SCRIPTS/productos-bien.php';
     require '../SCRIPTS/config-prod.php';
-
-    if (isset($_SESSION['sucursal'])) {
-        $sucursal = $_SESSION['sucursal'];
-    } else {
-        $_SESSION['sucursal'] = null;
-    }
 ?>
 
 <!DOCTYPE html>
@@ -132,78 +121,136 @@
     </div>
     </nav>
 </header>
-
     <div class="container" id="in">
-        <div class="search-bar mb-3">
-            <input type="text" class="form-control" placeholder="Buscar artículo...">
-        </div>
-        <?php
-            if($_SESSION['sucursal'] == null){
-                
-        ?>
-        <div class="container">
-            <div id="seleccionar" class="col-12">
-            <h2>Seleccione una sucursal para visualizar los productos de la seleccionada:</h2> <br>
-            <form method="post" action="">
-                <button type="submit" class="btn btn-outline-primary" name="todo">Todo</button>
-                <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
-                <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
-            </form>
-            </div>
-        </div>
-        <?php } 
-                else{        
-        ?>
-        <div class="row">      
-        <?php
-        if (!empty($productos)) {
-            foreach ($productos as $row) { ?>
-
-                <div class="col-lg-4 col-sm-12">
-                <div class="card mb-4">
-                <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
-                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
-                    <div class="card-img-container">
-                        <img src="<?php if ($row['url'] == null) {
-                            echo "../IMG/PRODUCTOS/notfound.png";
-                        }else{
-                            echo $row['url'];
-                        } ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
-                        <p class="card-text">$ <?php echo $row['precio']; ?></p>
-                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
-                    </div>
-                    </a>
+    <div class="search-bar mb-3">
+        <form method="get" action="">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Buscar artículo..." name="nm_prod" value="<?php echo htmlspecialchars($nm_prod); ?>">
                 </div>
-            </div>          
+                <div class="col">
+                    <select class="form-control" name="categoria">
+                        <?php /*
+                        <option value="">Todas las Categorías</option>
+                            <option value="1" >Pipas</option>
+                            <option value="2" >Bongs</option>
+                            <option value="3" >Canalas</option>
+                            <option value="4" >Hitters</option>
+                            <option value="5" >Electrónicos</option>
+                            <option value="6" >Ropa</option>
+                            <option value="7" >Blunts</option>
+                            <option value="8" >Piercings</option>
+                            <option value="9" >Grinders</option>
+                            <option value="10" >Charolas</option>
+                            <option value="11" >Accesorios</option>
+                        */ ?>
+                        <option value="">Todas las Categorías</option>
+                    <option value="1" <?php if ($categoria == 1) echo 'selected'; ?>>Pipas</option>
+                    <option value="2" <?php if ($categoria == 2) echo 'selected'; ?>>Bongs</option>
+                    <option value="3" <?php if ($categoria == 3) echo 'selected'; ?>>Canalas</option>
+                    <option value="4" <?php if ($categoria == 4) echo 'selected'; ?>>Hitters</option>
+                    <option value="5" <?php if ($categoria == 5) echo 'selected'; ?>>Electrónicos</option>
+                    <option value="6" <?php if ($categoria == 6) echo 'selected'; ?>>Ropa</option>
+                    <option value="7" <?php if ($categoria == 7) echo 'selected'; ?>>Blunts</option>
+                    <option value="8" <?php if ($categoria == 8) echo 'selected'; ?>>Piercings</option>
+                    <option value="9" <?php if ($categoria == 9) echo 'selected'; ?>>Grinders</option>
+                    <option value="10" <?php if ($categoria == 10) echo 'selected'; ?>>Charolas</option>
+                    <option value="11" <?php if ($categoria == 11) echo 'selected'; ?>>Accesorios</option>
+            
+                    </select>
+                </div>
+                <div class="col">
+                    <select class="form-control" name="sucursal">
+                        <?php
+                            foreach ($sucursales as $id => $nombre) { ?>
+                            <option value="<?php echo $id; ?>" <?php if ($sucursal == $id) echo 'selected'; ?>><?php echo $nombre; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">      
         <?php
+        
+        if (!empty($results)) {
+            foreach ($results as $row) { ?>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="card mb-4">
+                        <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
+                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
+                            <div class="card-img-container">                 
+                                <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                                <p class="card-text">$ <?php echo $row['precio']; ?></p>
+                                <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>          
+            <?php
             }
         } else {
             echo "No hay productos disponibles";
         }
         ?>           
-            </div>
-
-            <div class="paginacion">
-            <?php
-            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-            for ($i = 1; $i <= $total_paginas; $i++) {
-                $active_class = $i == $pagina_actual ? 'active' : '';
-                echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
-            }
-            ?>
-            </div>
-        <?php } ?>
     </div>
+        <?php
+        /*
+    <nav aria-label="Paginación de productos">
+        <ul class="pagination justify-content-center">
+            <?php if ($pagina > 1) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>">Anterior</a>
+                </li>
+            <?php } ?>
+            <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
+                <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                    <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
+                </li>
+            <?php } ?>
+            <?php if ($pagina < $total_paginas) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>">Siguiente</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </nav>
+    */
+    ?>
+    <nav aria-label="Paginación de productos">
+    <ul class="pagination justify-content-center">
+        <?php if ($pagina > 1) { ?>
+            <li class="page-item">
+                <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Anterior</a>
+            </li>
+        <?php } ?>
+        <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
+            <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                <a class="page-link" href="?pagina=<?= $i ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>"><?= $i ?></a>
+            </li>
+        <?php } ?>
+        <?php if ($pagina < $total_paginas) { ?>
+            <li class="page-item">
+                <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Siguiente</a>
+            </li>
+        <?php } ?>
+    </ul>
+</nav>
+</div>
         <footer class="footer row">
             <div class="offset-lg-1 col-lg-9 text">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>
             </div>
             <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
         </footer>
-    </div>
+    </div> 
+ 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -211,3 +258,7 @@
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>
+
+
+
+

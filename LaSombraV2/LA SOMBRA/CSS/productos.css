@@ -125,6 +125,7 @@ body{
 .card {
     background-color: #222;
     color: white;
+    height: 400px;
 }
 .card a{
     color: white;
@@ -162,18 +163,32 @@ img{
     font-size: 14px;
     margin: 0;
 }
-.paginacion{
-    text-align: center;
+.page-link{
+    color: black;
 }
-.paginacion a{
-    padding: 7px;
-    color: white;
-    text-decoration: none;
-    font-size: 25px;
-    
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;   
 }
-.paginacion a.active {
-    color: green;
-    font-weight: bold;
-    text-decoration: underline;
+
+.btn-primary:hover {
+    background-color: #218838; 
+    border-color: #1e7e34;     
+}
+.pagination .page-item .page-link {
+    color: #28a745; 
+    background-color: white; 
+    border: 1px solid #28a745;
+}
+
+.pagination .page-item .page-link:hover {
+    color: white; 
+    background-color: #28a745; 
+    border-color: #218838;
+}
+
+.pagination .page-item.active .page-link {
+    color: white; 
+    background-color: #28a745;
+    border-color: #28a745;
 }

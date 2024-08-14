@@ -21,8 +21,7 @@ $db->conectarBD();
 
 $conexion = $db->getPDO();
 
-$queryCliente = "
-    SELECT c.id_cliente AS id 
+$queryCliente = "SELECT c.id_cliente AS id 
     FROM cliente AS c 
     JOIN persona AS p ON c.persona = p.id_persona
     JOIN usuarios AS u ON p.usuario = u.id_usuario
@@ -40,8 +39,7 @@ if ($idCliente === null) {
 }
 
 // Consulta para verificar si hay algún pedido pendiente
-$queryPedidoPendiente = "
-    SELECT COUNT(*) AS pendientes 
+$queryPedidoPendiente = "SELECT COUNT(*) AS pendientes 
     FROM venta 
     WHERE id_cliente = :idCliente 
     AND estado = 'PENDIENTE'
@@ -51,8 +49,7 @@ $stmtPendiente->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtPendiente->execute();
 $pedidoPendiente = $stmtPendiente->fetch(PDO::FETCH_ASSOC)['pendientes'];
 
-$q_productos = "
-    SELECT dv.cantidad AS cantidad, p.nombre AS nombre, p.precio AS precio
+$q_productos = "SELECT dv.cantidad AS cantidad, p.nombre AS nombre, p.url AS url ,(p.precio * dv.cantidad) AS precio
     FROM detalle_venta AS dv
     JOIN productos AS p ON dv.producto = p.id_producto
     WHERE dv.venta = (
@@ -63,45 +60,23 @@ $q_productos = "
     )
 ";
 
-$update = "
-    UPDATE venta 
-    SET estado = 'PENDIENTE', sucursal = :idsucursal
-    WHERE id_venta = (
-        SELECT id_venta  
-        FROM venta 
-        WHERE id_cliente = :idCliente 
-        AND estado = 'CARRITO'
-    )
+$insert = " INSERT INTO venta(id_cliente, estado, tipo_venta) 
+    VALUES(?, 'CARRITO', 'LINEA')
 ";
-
-$insert = " 
-    INSERT INTO venta(id_cliente, estado, tipo_venta) 
-    VALUES(:idCliente, 'CARRITO', 'LINEA')
-";
-
-
-
-
 
 $stmtProductos = $conexion->prepare($q_productos);
 $stmtProductos->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtProductos->execute();
+$update = $conexion->prepare("UPDATE venta SET estado = 'PENDIENTE' WHERE id_cliente = $idCliente
+AND estado = 'CARRITO'");
 
 $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
 
-if (isset($_POST['btn'])) {    
-    $sucu = $_POST['sucursal'];
-
-
-    $stmtUpdate = $conexion->prepare($update);
-    $stmtUpdate->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
-    $stmtUpdate->bindParam(':idsucursal', $sucu, PDO::PARAM_INT);
-    $stmtUpdate->execute();
-
+if (isset($_POST['btn'])) { 
+    $update->execute();   
     $stmtInsert = $conexion->prepare($insert);
-    $stmtInsert->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
-    $stmtInsert->execute();
-
+    $stmtInsert->bindParam(1, $idCliente, PDO::PARAM_INT);
+    $stmtInsert->execute();    
     #HACER UNA PAGINA CON EL ID DEL PEDIDO, Y DE QUE ESTA EXITOSO
     header("location: ../VIEWS/iniciov2.php");
     exit();

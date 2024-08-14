@@ -102,7 +102,7 @@
                 <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
                 echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
                     <div class="card-img-container">
-                        <img src="../IMG/blazy-susan.svg" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
+                    <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
