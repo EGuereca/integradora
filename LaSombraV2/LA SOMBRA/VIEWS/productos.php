@@ -12,21 +12,22 @@
     require '../SCRIPTS/config-prod.php';
 
     //sucursales
-    if (isset($_POST['todo'])) {
-        $_SESSION['sucursal'] = 3; // all products 
-    } elseif (isset($_POST['nazas'])) {
-        $_SESSION['sucursal'] = 1; // Nazas
-    } elseif (isset($_POST['matamoros'])) {
-        $_SESSION['sucursal'] = 2; // Matamoros
+    $sucursales = array(
+        '1' => 'Nazas',
+        '2' => 'Matamoros'
+    );
+    if (isset($_POST['sucursal'])) {
+        $_SESSION['sucursal'] = $_POST['sucursal'];
     }
 
-    $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : 3;
+    $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : 1;
 
     $db = new Database();
     $db->conectarBD();
     $conexion = $db->getPDO();
 
     $nm_prod = isset($_POST["nm_prod"]) ? $_POST["nm_prod"] : '';
+    $categoria = isset($_POST["categoria"]) ? $_POST["categoria"] : '';
     $productos_por_pagina = 9;
     $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
     $pagina = $pagina > 0 ? $pagina : 1;
@@ -41,13 +42,18 @@
             WHERE 1=1";
 
     // Filtrar por sucursal
-    if ($sucursal !== 3) {
+    if ($sucursal !== null) {
         $sql .= " AND ins.id_sucursal = :sucursal";
     }
 
     // Filtrar por nombre de producto
     if ($nm_prod) {
         $sql .= " AND p.nombre LIKE :nm_prod";
+    }
+
+    // Filtrar por categoría
+    if ($categoria) {
+        $sql .= " AND c.nombre = :categoria";
     }
 
     // Paginación
@@ -58,8 +64,11 @@
     if ($nm_prod) {
         $stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
     }
-    if ($sucursal !== 3) {
+    if ($sucursal !== null) {
         $stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
+    }
+    if ($categoria) {
+        $stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
     }
     $stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
     $stmt->bindValue(':productos_por_pagina', $productos_por_pagina, PDO::PARAM_INT);
@@ -68,23 +77,31 @@
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $total_sql = "SELECT COUNT(DISTINCT p.id_producto)
-                    FROM productos AS p
-                    JOIN producto_categoria AS pc ON p.id_producto = pc.producto
-                    JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
-                    ";
-    if ($sucursal !== 3) {
+                FROM productos AS p
+                JOIN producto_categoria AS pc ON p.id_producto = pc.producto
+                JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
+                JOIN categorias AS c ON pc.categoria = c.id_categoria
+                WHERE 1=1";
+    
+    if ($sucursal !== null) {
         $total_sql .= " AND ins.id_sucursal = :sucursal";
     }
     if ($nm_prod) {
         $total_sql .= " AND p.nombre LIKE :nm_prod";
+    }
+    if ($categoria) {
+        $total_sql .= " AND c.nombre = :categoria";
     }
 
     $total_stmt = $conexion->prepare($total_sql);
     if ($nm_prod) {
         $total_stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
     }
-    if ($sucursal !== 3) {
+    if ($sucursal !== null) {
         $total_stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
+    }
+    if ($categoria) {
+        $total_stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
     }
     $total_stmt->execute();
     $total_productos = $total_stmt->fetchColumn();
@@ -222,28 +239,29 @@
                     <input type="text" class="form-control" placeholder="Buscar artículo..." name="nm_prod" value="<?php echo htmlspecialchars($nm_prod); ?>">
                 </div>
                 <div class="col">
+                    <select class="form-control" name="categoria">
+                        <option value="">Todas las Categorías</option>
+                        <?php
+                        // Supongamos que tienes una lista de categorías
+                        $categorias = $conexion->query("SELECT id_categoria, nombre FROM categorias")->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($categorias as $cat) { ?>
+                            <option value="<?php echo $cat['nombre']; ?>" <?php if ($categoria == $cat['nombre']) echo 'selected'; ?>><?php echo $cat['nombre']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col">
+                    <select class="form-control" name="sucursal">
+                        <?php foreach ($sucursales as $id => $nombre) { ?>
+                            <option value="<?php echo $id; ?>" <?php if ($sucursal == $id) echo 'selected'; ?>><?php echo $nombre; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col">
                     <button type="submit" class="btn btn-primary mt-2">Buscar</button>
                 </div>
             </div>
         </form>
         </div>
-        <?php
-            if($_SESSION['sucursal'] == null){
-                
-        ?>
-        <div class="container">
-            <div id="seleccionar" class="col-12">
-            <h2>Seleccione una sucursal para visualizar los productos de la seleccionada:</h2> <br>
-            <form method="post" action="">
-                <button type="submit" class="btn btn-outline-primary" name="todo">Todo</button>
-                <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
-                <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
-            </form>
-            </div>
-        </div>
-        <?php } 
-                else{        
-        ?>
         <div class="row">      
         <?php
         if (!empty($results)) {
@@ -281,7 +299,7 @@
             }
             ?>
             </div>
-        <?php } ?>
+        <?php  ?>
     </div>
         <footer class="footer row">
             <div class="offset-lg-1 col-lg-9 text">
