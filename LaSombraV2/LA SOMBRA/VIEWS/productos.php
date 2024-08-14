@@ -309,7 +309,8 @@
                         <?php } ?>
                     </ul>
                 </nav>
-        <?php  ?>
+            
+        <?php /**/  ?>
     </div>
         <footer class="footer row">
             <div class="offset-lg-1 col-lg-9 text">
