@@ -3,16 +3,97 @@
     session_start();
 
     $_SESSION['marca'] = null;
-
-    include '../SCRIPTS/conf-catalogo.php';
-    require '../SCRIPTS/config-prod.php';
-
     if (isset($_SESSION['sucursal'])) {
         $sucursal = $_SESSION['sucursal'];
     } else {
         $_SESSION['sucursal'] = null;
     }
+    include "../CLASS/database.php";
+    require '../SCRIPTS/config-prod.php';
+
+    //sucursales
+    if (isset($_POST['todo'])) {
+        $_SESSION['sucursal'] = 3; // all products 
+    } elseif (isset($_POST['nazas'])) {
+        $_SESSION['sucursal'] = 1; // Nazas
+    } elseif (isset($_POST['matamoros'])) {
+        $_SESSION['sucursal'] = 2; // Matamoros
+    }
+
+    $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : 3;
+
+    $db = new Database();
+    $db->conectarBD();
+    $conexion = $db->getPDO();
+
+    $nm_prod = isset($_POST["nm_prod"]) ? $_POST["nm_prod"] : '';
+    $productos_por_pagina = 9;
+    $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+    $pagina = $pagina > 0 ? $pagina : 1;
+    $inicio = ($pagina - 1) * $productos_por_pagina;
+
+    $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre, 
+            p.precio AS precio, ins.cantidad AS stock, c.nombre AS categoria
+            FROM productos AS p
+            JOIN producto_categoria AS pc ON p.id_producto = pc.producto
+            JOIN categorias AS c ON pc.categoria = c.id_categoria
+            JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
+            WHERE 1=1";
+
+    // Filtrar por sucursal
+    if ($sucursal !== 3) {
+        $sql .= " AND ins.id_sucursal = :sucursal";
+    }
+
+    // Filtrar por nombre de producto
+    if ($nm_prod) {
+        $sql .= " AND p.nombre LIKE :nm_prod";
+    }
+
+    // Paginación
+    $sql .= " LIMIT :inicio, :productos_por_pagina";
+
+    $stmt = $conexion->prepare($sql);
+
+    if ($nm_prod) {
+        $stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
+    }
+    if ($sucursal !== 3) {
+        $stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
+    }
+    $stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
+    $stmt->bindValue(':productos_por_pagina', $productos_por_pagina, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $total_sql = "SELECT COUNT(DISTINCT p.id_producto)
+                  FROM productos AS p
+                  JOIN producto_categoria AS pc ON p.id_producto = pc.producto
+                  JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
+                  ";
+    if ($sucursal !== 3) {
+        $total_sql .= " AND ins.id_sucursal = :sucursal";
+    }
+    if ($nm_prod) {
+        $total_sql .= " AND p.nombre LIKE :nm_prod";
+    }
+
+    $total_stmt = $conexion->prepare($total_sql);
+    if ($nm_prod) {
+        $total_stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
+    }
+    if ($sucursal !== 3) {
+        $total_stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
+    }
+    $total_stmt->execute();
+    $total_productos = $total_stmt->fetchColumn();
+    $total_paginas = ceil($total_productos / $productos_por_pagina);
+
+    $pdo = null;
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -135,7 +216,16 @@
 
     <div class="container" id="in">
         <div class="search-bar mb-3">
-            <input type="text" class="form-control" placeholder="Buscar artículo...">
+        <form method="post" action="">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Buscar artículo..." name="nm_prod" value="<?php echo htmlspecialchars($nm_prod); ?>">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                </div>
+            </div>
+        </form>
         </div>
         <?php
             if($_SESSION['sucursal'] == null){
@@ -156,8 +246,8 @@
         ?>
         <div class="row">      
         <?php
-        if (!empty($productos)) {
-            foreach ($productos as $row) { ?>
+        if (!empty($results)) {
+            foreach ($results as $row) { ?>
 
                 <div class="col-lg-4 col-sm-12">
                 <div class="card mb-4">
