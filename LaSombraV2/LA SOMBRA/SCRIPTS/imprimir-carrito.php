@@ -61,7 +61,7 @@ $q_productos = "SELECT dv.cantidad AS cantidad, p.nombre AS nombre, p.url AS url
 ";
 
 $insert = " INSERT INTO venta(id_cliente, estado, tipo_venta) 
-    VALUES(:idCliente, 'CARRITO', 'LINEA')
+    VALUES(?, 'CARRITO', 'LINEA')
 ";
 
 $stmtProductos = $conexion->prepare($q_productos);
@@ -72,11 +72,11 @@ AND estado = 'CARRITO'");
 
 $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
 
-if (isset($_POST['btn'])) {    
+if (isset($_POST['btn'])) { 
+    $update->execute();   
     $stmtInsert = $conexion->prepare($insert);
-    $stmtInsert->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
-    $stmtInsert->execute();
-    $update->execute();
+    $stmtInsert->bindParam(1, $idCliente, PDO::PARAM_INT);
+    $stmtInsert->execute();    
     #HACER UNA PAGINA CON EL ID DEL PEDIDO, Y DE QUE ESTA EXITOSO
     header("location: ../VIEWS/iniciov2.php");
     exit();
