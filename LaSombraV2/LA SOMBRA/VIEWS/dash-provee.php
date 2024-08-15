@@ -115,7 +115,6 @@ include '../SCRIPTS/provee-dsh.php';
                             <td>
                         <a href='modificar-proveedor.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
                     </td>
-                           
                             </tr>";                    
         }
         echo "</table></div>";

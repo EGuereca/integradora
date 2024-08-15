@@ -176,7 +176,7 @@ include '../SCRIPTS/productos-dsh.php';
                   echo "<td>" . htmlspecialchars($row["precio"]) . "</td>";
                   echo "<td>" . htmlspecialchars($row["categoria"]) . "</td>";
                   echo "<td>";
-                  echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>";
+                  if($_SESSION ['rol'] == 1 ) { echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>"; } 
                   echo "</td>";
                   echo "</tr>";
               }
