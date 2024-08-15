@@ -22,6 +22,8 @@ include '../SCRIPTS/llenar-venta.php';
     <title>Llenado Venta</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/productos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -55,17 +57,21 @@ include '../SCRIPTS/llenar-venta.php';
                         <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
                         <p class="card-text">$ <?php echo $row['precio']; ?></p>
                         <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
-                        <form action="" method="post">
-                            <input type="hidden" name="id" value="<?php echo $row['id_producto']; ?>">
-                            <select name="cantidad">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>    
-                            <button name="btn-reg" type="submit">Agregar</button>
-                        </form>
+                        <form action="" method="post" class="d-flex align-items-center justify-content-between">
+    <input type="hidden" name="id" value="<?php echo $row['id_producto']; ?>">
+    
+    <select name="cantidad" class="form-select me-2" style="width: auto;">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    
+    <button name="btn-reg" type="submit" class="btn btn-success">
+        <i class="bi bi-cart-plus"></i> Agregar
+    </button>
+</form>
                     </div>                
                 </div>
             </div>          
