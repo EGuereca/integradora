@@ -20,21 +20,15 @@ if (isset($_SESSION['sucursal'])) {
 
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nazas'])) {
-    $_SESSION['sucursal'] = '2';
+    $_SESSION['sucursal'] = 2;
     
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['todo'])) {
-    $_SESSION['sucursal'] = '3';
-    
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: ../VIEWS/detalle_producto.php?id=".$id."&token=".$token);
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['matamoros'])) {
-    $_SESSION['sucursal'] = '1';
+    $_SESSION['sucursal'] = 1;
     
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: ../VIEWS/detalle_producto.php?id=".$id."&token=".$token);
     exit();
 }
   
