@@ -14,7 +14,7 @@
                     LEFT JOIN persona p ON c.persona = p.id_persona
                     LEFT JOIN usuarios u ON p.usuario = u.id_usuario
                     LEFT JOIN sucursales s ON v.sucursal = s.id_sucursal
-                    WHERE v.id_venta = :numero_pedido AND v.estado = :estado";
+                    WHERE v.tipo_venta = 'LINEA' ";
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':numero_pedido', $numero_pedido);
             $stmt->bindParam(':estado', $estado);
@@ -22,8 +22,7 @@
             $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             
-                $stmt_detalles = $conexion->prepare("
-                    SELECT p.nombre, p.precio, dv.cantidad
+                $stmt_detalles = $conexion->prepare("SELECT p.nombre, p.precio, dv.cantidad
                     FROM detalle_venta dv
                     JOIN productos p ON dv.producto = p.id_producto
                     WHERE dv.venta = :idVenta;
