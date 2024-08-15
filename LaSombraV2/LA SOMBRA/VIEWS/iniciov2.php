@@ -32,7 +32,7 @@ session_start();
                     
                     <?php } ?>
                     
-                    <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
+                    <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/cart.png" alt="cart"></a>
             </div>
         </div>
 

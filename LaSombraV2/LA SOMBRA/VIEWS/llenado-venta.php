@@ -171,9 +171,12 @@ $pdo = null;
     </div>
 </form>
 
-        <button class="btn btn-primary btn-reg mt-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-            REGISTRAR
-        </button>
+<div class="btn-cart-container">
+    <button class="btn btn-success btn-cart" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+        <i class="fa fa-shopping-cart"></i>
+    </button>
+</div>
+
     </div>
     
     <?php if ($_SESSION['sucursal'] !== null) { ?>

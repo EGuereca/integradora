@@ -18,7 +18,7 @@
             <label for="password">Ingresa tu contraseña:</label><br>
             <div class="input-container">
                 <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password">
-                <img class="toggle-password" id="imgpassword" src="../IMG/closeeye.png" alt="Mostrar contraseña" onclick="togglePasswordVisibility('password', 'togglePasswordImage')">
+                <img class="toggle-password" id="togglePasswordImage" src="../IMG/closeeye.png" alt="Mostrar contraseña" onclick="togglePasswordVisibility('password', 'togglePasswordImage')">
             </div>
             <?php 
             include '../SCRIPTS/login-script.php';
@@ -33,7 +33,7 @@
 <script>
 function togglePasswordVisibility(inputId, imageId) {
     var input = document.getElementById(inputId);
-    var image = document.getElementById(imgpassword);
+    var image = document.getElementById(imageId);
 
     if (input.type === "password") {
         input.type = "text";
