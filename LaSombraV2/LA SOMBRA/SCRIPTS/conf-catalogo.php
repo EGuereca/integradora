@@ -18,7 +18,7 @@ $db->conectarBD();
 $conexion = $db->getPDO();
 
 
-$productos_por_pagina = 18;
+$productos_por_pagina = 9;
 
 $marca = isset($_SESSION['marca']) ? $_SESSION['marca'] : null;
 
