@@ -188,6 +188,7 @@ include "../SCRIPTS/detalle-usuario.php";
                         <th>Estado</th>
                         <th>Nombre de la Sucursal</th>
                         <th>Detalles</th>
+                        <th>Cancelar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -202,6 +203,12 @@ include "../SCRIPTS/detalle-usuario.php";
                                 <form method="post" action="">
                                     <input type="hidden" name="venta_id" value="<?php echo $pen['ID']; ?>">
                                     <button type="submit" name="ver_detalles" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" action="">
+                                    <input type="hidden" name="venta_id" value="<?php echo $pen['ID']; ?>">
+                                    <button type="submit" name="cancelar_pedido" class="btn btn-danger">Cancelar</button> <!-- Botón de Cancelar -->
                                 </form>
                             </td>
                         </tr>
