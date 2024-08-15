@@ -187,10 +187,10 @@ elseif ($_SESSION['rol'] != 3) {
             <div class="form-group">
                 <?php if ($pedidoPendiente == 0) {
                         if (empty($productos)) {
-                            echo "<button type='submit' name='btn' class='btn btn-success'>Confirmar pedido</button>";
+                            echo "<button type='submit' name='btn' class='btn btn-success'  disabled>Confirmar pedido</button>";
                         }
                         else { 
-                            foreach ($productos as $row) {
+                            foreach ($productos as $row) {                                
                                 if ($row['cantidad'] > $row['stock']) { ?>
                                   <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php $row['nombre'] ?>, debe de eliminarlo">Confirmar pedido</button>  
                             <?php }
