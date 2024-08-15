@@ -56,7 +56,7 @@ if (!empty($_POST["btnreg"])) {
         if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
             $nombreArchivo = $_FILES['img']['name'];
             $temporal = $_FILES['img']['tmp_name'];
-            $carpeta = '../IMG/PRODUCTOS'; // Ruta donde se guardará la imagen
+            $carpeta = '../IMG/PRODUCTOS'; 
 
             $url = $carpeta . '/' . $nombreArchivo;
 

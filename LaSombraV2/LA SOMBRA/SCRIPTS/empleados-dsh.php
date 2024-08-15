@@ -27,6 +27,14 @@ echo "Número de resultados: " . $stmt->rowCount();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt2 = $conexion->prepare("CALL REGISTRO_EMPLEADOS(?,?,?,?,?,?,?,?,?,?,?)");
+if (isset($_POST['password'])) {
+    $password = $_POST['password'];
+    if (preg_match('/^(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
+        
+    } else {
+        echo "<div class='alert alert-danger'>La contraseña debe contener al menos un número, una letra mayúscula, un carácter especial, y estar entre 8 y 20 caracteres.</div>";
+    }
+}
 
 if (isset($_POST["btncrearemp"])) {
         $pass1 = $_POST['password'];

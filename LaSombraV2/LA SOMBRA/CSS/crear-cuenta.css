@@ -32,6 +32,31 @@ body {
     display: none; /* Oculto por defecto */
 }
 
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+    width: 87%;
+    margin: 0 auto; 
+}
+
+.input-container input {
+    width: 80%;
+    padding: 8px 8px 8px 16px; 
+    border-radius: 8px; 
+    border: none;
+    font-size: 14px;
+}
+
+.input-container .toggle-password {
+    position: absolute;
+    right: 50px;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;  
+    height: 20px; 
+}
+
 .container {
     text-align: center;
 }

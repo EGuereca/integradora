@@ -152,7 +152,7 @@ if($count > 0){
     <form action="../SCRIPTS/upd.php" method="post">
         <div class="form-group">
             <input type="hidden" name="id" value="<?= $datos['id_usuario']?>">
-            <input type="text" name="username" id="username" class="form-control" required placeholder="Nombre de usuario" value="<?= $datos['nombre_usuario']?>">
+            <input type="text" name="username" id="username" class="form-control" required placeholder="Nombre de usuario" value="<?= $datos['nombre_usuario']?> ">
         </div>
 
         <div class="form-group">

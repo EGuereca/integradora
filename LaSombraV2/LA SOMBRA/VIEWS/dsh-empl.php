@@ -117,7 +117,9 @@ include '../SCRIPTS/empleados-dsh.php';
         }
         echo "</table></div>";
     } else {
-        echo "<p>No se encontraron productos.</p>";
+        echo "<div class='alert alert-danger' role='alert'>
+        No hay empleados registrados.
+      </div>";
     }
 ?>
 <br>
@@ -136,7 +138,7 @@ include '../SCRIPTS/empleados-dsh.php';
                 <div class="row">
                     <div class="form-group">
                         <label for="username">Ingresa tu nombre de usuario:</label><br>
-                        <input type="text" id="username" placeholder="Ingresa tu nombre de usuario aquí" name="usuario">
+                        <input type="text" id="username" placeholder="Ingresa tu nombre de usuario aquí" name="usuario" maxlength="20" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Ingresa tu correo:</label><br>
@@ -145,17 +147,42 @@ include '../SCRIPTS/empleados-dsh.php';
 
                     <div class="form-group">
                         <label for="telefono">Teléfono:</label><br>
-                        <input type="text" id="telefono" placeholder="Ingresa tu telefono" name="telefono" required>
+                        <input type="text" id="telefono" placeholder="Ingresa tu telefono" name="telefono" maxlength="15" minlength="8" required >
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Ingresa tu contraseña:</label><br>
-                        <input type="text" id="password" placeholder="Ingresa tu contraseña aquí" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Confirmar contraseña:</label><br>
-                        <input type="password" id="confirm-password" placeholder="Ingresa tu contraseña aquí" name="pass" required>
-                    </div> 
+    <label for="password">Ingresa tu contraseña:</label>
+    <div class="input-group">
+        <input type="password" id="password" name="password" 
+               placeholder="Ingresa tu contraseña aquí" 
+               maxlength="20" minlength="8" required
+               class="form-control">
+        <div class="input-group-append">
+            <span class="input-group-text" onclick="togglePasswordVisibility('password', 'togglePasswordImage')" style="cursor: pointer;">
+                <img id="togglePasswordImage" src="../IMG/ojocerrado.png" alt="Mostrar contraseña" style="width: 20px;">
+            </span>
+
+        
+        </div>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label for="confirm_password">Confirma tu contraseña:</label>
+    <div class="input-group">
+        <input type="password" id="confirm_password" name="confirm_password" 
+               placeholder="Confirma tu contraseña aquí" 
+               maxlength="20" minlength="8" required
+               class="form-control">
+        <div class="input-group-append">
+            <span class="input-group-text" onclick="togglePasswordVisibility('confirm_password', 'toggleConfirmPasswordImage')" style="cursor: pointer;">
+                <img id="toggleConfirmPasswordImage" src="../IMG/ojocerrado.png" alt="Mostrar contraseña" style="width: 20px;">
+            </span>
+        </div>
+    </div>
+</div>
+
                     <div class="form-group">
                         <label for="confirm-password">Nombre</label><br>
                         <input type="text" id="nombre" placeholder="Ingresa Nombre(s)" name="nombre" required>                        
@@ -198,5 +225,24 @@ include '../SCRIPTS/empleados-dsh.php';
 </div>
 </div>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+<script>
+function togglePasswordVisibility(inputId, imageId) {
+    var input = document.getElementById(inputId);
+    var image = document.getElementById(imageId);
+
+    if (input.type === "password") {
+        input.type = "text";
+        image.src = "../IMG/redeye.png";  
+        image.alt = "Ocultar contraseña";
+    } else {
+        input.type = "password";
+        image.src = "../IMG/closeeye.png";  
+        image.alt = "Mostrar contraseña";
+    }
+}
+</script>
+
+
+
 </body>
 </html>

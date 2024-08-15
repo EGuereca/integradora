@@ -31,9 +31,10 @@
                 <input type="text" id="telefono" placeholder="Ingresa tu telefono" name="telefono" maxlength="15" required >
             </div>
 
-            <div class="form-group">
-                <label for="password">Ingresa tu contraseña:</label><br>
-                <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password" required maxlength="15" required minlength="8">
+            <div class="input-container">
+            <label for="contraseña">Contraseña:</label><br>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password">
+                <img class="toggle-password" id="togglePasswordImage" src="../IMG/closeeye.png" alt="Mostrar contraseña" onclick="togglePasswordVisibility('password', 'togglePasswordImage')">
             </div>
             <div class="form-group">
                 <label for="confirm-password">Confirmar contraseña:</label><br>
@@ -55,6 +56,22 @@
         window.location.href = 'inicio-sesion.php';
         }
     </script>
+    <script>
+function togglePasswordVisibility(inputId, imageId) {
+    var input = document.getElementById(inputId);
+    var image = document.getElementById(imageId);
+
+    if (input.type === "password") {
+        input.type = "text";
+        image.src = "../IMG/redeye.png";  
+        image.alt = "Ocultar contraseña";
+    } else {
+        input.type = "password";
+        image.src = "../IMG/closeeye.png";  
+        image.alt = "Mostrar contraseña";
+    }
+}
+</script>
 </div>
 </body>
 </html>

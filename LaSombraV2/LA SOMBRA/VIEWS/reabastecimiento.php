@@ -111,7 +111,9 @@ include '../SCRIPTS/dsh-reabas.php';
         }
         echo "</table></div>";
     } else {
-        echo "<p>No se encontraron productos.</p>";
+        echo "<div class='alert alert-danger' role='alert'>
+        No hay registros.
+      </div>";
     }
 ?>
 <!-- MODAL PARA PRECIO DE PROVEEDOR-->

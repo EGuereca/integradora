@@ -176,7 +176,9 @@ if ($results) {
     }
     echo "</table></div>";
 } else {
-    echo "<p>No se encontraron citas.</p>";
+    echo "<div class='alert alert-danger' role='alert'>
+        No se encontraron citas.
+      </div>";
 }
 
 ?>
@@ -197,11 +199,11 @@ if ($results) {
         <div class="modal-body">
         <form action="" method="post">
         <label for="nombre">Ingrese el nombre del cliente</label>
-        <input type="text" name="nombre" id="nombre"> <br>
+        <input type="text" name="nombre" id="nombre" maxlength="50" minlength="3" required> <br>
         <label for="costo">Ingrese el costo</label>
         <input type="text" name="costo" id="costo"> <br>
         <label for="nombre">Ingrese el número telefonico del cliente</label>
-        <input type="tel" id="phone" name="telefono"/> <br>
+        <input type="tel" id="phone" name="telefono"maxlength="15" minlength="8" required/> <br>
         <label for="nombre">Seleccione un perforador</label>
         <select class="form-select" aria-label="Default select example" name="empleado">
             <option selected value="">Perforador</option>

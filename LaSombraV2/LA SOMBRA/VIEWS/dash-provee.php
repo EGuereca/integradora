@@ -97,7 +97,8 @@ include '../SCRIPTS/provee-dsh.php';
         if ($results) {
             $telefono = ""; $pagina = "";
             echo "<h2>Proveedores:</h2>";
-            echo "<div class='tabla'><table border='1' class='table table-striped'>
+            echo "<div class='table-responsive'><table border='1' class='table table-striped'>
+
                 <tr>
                     <th>NOMBRE</th>
                     <th>TELEFONO</th>
