@@ -9,6 +9,9 @@ body{
     background-color: #111111;
     color: white;
 }
+.btn-reg{
+    width: 100%;
+}
 /*Header*/
 #body-burger{
     background-color: black;

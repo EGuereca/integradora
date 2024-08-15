@@ -42,7 +42,7 @@ include '../SCRIPTS/llenar-venta.php';
 </style>
 <div class="container" id="in">
         <div class="search-bar mb-3">
-            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+            <button class="btn btn-primary btn-reg" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
                 REGISTRAR
             </button>            
         </div>
