@@ -133,9 +133,11 @@ $fecha = date('Y-m-d');
                                 $tot += $row['total'];
                                 ?>
                                 <td>
+                                    <button class="btn btn-success">
                                     <a data-bs-toggle="collapse" href="#collapse<?php echo $row['id'];?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $row['id'];?>">
                                         Detalles
                                     </a>
+                                    </button>
                                 </td>
                             </tr>
                             <?php } ?>
