@@ -77,11 +77,11 @@ $fecha = date('Y-m-d');
     </nav>
     </header>
     <div class="container-fluid">
-            <div class="forms row align-items-center gy-2">
+    <div class="forms row align-items-center gy-2">
     <!-- Botón "Registrar Venta" -->
     <div class="col-12 col-md-4 col-lg-3">
         <a href="../VIEWS/llenado-venta.php">
-            <button type='button' class='btn btn-primary w-100' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button>
+            <button type='button' class='btn btn-success w-100' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button>
         </a>
     </div>
 
@@ -90,7 +90,7 @@ $fecha = date('Y-m-d');
         <form action="" method="post" class="d-flex flex-wrap align-items-center">
             <label class="col-auto" for="start">Fecha:</label>
             <input type="date" id="start" name="fecha" min="2024-01-01" max="<?php echo $fecha;?>" class="form-control w-auto" />
-            <button type="submit" name="btnfecha" class="btn btn-primary ms-md-2 mt-2 mt-md-0">BUSCAR</button>
+            <button type="submit" name="btnfecha" class="btn btn-success ms-md-2 mt-2 mt-md-0">BUSCAR</button>
         </form>
     </div>
 
