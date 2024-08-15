@@ -125,6 +125,7 @@ $pdo = null;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <style>
@@ -141,8 +142,9 @@ $pdo = null;
 <div class="container" id="in">
     <!-- Botón para salir de la página -->
     <a href="../VIEWS/dash-ventas.php" class="btn btn-danger mt-3 float-end">
-        <i class="bi bi-x-circle"></i> Salir
+    <i class="bi bi-x-circle"></i> Salir
     </a>
+
     <div class="search-bar mb-3">
     <form method="get" action="">
     <div class="row g-3">
