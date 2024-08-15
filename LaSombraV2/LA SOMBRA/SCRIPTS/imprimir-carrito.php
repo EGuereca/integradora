@@ -21,7 +21,7 @@ $db->conectarBD();
 
 $conexion = $db->getPDO();
 
-$dv =  isset($_POST["dv"]) ? $_POST["dv"] : '';
+$id_dv =  isset($_POST["dv"]) ? $_POST["dv"] : '';
 
 $queryCliente = "SELECT c.id_cliente AS id 
     FROM cliente AS c 
@@ -60,13 +60,14 @@ $stmtPendiente->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtPendiente->execute();
 $pedidoPendiente = $stmtPendiente->fetch(PDO::FETCH_ASSOC)['pendientes'];
 
-$q_productos = "SELECT SUM(dv.cantidad) AS cantidad, p.nombre AS nombre, p.url AS url ,(p.precio * dv.cantidad) AS precio,
-						ins.cantidad AS stock, dv.id_detalle AS id
-						FROM detalle_venta AS dv
+$q_productos = "SELECT SUM(dv.cantidad) AS cantidad, p.nombre AS nombre, p.url AS url ,p.precio AS precio,
+						ins.cantidad AS stock, dv.producto AS id_prod, dv.id_detalle AS id
+						FROM detalle_venta AS dv 
 						JOIN productos AS p ON dv.producto = p.id_producto
 						JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
 						WHERE dv.venta = :venta
-						AND ins.id_sucursal = :sucursal ORDER BY dv.producto";
+						AND ins.id_sucursal = :sucursal GROUP BY 
+                        dv.producto, p.nombre, p.url, p.precio, ins.cantidad ORDER BY dv.producto";
 
 $insert = " INSERT INTO venta(id_cliente, estado, tipo_venta) 
     VALUES(?, 'CARRITO', 'LINEA')
@@ -94,8 +95,10 @@ if (isset($_POST['btn'])) {
 $eliminar = $conexion->prepare("DELETE FROM detalle_venta WHERE id_detalle = ?");
 
 if (isset($_POST['eliminar'])) {
-    $eliminar->bindParam(1, $dv, PDO::PARAM_INT);
-    $eliminar->execute();
+    $eliminar->bindParam(1, $id_dv, PDO::PARAM_INT);
+    $eliminar->execute();    
+    header("location: ../VIEWS/carrito.php");
+    exit();
 }
 
 ?>

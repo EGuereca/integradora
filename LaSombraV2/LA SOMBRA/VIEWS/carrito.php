@@ -1,5 +1,7 @@
 <?php
-/*
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if ($_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
@@ -8,7 +10,7 @@ elseif ($_SESSION['rol'] != 3) {
     header("location: ../VIEWS/dashboard.php");
     exit();
 }
-*/
+
 
     include '../SCRIPTS/imprimir-carrito.php';
 ?>
@@ -145,8 +147,9 @@ elseif ($_SESSION['rol'] != 3) {
 <?php
         $total = 0;
         if (!empty($productos)) {
-            foreach ($productos as $row) { 
-            $total = $total + $row['precio'];   ?>
+            foreach ($productos as $row) {
+            $subtotal =  ($row['precio'] * $row['cantidad']);
+            $total = $total + $subtotal;?>
     <div class="row cart-item">
         <div class="col-lg-3 col-sm-12 col">
             <img src="<?php
@@ -162,14 +165,14 @@ elseif ($_SESSION['rol'] != 3) {
             <p><?php echo $row['nombre'] ?></p>
         </div>
         <div class="col-lg-2 col-sm-12">
-            <p class="product-price">$ <?php echo $row['precio']; ?></p>
+            <p class="product-price">$ <?php echo $subtotal; ?></p>
         </div>
         <div class="col-md-2">
             <p class="product-price"><?php echo $row['cantidad']; ?></p>
         </div>
         <div class="col-md-2">
             <form action="" method="post">
-                <input type="hidden" name="dv" value="<?php echo htmlspecialchars($row['id']);?>">
+                <input type="hidden" name="dv" value="<?php echo $row['id'];?>">
                 <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
             </form>
         </div>
