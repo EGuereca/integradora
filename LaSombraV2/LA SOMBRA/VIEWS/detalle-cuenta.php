@@ -100,7 +100,9 @@ include "../SCRIPTS/detalle-usuario.php";
                     
                     <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1) {?>
                             <li id="panel" class='nav-item'>
+                            <button class="btn btn-success">
                                     <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                                </button>
                             </li>
                     <?php } ?>
             
