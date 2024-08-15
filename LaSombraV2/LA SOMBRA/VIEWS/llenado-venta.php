@@ -48,32 +48,29 @@ include '../SCRIPTS/llenar-venta.php';
         if (!empty($productos)) {
             foreach ($productos as $row) { ?>                
                 <div class="col-lg-3 col-sm-12">
-                <div class="card mb-3">                
-                    <div class="card-img-container">
-                        <img src="../IMG/blazy-susan.svg" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        
-                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
-                        <p class="card-text">$ <?php echo $row['precio']; ?></p>
-                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
-                        <form action="" method="post" class="d-flex align-items-center justify-content-between">
-    <input type="hidden" name="id" value="<?php echo $row['id_producto']; ?>">
-    
-    <select name="cantidad" class="form-select me-2" style="width: auto;">
-        <option value="1" selected>1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    
-    <button name="btn-reg" type="submit" class="btn btn-success">
-        <i class="bi bi-cart-plus"></i> Agregar
-    </button>
-</form>
-                    </div>                
-                </div>
+                <div class="card mb-3 shadow-sm rounded">                
+    <div class="card-img-container p-3">
+        <img src="../IMG/blazy-susan.svg" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+        <p class="card-text text-muted">$ <?php echo $row['precio']; ?></p>
+        <p class="card-text"><small class="text-success"><?php echo $row['stock']; ?> piezas disponibles</small></p>
+        <form action="" method="post" class="d-flex align-items-center justify-content-between">
+            <input type="hidden" name="id" value="<?php echo $row['id_producto']; ?>">
+            <select name="cantidad" class="form-select me-2" style="width: auto;">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>    
+            <button name="btn-reg" type="submit" class="btn btn-success">
+                <i class="bi bi-cart-plus"></i> Agregar
+            </button>
+        </form>
+    </div>                
+</div>
             </div>          
         <?php
             }
@@ -85,8 +82,8 @@ include '../SCRIPTS/llenar-venta.php';
         <?php } ?>
     </div>
 
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-  <div class="offcanvas-header">    
+    <div class="offcanvas offcanvas-start bg-light shadow-sm rounded" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+  <div class="offcanvas-header bg-light">    
     <h5 class="offcanvas-title" id="staticBackdropLabel">REGISTRO</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
@@ -109,7 +106,7 @@ include '../SCRIPTS/llenar-venta.php';
                     <td>
                         <form action="" method="post">
                             <input type="hidden" name="dv" value="<?php echo $row['id'];?>">
-                            <button type="submit" name="eliminar">Eliminar</button>
+                            <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
                         </form>
                     </td>                    
                 </tr>
@@ -117,12 +114,12 @@ include '../SCRIPTS/llenar-venta.php';
         </tbody>
     </table>
     <form action="" method="post">
-                <select name="pago" id="">
-                    <option value="EFECTIVO">EFECTIVO</option>
-                    <option value="TARJETA">TARJETA</option>
-                </select>
-                <button type="submit" name="registrar_venta">Registrar Venta</button>                
-    </form>
+    <select name="pago" class="form-select mb-2">
+        <option value="EFECTIVO">EFECTIVO</option>
+        <option value="TARJETA">TARJETA</option>
+    </select>
+    <button type="submit" name="registrar_venta" class="btn btn-primary w-100">Registrar Venta</button>                
+</form>
   </div>
 </div>
     
