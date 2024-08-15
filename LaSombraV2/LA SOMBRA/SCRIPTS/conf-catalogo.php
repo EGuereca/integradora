@@ -1,5 +1,5 @@
 <?php
-
+/*
 if (!defined('SESSION_STARTED')) {
     session_start();
 }
@@ -128,6 +128,53 @@ $total_productos = $total_stmt->fetchColumn();
 $total_paginas = ceil($total_productos / $productos_por_pagina);
 
 $pdo = null; 
+*/
+
+
+if (!defined('SESSION_STARTED')) {
+    session_start();
+}
+
+include "../CLASS/database.php";
+$db = new Database();
+$db->conectarBD();
+$conexion = $db->getPDO();
+
+$productos_por_pagina = 9;
+$marca = isset($_SESSION['marca']) ? $_SESSION['marca'] : null;
+
+$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$pagina = $pagina > 0 ? $pagina : 1;
+$inicio = ($pagina - 1) * $productos_por_pagina;
+
+if ($marca !== null) {
+    $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
+            FROM productos WHERE marca = :marca AND stock > 0
+            LIMIT $inicio, $productos_por_pagina";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
+    $total_sql = "SELECT COUNT(*) FROM productos WHERE marca = :marca AND stock > 0";
+} else {
+    $sql = "SELECT id_producto, nombre, descripcion, precio, stock, url 
+            FROM productos WHERE stock > 0
+            LIMIT $inicio, $productos_por_pagina";
+    $stmt = $conexion->prepare($sql);
+    $total_sql = "SELECT COUNT(*) FROM productos WHERE stock > 0";
+}
+
+$stmt->execute();
+$productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$total_stmt = $conexion->prepare($total_sql);
+if ($marca !== null) {
+    $total_stmt->bindValue(':marca', $marca, PDO::PARAM_STR);
+}
+$total_stmt->execute();
+$total_productos = $total_stmt->fetchColumn();
+$total_paginas = ceil($total_productos / $productos_por_pagina);
+
+$pdo = null;
+
 
 
 
