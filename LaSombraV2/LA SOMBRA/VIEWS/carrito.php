@@ -134,7 +134,18 @@ elseif ($_SESSION['rol'] != 3) {
     </div>
     </nav>
 </header>
-
+<div class="container cart-container">
+    <div class="table">
+    <table border='1' class= 'table table-striped'>
+        <tr>
+            <th>IMAGEN</th>
+            <th>NOMBRE</th>
+            <th>SUBTOTAL</th>
+            <th>CANTIDAD</th>
+        </tr>
+    </table>
+    </div>
+</div>
 <div class="container cart-container">
 <?php
         $total = 0;
@@ -160,19 +171,12 @@ elseif ($_SESSION['rol'] != 3) {
         </div>
         <div class="col-md-2">
             <p class="product-price"><?php echo $row['cantidad']; ?></p>
-            <!--
-            <div class="product">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-dark decrement" type="button">-</button>
-                    </div>
-                    <input type="text" class="form-control text-center quantity" value="1" data-precio="<?php echo $row['precio']; ?>">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-dark increment" type="button">+</button>
-                    </div>
-                </div>
-            </div>
-            -->
+        </div>
+        <div class="col-md-2">
+            <form action="" method="post">
+                <input type="hidden" name="dv" value="<?php echo htmlspecialchars($row['id']);?>">
+                <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
+            </form>
         </div>
     </div>
     <?php
@@ -183,11 +187,24 @@ elseif ($_SESSION['rol'] != 3) {
         ?>
     <div class="row cart-total">
         <div>
-            <p>Subtotal: $<?php echo $total ?></p>
+            <p>TOTAL: $<?php echo $total ?></p>
             <form action="" method="post">
             <div class="form-group">
-                <?php if ($pedidoPendiente == 0) { ?>
-                        <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+                <?php if ($pedidoPendiente == 0) {
+                        if (empty($productos)) {
+                            echo "<button type='submit' name='btn' class='btn btn-success'>Confirmar pedido</button>";
+                        }
+                        else { 
+                            foreach ($productos as $row) {
+                                if ($row['cantidad'] > $row['stock']) { ?>
+                                  <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php $row['nombre'] ?>, debe de eliminarlo">Confirmar pedido</button>  
+                            <?php }
+                                else { ?>
+                                    <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+                         <?php }
+                            }
+                          } 
+                        ?>                        
                     <?php } else { ?>
                         <p>Tienes un pedido pendiente. Espera a que se confirme antes de hacer un nuevo pedido.</p>
                     <?php } ?>
