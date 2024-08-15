@@ -45,7 +45,7 @@ $fecha = date('Y-m-d');
             <div  id="body-burger"   class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
+                        <a class="nav-link" style="background-color: limegreen;" href="#">VENTAS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-apartados.php">PEDIDOS</a>
@@ -54,7 +54,7 @@ $fecha = date('Y-m-d');
                         <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="background-color: limegreen;" href="#">CITAS</a>
+                        <a class="nav-link"  href="../VIEWS/dash-citas.php">CITAS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
