@@ -99,8 +99,10 @@
                     <div  class="admin">
                     
                     <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1) {?>
-                            <li id="panel" class='nav-item'>
+                        <li id="panel" class='nav-item'>
+                                <button class="btn btn-success">
                                     <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                                </button> 
                             </li>
                     <?php } ?>
             
@@ -120,7 +122,7 @@
     </div> 
     </div> 
     </nav>
-</header>
+</header> 
 <div class="container" id="in">
     <div class="search-bar mb-3">
         <form method="get" action="">
