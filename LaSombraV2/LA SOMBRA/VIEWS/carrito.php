@@ -23,6 +23,7 @@ elseif ($_SESSION['rol'] != 3) {
     <title>Carrito</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/carrito.css">
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
     
 </head>
 <body>
@@ -171,11 +172,14 @@ elseif ($_SESSION['rol'] != 3) {
             <p class="product-price"><?php echo $row['cantidad']; ?></p>
         </div>
         <div class="col-md-2">
-            <form action="" method="post">
-                <input type="hidden" name="dv" value="<?php echo $row['id'];?>">
-                <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
-            </form>
-        </div>
+    <form action="" method="post">
+        <input type="hidden" name="dv" value="<?php echo $row['id']; ?>">
+        <button type="submit" name="eliminar" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </form>
+</div>
+
     </div>
     <?php
             }
