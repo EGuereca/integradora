@@ -116,12 +116,12 @@
                 </ul>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
+    </div> 
+    </div> 
+    </div> 
     </nav>
 </header>
-    <div class="container" id="in">
+<div class="container" id="in">
     <div class="search-bar mb-3">
         <form method="get" action="">
             <div class="row">
@@ -130,41 +130,24 @@
                 </div>
                 <div class="col">
                     <select class="form-control" name="categoria">
-                        <?php /*
                         <option value="">Todas las Categorías</option>
-                            <option value="1" >Pipas</option>
-                            <option value="2" >Bongs</option>
-                            <option value="3" >Canalas</option>
-                            <option value="4" >Hitters</option>
-                            <option value="5" >Electrónicos</option>
-                            <option value="6" >Ropa</option>
-                            <option value="7" >Blunts</option>
-                            <option value="8" >Piercings</option>
-                            <option value="9" >Grinders</option>
-                            <option value="10" >Charolas</option>
-                            <option value="11" >Accesorios</option>
-                        */ ?>
-                        <option value="">Todas las Categorías</option>
-                    <option value="1" <?php if ($categoria == 1) echo 'selected'; ?>>Pipas</option>
-                    <option value="2" <?php if ($categoria == 2) echo 'selected'; ?>>Bongs</option>
-                    <option value="3" <?php if ($categoria == 3) echo 'selected'; ?>>Canalas</option>
-                    <option value="4" <?php if ($categoria == 4) echo 'selected'; ?>>Hitters</option>
-                    <option value="5" <?php if ($categoria == 5) echo 'selected'; ?>>Electrónicos</option>
-                    <option value="6" <?php if ($categoria == 6) echo 'selected'; ?>>Ropa</option>
-                    <option value="7" <?php if ($categoria == 7) echo 'selected'; ?>>Blunts</option>
-                    <option value="8" <?php if ($categoria == 8) echo 'selected'; ?>>Piercings</option>
-                    <option value="9" <?php if ($categoria == 9) echo 'selected'; ?>>Grinders</option>
-                    <option value="10" <?php if ($categoria == 10) echo 'selected'; ?>>Charolas</option>
-                    <option value="11" <?php if ($categoria == 11) echo 'selected'; ?>>Accesorios</option>
-            
+                        <option value="1" <?php if ($categoria == 1) echo 'selected'; ?>>Pipas</option>
+                        <option value="2" <?php if ($categoria == 2) echo 'selected'; ?>>Bongs</option>
+                        <option value="3" <?php if ($categoria == 3) echo 'selected'; ?>>Canalas</option>
+                        <option value="4" <?php if ($categoria == 4) echo 'selected'; ?>>Hitters</option>
+                        <option value="5" <?php if ($categoria == 5) echo 'selected'; ?>>Electrónicos</option>
+                        <option value="6" <?php if ($categoria == 6) echo 'selected'; ?>>Ropa</option>
+                        <option value="7" <?php if ($categoria == 7) echo 'selected'; ?>>Blunts</option>
+                        <option value="8" <?php if ($categoria == 8) echo 'selected'; ?>>Piercings</option>
+                        <option value="9" <?php if ($categoria == 9) echo 'selected'; ?>>Grinders</option>
+                        <option value="10" <?php if ($categoria == 10) echo 'selected'; ?>>Charolas</option>
+                        <option value="11" <?php if ($categoria == 11) echo 'selected'; ?>>Accesorios</option>
                     </select>
-                </div>
+                </div> 
                 <div class="col">
                     <select class="form-control" name="sucursal">
-                        <?php
-                            foreach ($sucursales as $id => $nombre) { ?>
-                            <option value="<?php echo $id; ?>" <?php if ($sucursal == $id) echo 'selected'; ?>><?php echo $nombre; ?></option>
-                        <?php } ?>
+                        <option value="1" <?php if ($sucursal == 1) echo 'selected'; ?>>Matamoros</option>
+                        <option value="2" <?php if ($sucursal == 2) echo 'selected'; ?>>Nazas</option>
                     </select>
                 </div>
                 <div class="col">
@@ -175,13 +158,12 @@
     </div>
     <div class="row">      
         <?php
-        
         if (!empty($results)) {
             foreach ($results as $row) { ?>
                 <div class="col-lg-4 col-sm-12">
                     <div class="card mb-4">
-                        <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
-                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
+                        <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto']; ?>&token=<?php 
+                echo hash_hmac('sha256', $row['id_producto'], K_TOKEN); ?>">
                             <div class="card-img-container">                 
                                 <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
                             </div>
@@ -200,48 +182,26 @@
         }
         ?>           
     </div>
-        <?php
-        /*
+        
     <nav aria-label="Paginación de productos">
         <ul class="pagination justify-content-center">
             <?php if ($pagina > 1) { ?>
                 <li class="page-item">
-                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>">Anterior</a>
+                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Anterior</a>
                 </li>
             <?php } ?>
             <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
                 <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-                    <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
+                    <a class="page-link" href="?pagina=<?= $i ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>"><?= $i ?></a>
                 </li>
             <?php } ?>
             <?php if ($pagina < $total_paginas) { ?>
                 <li class="page-item">
-                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>">Siguiente</a>
+                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Siguiente</a>
                 </li>
             <?php } ?>
         </ul>
     </nav>
-    */
-    ?>
-    <nav aria-label="Paginación de productos">
-    <ul class="pagination justify-content-center">
-        <?php if ($pagina > 1) { ?>
-            <li class="page-item">
-                <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Anterior</a>
-            </li>
-        <?php } ?>
-        <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
-            <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-                <a class="page-link" href="?pagina=<?= $i ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>"><?= $i ?></a>
-            </li>
-        <?php } ?>
-        <?php if ($pagina < $total_paginas) { ?>
-            <li class="page-item">
-                <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Siguiente</a>
-            </li>
-        <?php } ?>
-    </ul>
-</nav>
 </div>
         <footer class="footer row">
             <div class="offset-lg-1 col-lg-9 text">
@@ -250,7 +210,7 @@
             <div class="col-lg-1 rs"><a href="https://www.facebook.com/people/La-Sombra-trc/100072525601731/" target="_blank"><img src="../ICONS/facebookwhite.png" alt="facebook"></a></div>
         </footer>
     </div> 
- 
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

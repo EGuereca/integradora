@@ -1,4 +1,7 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
     require '../SCRIPTS/detalle-prod.php';    
 ?>
 
@@ -41,6 +44,7 @@
     <div id="logo" class="col-6 col-lg-4 order-1 order-lg-3 text-start text-lg-end logo">
         <a href="#in"><img src="../IMG/sombra-logo.jpg" alt="La Sombra"></a>
     </div>
+    
 
     <div class="col-6 col-lg-4 text-end order-2 order-lg-4">
         
@@ -69,7 +73,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/carrito.php">CARRITO</a>
                     </li>
-                    
+                                
                     <?php
                     if(isset($_SESSION["id"])) 
                     {
@@ -123,18 +127,10 @@
     </div>
     </nav>
 </header>
-
     <div class="container" id="in">
         <div class="row" style="padding-top: 150px;">
-            <div class="col-lg-6 col-sm-12">
-                <img src="<?php
-                            if ($url == null) {
-                               echo "../IMG/PRODUCTOS/notfound.png";
-                            }
-                            else {
-                               echo $url['url'];
-                            }
-                        ?>" alt="<?php echo $nombre;?>" class="img-fluid">
+            <div class="col-lg-6 col-sm-12">                                
+                <img src="<?php echo $url; ?>" alt="<?php echo $nombre;?>" class="img-fluid">
             </div>
             <div class="col-lg-6 col-sm-12">
                 <h1><?php echo $nombre;?></h1>
@@ -212,7 +208,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-    <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+    <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

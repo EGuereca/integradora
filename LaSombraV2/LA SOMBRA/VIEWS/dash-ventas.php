@@ -17,7 +17,7 @@ $fecha = date('Y-m-d');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/ventas-dash.css">    
+    <link rel="stylesheet" href="../CSS/dash-ventas.css">    
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -26,29 +26,79 @@ $fecha = date('Y-m-d');
 
 <body>
 <div class="d-flex">
-    <div class="sidebar">
-        <img src="../IMG/sombra-logo.png" alt="La Sombra Logo" class="img-fluid mb-4">
-        <a style="background-color: limegreen;" href="#">Ventas</a>
-        <a href="../VIEWS/dash-apartados.php">Pedidos</a>
-        <a href="../VIEWS/dashboard.php">Productos</a>
-        <a href="../VIEWS/dash-citas.php">Citas</a>
-        <a href="../VIEWS/dash-provee.php">Proveedor</a>
-        <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
-        <a href="../VIEWS/reabastecimiento.php">Reabastecimiento</a>
-        <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-    </div>
-    <div class="main-container flex-grow-1">
-        <header class="header d-flex justify-content-between align-items-center w-100 row">
-            <div>
-                <a href="../VIEWS/llenado-venta.php"><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button></a>
-                <form action="" method="post" class="d-inline-block">
-                    <label class="col-lg-2 col-sm-2" for="start">Fecha:</label>
-                    <input type="date" id="start" name="fecha" min="2024-01-01" max="<?php echo $fecha;?>" class="form-control d-inline-block w-auto col-lg-3 col-sm-3" />
-                    <button type="submit" name="btnfecha" class="btn btn-primary d-inline-block col-lg-4">BUSCAR</button>
-                </form>
-                <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
+<header>
+    <nav id="contenedor-todo" class="navbar  fixed-top">
+    <div  class="container">
+    <div class="row align-items-center">
+    <div class="col-6 col-lg-4 order-2 order-lg-4">
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <div class="logo">
+                <a href="#in"><img src="../IMG/sombra-logo.png" alt="La Sombra"></a>
+                </div>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-        </header>
+            <div  id="body-burger"   class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" style="background-color: limegreen;" href="#">VENTAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-apartados.php">PEDIDOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dashboard.php">PRODUCTOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  href="../VIEWS/dash-citas.php">CITAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </nav>
+    </header>
+    <div class="container-fluid">
+    <div class="forms row align-items-center gy-2">
+    <!-- Botón "Registrar Venta" -->
+    <div class="col-12 col-md-4 col-lg-3">
+        <a href="../VIEWS/llenado-venta.php">
+            <button type='button' class='btn btn-success w-100' data-bs-toggle='modal' data-bs-target='#newSaleModal'>Registrar Venta</button>
+        </a>
+    </div>
+
+    <!-- Formulario de búsqueda por fecha -->
+    <div class="col-12 col-md-6 col-lg-6">
+        <form action="" method="post" class="d-flex flex-wrap align-items-center">
+            <label class="col-auto" for="start">Fecha:</label>
+            <input type="date" id="start" name="fecha" min="2024-01-01" max="<?php echo $fecha;?>" class="form-control w-auto" />
+            <button type="submit" name="btnfecha" class="btn btn-success ms-md-2 mt-2 mt-md-0">BUSCAR</button>
+        </form>
+    </div>
+
+    <!-- Contador de resultados -->
+    <div class="col-12 col-md-2 col-lg-3 text-md-end">
+        <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
+    </div>
+</div>
         <div class="content">
             <div class="row">
                 <div class="col-md-8">
