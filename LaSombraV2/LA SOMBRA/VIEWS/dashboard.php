@@ -77,15 +77,18 @@ include '../SCRIPTS/productos-dsh.php';
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-citas.php">CITAS</a>
                     </li>
+                    <?php if ($_SESSION["rol"] == 1 ) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
                     </li>
+                    
                     <li>
                         <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
                     </li>
+                    <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
@@ -173,7 +176,7 @@ include '../SCRIPTS/productos-dsh.php';
                   echo "<td>" . htmlspecialchars($row["precio"]) . "</td>";
                   echo "<td>" . htmlspecialchars($row["categoria"]) . "</td>";
                   echo "<td>";
-                  echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>";
+                  if($_SESSION ['rol'] == 1 ) { echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>"; } 
                   echo "</td>";
                   echo "</tr>";
               }

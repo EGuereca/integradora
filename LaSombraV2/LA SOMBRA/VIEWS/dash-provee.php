@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
+if ($_SESSION["rol"] != 1|| $_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
@@ -115,7 +115,6 @@ include '../SCRIPTS/provee-dsh.php';
                             <td>
                         <a href='modificar-proveedor.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
                     </td>
-                           
                             </tr>";                    
         }
         echo "</table></div>";
