@@ -38,7 +38,7 @@ if (isset($_POST['password'])) {
 
 if (isset($_POST["btncrearemp"])) {
         $pass1 = $_POST['password'];
-        $pass2 = $_POST['pass'];
+        $pass2 = $_POST['confirm_password'];
 
         if ($pass1 === $pass2) {
             $usuario = $_POST["usuario"];
