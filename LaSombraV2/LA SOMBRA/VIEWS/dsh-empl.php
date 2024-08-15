@@ -172,7 +172,7 @@ include '../SCRIPTS/empleados-dsh.php';
     <label for="confirm_password">Confirma tu contraseña:</label>
     <div class="input-group">
         <input type="password" id="confirm_password" name="confirm_password" 
-               placeholder="Confirma tu contraseña aquí" 
+                placeholder="Confirma tu contraseña aquí" 
                maxlength="20" minlength="8" required
                class="form-control">
         <div class="input-group-append">
