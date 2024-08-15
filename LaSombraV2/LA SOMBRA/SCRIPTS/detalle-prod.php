@@ -14,29 +14,6 @@ if (isset($_SESSION['sucursal'])) {
   $_SESSION['sucursal'] = null;
 }
 
-// LO DEJÉ EN COMENTARIO POR SI HAY ALGÚN PEDO, LA CLASE DE BD YA SE INCLUYE EN LOS SCRIPTS DE ARRIBA
-/*
-$hostname = "localhost";
-$user = "root";
-$password = "";
-$database = "la_sombra";
-$charset = "utf8";
-$dsn = "mysql:host=$hostname;dbname=$database;charset=$charset";
-
-try {
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-    $pdo = new PDO($dsn, $user, $password, $options);
-} catch (PDOException $e) {
-    echo $e->getMessage();
-    exit; 
-}
-*/
-
-
-
   
   $id = isset($_GET['id']) ? $_GET['id'] : '';
   $token = isset($_GET['token']) ? $_GET['token'] : '';
@@ -70,6 +47,13 @@ if ($id == '' || $token == '') {
 else {
       $token_tmp = hash_hmac('sha256',$id,K_TOKEN);
       if ($token == $token_tmp) {
+                  
+      }
+      else {
+        # HACER UNA PAGINA DE DATOS NO VALIDOS
+        echo "ERROR";
+          exit;
+      }         
           $sql = $conexion->prepare("SELECT COUNT(id_producto) FROM productos
           WHERE id_producto = ?");
           $sql->execute([$id]);
@@ -142,14 +126,12 @@ else {
             $sql2->execute([$marca]);
             $row2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
             }                                    
+          }
+          else{
+            echo "no hay padrino";
           }        
-      }
-      else {
-        # HACER UNA PAGINA DE DATOS NO VALIDOS
-        echo "ERROR";
-          exit;
-      }
-}
+          }        
+
 
 
 
