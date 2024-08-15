@@ -185,24 +185,29 @@ elseif ($_SESSION['rol'] != 3) {
             <p>TOTAL: $<?php echo $total ?></p>
             <form action="" method="post">
             <div class="form-group">
-                <?php if ($pedidoPendiente == 0) {
+                <?php $control = 0; $prod = "";
+                if ($pedidoPendiente == 0) {
                         if (empty($productos)) {
                             echo "<button type='submit' name='btn' class='btn btn-success'  disabled>Confirmar pedido</button>";
                         }
                         else { 
-                            foreach ($productos as $row) {                                
-                                if ($row['cantidad'] > $row['stock']) { ?>
-                                  <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php $row['nombre'] ?>, debe de eliminarlo">Confirmar pedido</button>  
-                            <?php }
-                                else { ?>
-                                    <button type="submit" name="btn" id="confirmar" class="btn btn-success">Confirmar pedido</button>
-                         <?php }
+                            foreach ($productos as $row) {
+                                if ($row['cantidad'] > $row['stock']) {
+                                    $control++;
+                                    $prod = $row['nombre'];
+                                }
                             }
-                          } 
-                        ?>                        
-                    <?php } else { ?>
-                        <p>Tienes un pedido pendiente. Espera a que se confirme antes de hacer un nuevo pedido.</p>
-                    <?php } ?>
+                            ?>
+                            <?php  
+                                if ($control == 0) { ?>
+                                    <button type="submit" name="btn" id="confirmar" class="btn btn-success">Confirmar pedido</button>                                                                  
+                            <?php }
+                            else {
+                            ?>
+                            <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php $row['nombre'] ?>, debe de eliminarlo">Confirmar pedido</button>                              
+                    <?php }} 
+                    }
+                    else{ echo "<p>Tienes un pedido pendiente. Espera a que se confirme antes de hacer un nuevo pedido.</p>"; } ?>
             </div>      
             </form>
         </div>

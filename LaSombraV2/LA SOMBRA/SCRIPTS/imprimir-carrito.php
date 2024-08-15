@@ -60,13 +60,13 @@ $stmtPendiente->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtPendiente->execute();
 $pedidoPendiente = $stmtPendiente->fetch(PDO::FETCH_ASSOC)['pendientes'];
 
-$q_productos = "SELECT dv.cantidad AS cantidad, p.nombre AS nombre, p.url AS url ,(p.precio * dv.cantidad) AS precio,
+$q_productos = "SELECT SUM(dv.cantidad) AS cantidad, p.nombre AS nombre, p.url AS url ,(p.precio * dv.cantidad) AS precio,
 						ins.cantidad AS stock, dv.id_detalle AS id
 						FROM detalle_venta AS dv
 						JOIN productos AS p ON dv.producto = p.id_producto
 						JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
 						WHERE dv.venta = :venta
-							AND ins.id_sucursal = :sucursal";
+						AND ins.id_sucursal = :sucursal ORDER BY dv.producto";
 
 $insert = " INSERT INTO venta(id_cliente, estado, tipo_venta) 
     VALUES(?, 'CARRITO', 'LINEA')
