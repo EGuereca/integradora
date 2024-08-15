@@ -60,104 +60,99 @@
     </nav>
     </header>
         
-        <!-- Main Content -->
-        <div id="gestion" class="container-fluid">
-        <h1 class="mt-5">Gestión de pedidos</h1>
-        <form action="" method="post" class="mb-5">
-            <div class="form-group">
-                <label for="numero_pedido">Número de Pedido:</label>
-                <input type="number" name="numero_pedido" id="numero_pedido" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="estado">Estado:</label>
-                <select name="estado" id="estado" class="form-control" required>
-                    <option value="PENDIENTE">Pendientes</option>
-                    <option value="COMPLETADA">Completadas</option>
-                </select>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </form>
 
-        <?php 
-        $ventas = [];
-        $detalles = [];
-        include "../SCRIPTS/dsh-apartados.php";
-        ?>
+    <?php 
+    $ventas=[];
+    $detalles=[];
+    include "../SCRIPTS/dsh-apartados.php"
+    ?>
+       <!-- Main Content -->
+<div id="gestion" class="container-fluid">
+    <h1 class="mt-5">Gestión de pedidos</h1>
+    <form action="" method="post" class="mb-5">
+        <div class="form-group">
+            <label for="numero_pedido">Número de Pedido:</label>
+            <input type="number" name="numero_pedido" id="numero_pedido" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="estado">Estado:</label>
+            <select name="estado" id="estado" class="form-control" required>
+                <option value="PENDIENTE">Pendientes</option>
+                <option value="COMPLETADA">Completadas</option>
+            </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
 
+    <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
         <?php if ($ventas) { ?>
-                <table class="table table-bordered">
-                <thead class="thead-dark"><tr>
-                <th>ID Venta</th>
-                <th>Nombre de Usuario</th>
-                <th>Estado</th>
-                <th>Tipo de Venta</th>
-                <th>Monto del pedido</th>
-                <th>Sucursal</th>
-
-    
-                <?php if ($estado == 'PENDIENTE') { ?>
-                        <th>Acciones</th>
-                <?php  } ?>
-                    </tr></thead>
-                    <tbody>
-                <?php foreach ($ventas as $venta) { ?>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
                     <tr>
-                        <td> <?php echo $venta['id_venta'] ?> </td>
-                        <td> <?php echo $venta['nombre_usuario'] ?> </td>
-                        <td> <?php echo $venta['estado'] ?> </td>
-                        <td> <?php echo $venta['tipo_venta'] ?> </td>
-                        <td> <?php echo $venta['monto_total'] ?> </td>
-                        <td> <?php echo $venta['sucursal'] ?> </td>
-                        
-                    
-                    <?php if ($estado == 'PENDIENTE') { ?>
+                        <th>ID Venta</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Estado</th>
+                        <th>Tipo de Venta</th>
+                        <th>Monto del pedido</th>
+                        <th>Sucursal</th>
+                        <?php if ($estado == 'PENDIENTE') { ?>
+                            <th>Acciones</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($ventas as $venta) { ?>
+                        <tr>
+                            <td><?php echo $venta['id_venta'] ?></td>
+                            <td><?php echo $venta['nombre_usuario'] ?></td>
+                            <td><?php echo $venta['estado'] ?></td>
+                            <td><?php echo $venta['tipo_venta'] ?></td>
+                            <td><?php echo $venta['monto_total'] ?></td>
+                            <td><?php echo $venta['sucursal'] ?></td>
+                            <?php if ($estado == 'PENDIENTE') { ?>
                                 <td>
                                     <form action="../SCRIPTS/confirmar-pedido.php" method="post">
                                         <input type="hidden" name="id_venta" value="<?php echo $venta['id_venta'] ?>">
                                         <button type="submit" class="btn btn-success">Confirmar pedido</button>
                                     </form>
                                 </td>
-                    <?php  } ?>
+                            <?php } ?>
                         </tr>
-            <?php  } ?>
-                    </tbody></table>
-            <?php } else { ?>
-                    <div class="alert alert-warning">No se encontraron ventas con el estado seleccionado.</div>
-            <?php } ?>
+                    <?php } ?>
+                </tbody>
+            </table>
+        <?php } else { ?>
+            <div class="alert alert-warning">No se encontraron ventas con el estado seleccionado.</div>
+        <?php } ?>
 
-    
-            <div class="detalles-venta">
+        <div class="detalles-venta">
             <h2>Detalles del Pedido:</h2>
-                <?php if ($detalles && count($detalles) > 0 && $ventas): ?>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Precio del producto</th>
-                                    <th>Cantidad de producto</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php foreach ($detalles as  $detalle): ?>
+            <?php if ($detalles && count($detalles) > 0 && $ventas): ?>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio del producto</th>
+                            <th>Cantidad de producto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($detalles as $detalle): ?>
                             <tr>
-                                <td><?php  echo htmlspecialchars($detalle['nombre']); ?> </td>
+                                <td><?php echo htmlspecialchars($detalle['nombre']); ?></td>
                                 <td><?php echo htmlspecialchars($detalle['precio']); ?></td>
                                 <td><?php echo htmlspecialchars($detalle['cantidad']); ?></td>
                             </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                            </table>
-                    
-                <?php else: ?>
-                    <div class="alert alert-info">No se encontraron ventas con el estado seleccionado.</div>
-                <?php endif; ?>
-            
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <div class="alert alert-info">No se encontraron ventas con el estado seleccionado.</div>
+            <?php endif; ?>
+        </div>
+    <?php } ?>
 </div>
-
-        
-    </div>  
-
     
 
         <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
