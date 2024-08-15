@@ -82,7 +82,7 @@
             </select>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Buscar</button>
+        <button type="submit" class="btn btn-success">Buscar</button>
     </form>
 
     <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
