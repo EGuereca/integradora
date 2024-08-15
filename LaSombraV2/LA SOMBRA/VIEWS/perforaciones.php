@@ -124,40 +124,49 @@ session_start();
             <div id="in" class="titulo row">
                 <h1>PERFORACIONES</h1>
             </div>
+            
             <div class="content row">
                 <div class="about-text col-lg-6 col-sm-12">
-                    <h3>Info de perforador</h3>
-                    <p>Subheading for description or instructions</p>
-                    <p>Body text for your whole article or post. We'll put in some lorem ipsum to show how a filled-out page might look.</p>
-                    <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla ut.</p>
+                    <h3>Edgar Vilegas Requejo</h3>
+                    <br>
+                    <p>Edgar realizó dos cursos de perforación, uno de ellos con certificación como perforador.</p>
+                    <p>Estamos seguros que donde quieras perforarte, Edgar tendrá mucho cuidado y te dará los mejores consejos de cuidado para tus perforaciones, contáctalo para agentar una cita!</p>
                 </div>
                 <div class="about-img col-lg-6 col-sm-12">
-                    <img src="../IMG/bicho.jpg" alt="Perforador">
+                    <img src="../IMG/elperforador.jpeg" alt="Perforador">
                 </div>
             </div>
+
+            <div class="content row">
+            <div id="btn-wha" class="btn">
+                    <a target="_blank" href="https://wa.me/+528712237759" class="btn btn-success cta-button">Genera tu cita con Edgar!</a>
+                </div>
+            </div>
+            
+
             <div class="perforaciones">
-                <h2>Tipos de perforaciones</h2>
+                <h2>Tipos de perforaciones que manejamos</h2>
                 <div class="perforaciones-grid row">
                     <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 1">
-                        <p>Description of featured product</p>
+                        <img src="../IMG/ceja.webp" alt="Perforación 1">
+                        <p>Ceja</p>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 2">
-                        <p>Description of featured product</p>
+                        <img src="../IMG/oreja.jpg" alt="Perforación 2">
+                        <p>Oreja</p>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 3">
-                        <p>Description of featured product</p>
+                        <img src="../IMG/septum.jpg" alt="Perforación 3">
+                        <p>Septum</p>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="https://via.placeholder.com/100" alt="Perforación 4">
-                        <p>Description of featured product</p>
+                        <img src="../IMG/ombligo.webp" alt="Perforación 4">
+                        <p>Ombligo</p>
                     </div>
                 </div>
-                <div id="btn-wha" class="btn">
-                    <a target="_blank" href="https://wa.me/+528712340008" class="btn btn-success cta-button">Genera tu cita!</a>
-                </div>
+
+                
+                
             </div>
         </div>
         <footer class="footer row">
