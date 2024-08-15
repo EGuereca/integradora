@@ -12,7 +12,7 @@ body{
 /*Header*/
 #body-burger{
     background-color: black;
-    text-align: left;
+    text-align: center;
 }
 
 .offcanvas-header{
@@ -20,7 +20,7 @@ body{
 }
 
 .offcanvas-header .logo{
-    text-align: left;
+    text-align: center;
 }
 
 #contenedor-todo{
@@ -37,8 +37,10 @@ body{
 
 }
 
-.btn{
-    background-color: green;
+
+
+#cerrar{
+    background-color: red;
 }
 
 #buscar{

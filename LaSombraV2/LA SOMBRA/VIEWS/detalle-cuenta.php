@@ -100,7 +100,9 @@ include "../SCRIPTS/detalle-usuario.php";
                     
                     <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1) {?>
                             <li id="panel" class='nav-item'>
+                            <button class="btn btn-success">
                                     <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                                </button>
                             </li>
                     <?php } ?>
             
@@ -143,6 +145,7 @@ include "../SCRIPTS/detalle-usuario.php";
             <?php endif; ?>
         </div>
         <br><br>
+        <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 3) {?>
         <div class="detalles-venta">
             <?php if (isset($_POST['ver_detalles'])): ?>
             <h2>Detalles del Pedido: <?php echo htmlspecialchars($_POST['venta_id']); ?></h2>
@@ -247,6 +250,7 @@ include "../SCRIPTS/detalle-usuario.php";
                 <p>No se encontraron pedidos completados.</p>
             <?php endif; ?>
         </div>
+        <?php    } ?>
     </div>
 </div>
 

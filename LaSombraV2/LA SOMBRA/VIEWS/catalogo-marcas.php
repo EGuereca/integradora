@@ -88,59 +88,58 @@
     </div>
     </nav>
 </header>
-    <div class="container" id="in">
-        <div class="search-bar mb-3">
-            <input type="text" class="form-control" placeholder="Buscar artículo...">
-        </div>
-        <div class="row">      
-        <?php
-        if (!empty($productos)) {
-            foreach ($productos as $row) { ?>
-
-                <div class="col-lg-4 col-sm-12">
+<div class="container" id="in">
+    <div class="search-bar mb-3">
+        <input type="text" class="form-control" placeholder="Buscar artículo...">
+    </div>
+    <div class="row">      
+    <?php
+    if (!empty($productos)) {
+        foreach ($productos as $row) { ?>
+            <div class="col-lg-4 col-sm-12">
                 <div class="card mb-4">
-                <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
-                echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
-                    <div class="card-img-container">
-                    <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
-                        <p class="card-text">$ <?php echo $row['precio']; ?></p>
-                        <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
-                    </div>
+                    <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto'];?>&token=<?php 
+                    echo hash_hmac('sha256',$row['id_producto'],K_TOKEN);?>">
+                        <div class="card-img-container">
+                            <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                            <p class="card-text">$ <?php echo $row['precio']; ?></p>
+                            <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
+                        </div>
                     </a>
                 </div>
             </div>          
         <?php
-            }
-        } else {
-            echo "<div class='alert alert-success' role='alert'>
-            No hay articulos disponibles </div>";
         }
-        ?>           
-            </div>
+    } else {
+        echo "<div class='alert alert-success' role='alert'>
+        No hay artículos disponibles</div>";
+    }
+    ?>           
+    </div>
 
-            <nav aria-label="Paginación de productos">
+    <nav aria-label="Paginación de productos">
         <ul class="pagination justify-content-center">
             <?php if ($pagina > 1) { ?>
                 <li class="page-item">
-                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Anterior</a>
+                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&marca=<?= urlencode($marca) ?>">Anterior</a>
                 </li>
             <?php } ?>
             <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
                 <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-                    <a class="page-link" href="?pagina=<?= $i ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>"><?= $i ?></a>
+                    <a class="page-link" href="?pagina=<?= $i ?>&marca=<?= urlencode($marca) ?>"><?= $i ?></a>
                 </li>
             <?php } ?>
             <?php if ($pagina < $total_paginas) { ?>
                 <li class="page-item">
-                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Siguiente</a>
+                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&marca=<?= urlencode($marca) ?>">Siguiente</a>
                 </li>
             <?php } ?>
         </ul>
     </nav>
-    </div>
+</div>
         <footer class="footer row">
             <div class="offset-1 col-lg-9 text">
                 <p>Somos una empresa nacional con una trayectoria de 7 años en el mercado, especializada en ofrecer de manera responsable una amplia gama de accesorios para fumar, como pipas de cristal, bongs, bubblers y otros productos similares. Nuestro compromiso se refleja en la calidad y variedad de nuestro catálogo, diseñado para satisfacer las necesidades de nuestros clientes más exigentes.</p>

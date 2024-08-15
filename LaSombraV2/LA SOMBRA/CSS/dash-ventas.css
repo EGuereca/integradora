@@ -67,6 +67,10 @@ body {
     height: 13%;
 }
 
+.btn a{
+    text-decoration: none;
+    color: white;
+}
 .navbar a{
     padding-right: 5px;
     color: black;

@@ -9,6 +9,9 @@ body{
     background-color: #111111;
     color: white;
 }
+.btn-reg{
+    width: 100%;
+}
 /*Header*/
 #body-burger{
     background-color: black;
@@ -131,13 +134,15 @@ body{
     color: white;
     text-decoration: none;
 }
-img{
+.img-pro{
     margin-bottom: 10%;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    max-height: 250px;
+    width: 100%;
 }
 .card-img-container{
     border-radius: 10px;

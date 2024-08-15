@@ -21,6 +21,8 @@ $db->conectarBD();
 
 $conexion = $db->getPDO();
 
+$dv =  isset($_POST["dv"]) ? $_POST["dv"] : '';
+
 $queryCliente = "SELECT c.id_cliente AS id 
     FROM cliente AS c 
     JOIN persona AS p ON c.persona = p.id_persona
@@ -32,6 +34,15 @@ $stmtCliente->bindParam(':id', $id, PDO::PARAM_INT);
 $stmtCliente->execute();
 
 $idCliente = $stmtCliente->fetch(PDO::FETCH_ASSOC)['id'];
+
+$venta = $conexion->prepare("SELECT id_venta FROM venta WHERE id_cliente = $idCliente
+AND estado = 'CARRITO'");
+$venta->execute();
+$id_venta = $venta->fetch(PDO::FETCH_ASSOC)['id_venta'];
+
+$sucursal = $conexion->prepare("SELECT sucursal FROM venta WHERE id_venta = $id_venta");
+$sucursal->execute();
+$sucu = $sucursal->fetch(PDO::FETCH_ASSOC)['sucursal'];
 
 if ($idCliente === null) {
     header("location: ../VIEWS/iniciov2.php");
@@ -49,23 +60,21 @@ $stmtPendiente->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtPendiente->execute();
 $pedidoPendiente = $stmtPendiente->fetch(PDO::FETCH_ASSOC)['pendientes'];
 
-$q_productos = "SELECT dv.cantidad AS cantidad, p.nombre AS nombre, p.url AS url ,(p.precio * dv.cantidad) AS precio
-    FROM detalle_venta AS dv
-    JOIN productos AS p ON dv.producto = p.id_producto
-    WHERE dv.venta = (
-        SELECT id_venta  
-        FROM venta 
-        WHERE id_cliente = :idCliente 
-        AND estado = 'CARRITO'
-    )
-";
+$q_productos = "SELECT dv.cantidad AS cantidad, p.nombre AS nombre, p.url AS url ,(p.precio * dv.cantidad) AS precio,
+						ins.cantidad AS stock, dv.id_detalle AS id
+						FROM detalle_venta AS dv
+						JOIN productos AS p ON dv.producto = p.id_producto
+						JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
+						WHERE dv.venta = :venta
+							AND ins.id_sucursal = :sucursal";
 
 $insert = " INSERT INTO venta(id_cliente, estado, tipo_venta) 
     VALUES(?, 'CARRITO', 'LINEA')
 ";
 
 $stmtProductos = $conexion->prepare($q_productos);
-$stmtProductos->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
+$stmtProductos->bindParam(':venta', $id_venta, PDO::PARAM_INT);
+$stmtProductos->bindParam(':sucursal', $sucu, PDO::PARAM_INT);
 $stmtProductos->execute();
 $update = $conexion->prepare("UPDATE venta SET estado = 'PENDIENTE' WHERE id_cliente = $idCliente
 AND estado = 'CARRITO'");
@@ -80,6 +89,13 @@ if (isset($_POST['btn'])) {
     #HACER UNA PAGINA CON EL ID DEL PEDIDO, Y DE QUE ESTA EXITOSO
     header("location: ../VIEWS/iniciov2.php");
     exit();
+}
+
+$eliminar = $conexion->prepare("DELETE FROM detalle_venta WHERE id_detalle = ?");
+
+if (isset($_POST['eliminar'])) {
+    $eliminar->bindParam(1, $dv, PDO::PARAM_INT);
+    $eliminar->execute();
 }
 
 ?>

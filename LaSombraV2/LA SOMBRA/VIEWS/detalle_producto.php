@@ -76,37 +76,34 @@
                                 
                     <?php
                     if(isset($_SESSION["id"])) 
-                    {
+                    { ?>
                     
-                    echo "<li class='nav-item'>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
-                        </li>";
+                        </li>
 
-                    ECHO "<li class='nav-item'>
-                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>CERRAR SESION</a>
-                        </li>";
-                    }
+                        <li class='nav-item'>
 
-                    else{
-                    echo "<li class='nav-item'>
+                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
+                            <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
+                        </a>
+                        </li>
+                    <?php }
+
+                    else{ ?>
+                        <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
-                        </li>";
-                    }
-                    ?>
+                        </li>
+                    <?php } ?>
                     
-                    
-                    <li class="nav-item">
-                    <form class=" d-flex mt-3 " role="search">
-                        <input id="buscar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                        <button id="btn-nav" class="btn btn-success" type="submit">Buscar</button>
-                    </form>
-                    </li>
                     
                     <div  class="admin">
                     
                     <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1) {?>
                             <li id="panel" class='nav-item'>
+                                <button class="btn btn-success">
                                     <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                                </button> 
                             </li>
                     <?php } ?>
             
@@ -126,7 +123,7 @@
     </div>
     </div>
     </nav>
-</header>
+</header> 
     <div class="container" id="in">
         <div class="row" style="padding-top: 150px;">
             <div class="col-lg-6 col-sm-12">                                

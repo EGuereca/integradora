@@ -1,7 +1,21 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+    session_start();    
+
 }
+
+if (isset($_SESSION['id'])) {
+    $venta = $_SESSION['id'];    
+}
+else{
+    $venta = '';
+}
+if (isset($_SESSION['sucursal'])) {
+    $suc = $_SESSION['sucursal'];    
+}
+else{
+    $suc = '';
+}    
 
 
 include "../CLASS/database.php";
@@ -10,18 +24,20 @@ $db->conectarBD();
 
 $conexion = $db->getPDO();
 
-$suc = $_SESSION['sucursal'];
+if ($venta) {
+    $consulta = $conexion->prepare("SELECT v.id_venta as id from venta as v join cliente as c on v.id_cliente = c.id_cliente
+    join persona as p on c.persona = p.id_persona join usuarios as u on p.usuario
+    = u.id_usuario where u.id_usuario = $venta and v.estado = 'CARRITO'");
+    $consulta->execute();
 
-$venta = $_SESSION['id'];
-$consulta = $conexion->prepare("SELECT v.id_venta as id from venta as v join cliente as c on v.id_cliente = c.id_cliente
-join persona as p on c.persona = p.id_persona join usuarios as u on p.usuario
-= u.id_usuario where u.id_usuario = $venta and v.estado = 'CARRITO'");
-$consulta->execute();
-$id_v = $consulta->fetch(PDO::FETCH_ASSOC)['id'];
-$update = $conexion->prepare("UPDATE venta SET sucursal = ? WHERE id_venta = ?");
-$stm = $conexion->prepare("CALL LLENAR_VENTA(?,?,?)");
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-$token = isset($_GET['token']) ? $_GET['token'] : '';
+    $id_v = $consulta->fetch(PDO::FETCH_ASSOC)['id'];
+    $update = $conexion->prepare("UPDATE venta SET sucursal = ? WHERE id_venta = ?");
+    $stm = $conexion->prepare("CALL LLENAR_VENTA(?,?,?)");
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
+    $token = isset($_GET['token']) ? $_GET['token'] : '';
+
+}
+
 
 
 if (isset($_POST['btncarrito'])) {

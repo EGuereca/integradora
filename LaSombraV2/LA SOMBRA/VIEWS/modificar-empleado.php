@@ -89,7 +89,9 @@ $employee = $stmt->fetch(PDO::FETCH_OBJ);
             </select> 
         </div>
     </div> 
-    <button id="regemp" type="submit" name="btnupdateemp" class="btn btn-primary">Modificar</button>     
+    <button id="regemp" type="submit" name="btnupdateemp" class="btn btn-primary">Modificar</button> 
+    
+   
 </form>
 </body>
 </html>
