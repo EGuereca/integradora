@@ -139,7 +139,7 @@
                 <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
             <?php } ?>
             </select> <br> <br>
-                <button name="btncarrito" type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"]) || $_SESSION['sucursal'] == 2) {
+                <button name="btncarrito" type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"])) {
                     echo "disabled";
                 }?>">AGREGAR A CARRITO</button>
                 </form>
