@@ -94,11 +94,11 @@ session_start();
                     
                     <div  class="admin">
                     
-                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1) {?>
+                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] != 3) {?>
                             <li id="panel" class='nav-item'>
-                                <button class="btn btn-success">
+                            <button class="btn btn-success">
                                     <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
-                                </button> 
+                                </button>
                             </li>
                     <?php } ?>
             

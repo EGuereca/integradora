@@ -1,3 +1,12 @@
+
+<?php
+session_start();
+if ($_SESSION["rol"] == 3|| $_SESSION["rol"] == null) {
+    header("location: ../VIEWS/iniciov2.php");
+    exit();    
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +48,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-citas.php">CITAS</a>
                     </li>
+                    <?php 
+                            if ($_SESSION["rol"] == 1 ) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
                     </li>
@@ -48,6 +59,7 @@
                     <li>
                         <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
                     </li>
+                        <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
