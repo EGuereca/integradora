@@ -149,39 +149,14 @@ include '../SCRIPTS/empleados-dsh.php';
                         <label for="telefono">Teléfono:</label><br>
                         <input type="text" id="telefono" placeholder="Ingresa tu telefono" name="telefono" maxlength="15" minlength="8" required >
                     </div>
-
                     <div class="form-group">
-    <label for="password">Ingresa tu contraseña:</label>
-    <div class="input-group">
-        <input type="password" id="password" name="password" 
-               placeholder="Ingresa tu contraseña aquí" 
-               maxlength="20" minlength="8" required
-               class="form-control">
-        <div class="input-group-append">
-            <span class="input-group-text" onclick="togglePasswordVisibility('password', 'togglePasswordImage')" style="cursor: pointer;">
-                <img id="togglePasswordImage" src="../IMG/ojocerrado.png" alt="Mostrar contraseña" style="width: 20px;">
-            </span>
-
-        
-        </div>
-    </div>
-</div>
-
-
-<div class="form-group">
-    <label for="confirm_password">Confirma tu contraseña:</label>
-    <div class="input-group">
-        <input type="password" id="confirm_password" name="confirm_password" 
-                placeholder="Confirma tu contraseña aquí" 
-               maxlength="20" minlength="8" required
-               class="form-control">
-        <div class="input-group-append">
-            <span class="input-group-text" onclick="togglePasswordVisibility('confirm_password', 'toggleConfirmPasswordImage')" style="cursor: pointer;">
-                <img id="toggleConfirmPasswordImage" src="../IMG/ojocerrado.png" alt="Mostrar contraseña" style="width: 20px;">
-            </span>
-        </div>
-    </div>
-</div>
+                        <label for="password">Ingresa tu contraseña:</label><br>
+                        <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password" maxlength="20" minlength="8" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirma contraseña:</label><br>
+                        <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="confirm_password" maxlength="20" minlength="8" required>
+                    </div>
 
                     <div class="form-group">
                         <label for="confirm-password">Nombre</label><br>
@@ -225,22 +200,7 @@ include '../SCRIPTS/empleados-dsh.php';
 </div>
 </div>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-<script>
-function togglePasswordVisibility(inputId, imageId) {
-    var input = document.getElementById(inputId);
-    var image = document.getElementById(imageId);
 
-    if (input.type === "password") {
-        input.type = "text";
-        image.src = "../IMG/redeye.png";  
-        image.alt = "Ocultar contraseña";
-    } else {
-        input.type = "password";
-        image.src = "../IMG/closeeye.png";  
-        image.alt = "Mostrar contraseña";
-    }
-}
-</script>
 
 
 
