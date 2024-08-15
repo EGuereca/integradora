@@ -26,9 +26,20 @@ include '../SCRIPTS/llenar-venta.php';
 
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </head>
 <body>
-
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+    .card-title {
+        font-weight: 500;
+    }
+    .offcanvas-title {
+        font-weight: 600;
+    }
+</style>
 <div class="container" id="in">
         <div class="search-bar mb-3">
             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">

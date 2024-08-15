@@ -77,7 +77,7 @@ $fecha = date('Y-m-d');
     </nav>
     </header>
     <div class="container-fluid">
-    <div class="forms row align-items-center gy-2">
+            <div class="forms row align-items-center gy-2">
     <!-- Botón "Registrar Venta" -->
     <div class="col-12 col-md-4 col-lg-3">
         <a href="../VIEWS/llenado-venta.php">
@@ -99,109 +99,129 @@ $fecha = date('Y-m-d');
         <span class="results-count">Número de resultados: <?php echo $resultCount; ?></span>
     </div>
 </div>
-        <div class="content">
-            <div class="row">
-                <div class="col-md-8">
+<div class="content">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card card-custom">
+                <div class="card-header">
+                    Ventas
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID Venta</th>
+                                <th>Total</th>
+                                <th>Empleado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $tot = 0;
+                            foreach ($results as $row) {
+                                $empleado = $row['vendedor'];
+                            ?>
+                            <tr>
+                                <td><?php echo $row['id']; ?></td>
+                                <td>$ <?php echo $row['total']; ?></td>
+                                <?php
+                                if ($empleado == null) {
+                                    echo '<td>Online</td>';
+                                } else {
+                                    echo "<td>$empleado</td>";
+                                }
+                                $tot += $row['total'];
+                                ?>
+                                <td>
+                                    <a data-bs-toggle="collapse" href="#collapse<?php echo $row['id'];?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $row['id'];?>">
+                                        Detalles
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <div class="card-header">
+                    Monto total del día <?php 
+                    if (!isset($date)) {
+                        echo $fecha;
+                    }
+                    else{
+                    echo $date; }?>
+                </div>
+                <div class="card-body">
+                    <h3>$ <?php echo $tot; ?></h3>
+                </div>
+            </div>
+
+            <?php 
+            foreach ($results as $row) {
+                $id_v = $row['id'];
+                $pr = $conexion->prepare("SELECT dv.cantidad AS cantidad, p.nombre AS nombre, (p.precio * dv.cantidad) AS subtotal
+                                        FROM detalle_venta AS dv
+                                        JOIN productos AS p ON dv.producto = p.id_producto
+                                        WHERE dv.venta = :id");
+                $pr->bindParam(':id', $id_v, PDO::PARAM_INT);    
+                $pr->execute();
+                
+                $ciclo = $pr->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+            <div class="collapse" id="collapse<?php echo $row['id'];?>">
+                <div class="card card-body">
                     <div class="card card-custom">
-                        <div class="card-header">
-                            Ventas
-                        </div>
+                        <div class="card-header"><?php echo $row['id'];?></div>
                         <div class="card-body">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>ID Venta</th>
-                                        <th>Total</th>
-                                        <th>Empleado</th>
-                                        <th>Acciones</th>
+                                        <th>Productos</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $tot = 0;
-                                    foreach ($results as $row) {
-                                        $empleado = $row['vendedor'];
+                                    <?php 
+                                    foreach ($ciclo as $row) {                                                                                    
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['id']; ?></td>
-                                        <td>$ <?php echo $row['total']; ?></td>
-                                        <?php
-                                        if ($empleado == null) {
-                                            echo '<td>Online</td>';
-                                        } else {
-                                            echo "<td>$empleado</td>";
-                                        }
-                                        $tot += $row['total'];
-                                        ?>
-                                        <td>
-                                            <a data-bs-toggle="collapse" href="#<?php echo $row['id'];?>" role="button" aria-expanded="false" aria-controls="collapseExample">Detalles</a>
-                                        </td>
+                                        <td><?php echo $row['nombre']; ?></td>
+                                        <td><?php echo $row['cantidad']; ?></td>
+                                        <td>$ <?php echo $row['subtotal']; ?></td>
                                     </tr>
-                                    <?php } ?>
+                                    <?php } ?>                            
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-custom">
-                        <div class="card-header">
-                            Monto total del día <?php 
-                            if (!isset($date)) {
-                                echo $fecha;
-                            }
-                            else{
-                            echo $date; }?>
-                        </div>
-                        <div class="card-body">
-                            <h3>$ <?php echo $tot; ?></h3>
-                        </div>
-                    </div>
-
-                    <?php 
-                    foreach ($results as $row) {
-                        $id_v = $row['id'];
-                        $pr = $conexion->prepare("SELECT dv.cantidad AS cantidad, p.nombre AS nombre, (p.precio * dv.cantidad) AS subtotal
-                                            FROM detalle_venta AS dv
-                                            JOIN productos AS p ON dv.producto = p.id_producto
-                                            WHERE dv.venta = :id");
-                        $pr->bindParam(':id', $id_v, PDO::PARAM_INT);    
-                        $pr->execute();
-                        
-                        $ciclo = $pr->fetchAll(PDO::FETCH_ASSOC);
-                    ?>
-                    <div class="collapse" id="<?php echo $row['id'];?>">
-                        <div class="card card-body">
-                            <div class="card card-custom">
-                                <div class="card-header"><?php echo $row['id'];?></div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Productos</th>
-                                                <th>Cantidad</th>
-                                                <th>Subtotal</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php 
-                                            foreach ($ciclo as $row) {                                                                                    
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $row['nombre']; ?></td>
-                                                <td><?php echo $row['cantidad']; ?></td>
-                                                <td>$ <?php echo $row['subtotal']; ?></td>
-                                            </tr>
-                                            <?php } ?>                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>         
-                        </div>
-                    </div>
-                    <?php } ?>
+                    </div>         
                 </div>
             </div>
+            <?php } ?>
         </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var collapses = document.querySelectorAll('.collapse');
+
+        collapses.forEach(function (collapse) {
+            collapse.addEventListener('show.bs.collapse', function () {
+                // Ocultar todos los otros elementos colapsables abiertos
+                collapses.forEach(function (otherCollapse) {
+                    if (otherCollapse !== collapse) {
+                        otherCollapse.classList.remove('show');
+                    }
+                });
+            });
+        });
+    });
+</script>
+
     </div>
 </div>
 
