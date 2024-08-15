@@ -21,6 +21,7 @@ elseif ($_SESSION['rol'] != 3) {
     <title>Carrito</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/carrito.css">
+    
 </head>
 <body>
 <header>
@@ -102,13 +103,7 @@ elseif ($_SESSION['rol'] != 3) {
                         </li>
                     <?php } ?>
                     
-                    <li class="nav-item">
-                    <form class=" d-flex mt-3 " role="search">
-                        <input id="buscar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                        <button id="btn-nav" class="btn btn-success" type="submit">Buscar</button>
-                    </form>
-                    </li>
-                    
+                   
                     <div  class="admin">
                     
                     <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1) {?>
@@ -200,7 +195,7 @@ elseif ($_SESSION['rol'] != 3) {
                                   <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php $row['nombre'] ?>, debe de eliminarlo">Confirmar pedido</button>  
                             <?php }
                                 else { ?>
-                                    <button type="submit" name="btn" class="btn btn-success">Confirmar pedido</button>
+                                    <button type="submit" name="btn" id="confirmar" class="btn btn-success">Confirmar pedido</button>
                          <?php }
                             }
                           } 
