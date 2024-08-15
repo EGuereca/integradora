@@ -139,6 +139,10 @@ $pdo = null;
     }
 </style>
 <div class="container" id="in">
+    <!-- Botón para salir de la página -->
+    <a href="../VIEWS/dash-ventas.php" class="btn btn-danger mt-3 float-end">
+        <i class="bi bi-x-circle"></i> Salir
+    </a>
     <div class="search-bar mb-3">
     <form method="get" action="">
     <div class="row g-3">
