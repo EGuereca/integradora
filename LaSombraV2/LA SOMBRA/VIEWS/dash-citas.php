@@ -66,15 +66,19 @@ $hoy = date('Y-m-d');
                     <li class="nav-item">
                         <a class="nav-link" style="background-color: limegreen;" href="#">CITAS</a>
                     </li>
+                    <?php if ($_SESSION["rol"] == 1 ) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
                     </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
                     </li>
+                        
                     <li>
                         <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
                     </li>
+                    <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
