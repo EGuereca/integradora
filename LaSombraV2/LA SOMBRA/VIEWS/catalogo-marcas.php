@@ -121,15 +121,25 @@
         ?>           
             </div>
 
-            <div class="paginacion">
-            <?php     
-            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-            for ($i = 1; $i <= $total_paginas; $i++) {
-                $active_class = $i == $pagina_actual ? 'active' : '';
-                echo "<a href='?pagina=" . $i . "' class='" . $active_class . "'>" . $i . "</a> ";
-            }
-            ?>
-            </div>
+            <nav aria-label="Paginación de productos">
+        <ul class="pagination justify-content-center">
+            <?php if ($pagina > 1) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Anterior</a>
+                </li>
+            <?php } ?>
+            <?php for ($i = max(1, $pagina - 2); $i <= min($total_paginas, $pagina + 2); $i++) { ?>
+                <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                    <a class="page-link" href="?pagina=<?= $i ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>"><?= $i ?></a>
+                </li>
+            <?php } ?>
+            <?php if ($pagina < $total_paginas) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Siguiente</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </nav>
     </div>
         <footer class="footer row">
             <div class="offset-1 col-lg-9 text">

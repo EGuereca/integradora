@@ -168,11 +168,22 @@ body{
 }
 .perforaciones img{
     width: 80%;
+    height: 150px;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
+}
+.ombligo img{
+        padding: 5px;
+        width: 20%;
+        border-radius: 15px;
+        -webkit-border-radius: 15px;
+        -moz-border-radius: 15px;
+        -ms-border-radius: 15px;
+        -o-border-radius: 15px;
+    
 }
 #btn-wha{
     padding-bottom: 25px;
@@ -182,6 +193,7 @@ body{
     color: #fff;
     padding: 15px 20px;
     text-align: center;
+    margin: auto;
     text-decoration: none;
     border-radius: 10px;
     display: inline-block;

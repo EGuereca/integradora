@@ -104,7 +104,7 @@ img{
 }
 /*forms*/
 .forms{
-    padding: 0 20px;
+    padding: 0 10px;
     width: 100%;
 }
 input{
@@ -188,6 +188,15 @@ input{
 /*Tabla*/
 .tabla{
     padding: 30px;
+    
+    overflow-x: unset;
+    width: 100%;
+}
+.tabla th, .tabla td {
+    padding: 1px; 
+    font-size: 10px;    
+    text-align: left; 
+    word-wrap: break-word;
 }
 h2{
     padding-left: 30px;

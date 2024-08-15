@@ -132,6 +132,7 @@ body{
     text-decoration: none;
 }
 img{
+    margin-bottom: 10%;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
