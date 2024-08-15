@@ -141,6 +141,8 @@ body{
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    max-height: 250px;
+    width: 100%;
 }
 .card-img-container{
     border-radius: 10px;

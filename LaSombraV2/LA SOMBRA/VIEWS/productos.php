@@ -164,7 +164,7 @@
                     <div class="card mb-4">
                         <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto']; ?>&token=<?php 
                 echo hash_hmac('sha256', $row['id_producto'], K_TOKEN); ?>">
-                            <div class="card-img-container">                 
+                            <div class="card-img-container p-3">                 
                                 <img class="img-pro" src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
                             </div>
                             <div class="card-body">
