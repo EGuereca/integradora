@@ -24,9 +24,20 @@
     
 
     <div class="col-md-3 d-none d-lg-flex justify-content-start">
-            <div class="user-cart">
-                <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/user.png" alt="user"></a>
-                <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
+            <div class="user-cart dropdown">
+                <?php
+                    if(isset($_SESSION["id"])) 
+                    { ?>
+                    
+                    <a href='../VIEWS/detalle-cuenta.php'><img src='../ICONS/user.png' alt='cart'></a>
+                    <?php }
+
+                    else{ ?>
+                    <a href='../VIEWS/inicio-sesion.php'><img src='../ICONS/user.png' alt='cart'></a>
+                    
+                    <?php } ?>
+                    
+                    <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
             </div>
         </div>
 
@@ -63,16 +74,37 @@
                         <a class="nav-link" href="../VIEWS/carrito.php">CARRITO</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/inicio-sesion.php">CUENTA</a>
-                    </li>
+                    <?php
+                    if(isset($_SESSION["id"])) 
+                    { ?>
+                    
+                        <li class='nav-item'>
+                        <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
+                        </li>
+
+                        <li class='nav-item'>
+
+                        <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
+                            <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
+                        </a>
+                        </li>
+                    <?php }
+
+                    else{ ?>
+                        <li class='nav-item'>
+                        <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
+                        </li>
+                    <?php } ?>
                     
                     <li class="nav-item">
-                    <form class=" d-flex mt-3 " role="search">
-                        <input id="buscar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                        <button id="btn-nav" class="btn btn-success" type="submit">Buscar</button>
-                    </form>
-                    </li>
+
+                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] != 3) {?>
+                            <li id="panel" class='nav-item'>
+                            <button class="btn btn-success">
+                                    <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                                </button>
+                            </li>
+                    <?php } ?>
 
                     <div class="contacto">
                         <p>Whatsapp: 8715066383</P>
@@ -89,10 +121,8 @@
     </nav>
 </header>
 <div class="container" id="in">
-    <div class="search-bar mb-3">
-        <input type="text" class="form-control" placeholder="Buscar artículo...">
-    </div>
-    <div class="row">      
+
+    <div id="prod" class="row">      
     <?php
     if (!empty($productos)) {
         foreach ($productos as $row) { ?>
