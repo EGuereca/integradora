@@ -124,11 +124,11 @@
 <div class="container" id="in">
     <div class="search-bar mb-3">
         <form method="get" action="">
-            <div class="row">
-                <div class="col">
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-7 p-1">
                     <input type="text" class="form-control" placeholder="Buscar artículo..." name="nm_prod" value="<?php echo htmlspecialchars($nm_prod); ?>">
                 </div>
-                <div class="col">
+                <div class="col-md-4 col-lg-2 p-1">
                     <select class="form-control" name="categoria">
                         <option value="">Todas las Categorías</option>
                         <option value="1" <?php if ($categoria == 1) echo 'selected'; ?>>Pipas</option>
@@ -144,14 +144,14 @@
                         <option value="11" <?php if ($categoria == 11) echo 'selected'; ?>>Accesorios</option>
                     </select>
                 </div> 
-                <div class="col">
+                <div class="col-md-6 col-lg-2 p-1">
                     <select class="form-control" name="sucursal">
                         <option value="1" <?php if ($sucursal == 1) echo 'selected'; ?>>Matamoros</option>
                         <option value="2" <?php if ($sucursal == 2) echo 'selected'; ?>>Nazas</option>
                     </select>
                 </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                <div class="col-md-2 col-lg-1 p-1">
+                    <button type="submit" class="btn btn-primary btn-reg">Buscar</button>
                 </div>
             </div>
         </form>
@@ -165,7 +165,7 @@
                         <a href="../VIEWS/detalle_producto.php?id=<?php echo $row['id_producto']; ?>&token=<?php 
                 echo hash_hmac('sha256', $row['id_producto'], K_TOKEN); ?>">
                             <div class="card-img-container">                 
-                                <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
+                                <img class="img-pro" src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
