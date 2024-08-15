@@ -10,7 +10,7 @@ if (isset($_SESSION['id'])) {
     exit();
 }
 
-if($id != '3'){
+if($_SESSION['rol'] != '3'){
     header("location: ../VIEWS/iniciov2.php");
     exit();
 }
