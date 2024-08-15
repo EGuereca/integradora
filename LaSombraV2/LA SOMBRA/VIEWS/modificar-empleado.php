@@ -6,7 +6,7 @@ $db->conectarBD();
 $PDOLOCAL = $db->getPDO();
 
 $id = $_GET["id"];
-$sql = "SELECT u.nombre_usuario AS usuario, u.password, u.email, u.telefono, 
+$sql = "SELECT u.nombre_usuario AS usuario, u.email, u.telefono, 
                e.nombres, e.ap_paterno, e.ap_materno, e.rfc, e.nss, e.curp, 
                ru.rol
         FROM empleado AS e 
@@ -29,7 +29,7 @@ $employee = $stmt->fetch(PDO::FETCH_OBJ);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar empleado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../CSS/MODIFICAR.css">
+    <link rel="stylesheet" href="../CSS/modificar.css">
 </head>
 <body>
 <br>
@@ -48,14 +48,7 @@ $employee = $stmt->fetch(PDO::FETCH_OBJ);
             <label for="telefono">Teléfono:</label><br>
             <input type="text" id="telefono" placeholder="Ingresa tu teléfono" name="telefono" required value="<?= htmlspecialchars($employee->telefono) ?>">
         </div>
-        <div class="form-group">
-            <label for="password">Contraseña:</label><br>
-            <input type="text" id="password" placeholder="Ingresa tu contraseña aquí" name="password" required value="<?= htmlspecialchars($employee->password) ?>">
-        </div>
-        <div class="form-group">
-            <label for="confirm-password">Confirmar contraseña:</label><br>
-            <input type="password" id="confirm-password" placeholder="Confirma tu contraseña aquí" name="pass" required value="<?= htmlspecialchars($employee->password) ?>">
-        </div> 
+        
         <div class="form-group">
             <label for="nombre">Nombre:</label><br>
             <input type="text" id="nombre" placeholder="Ingresa Nombre(s)" name="nombre" required value="<?= htmlspecialchars($employee->nombres) ?>">                        
@@ -85,7 +78,7 @@ $employee = $stmt->fetch(PDO::FETCH_OBJ);
             <select class="form-select" aria-label="Default select example" name="rol" required>
                 <option value="2" <?= $employee->rol == 2 ? 'selected' : '' ?>>Empleado</option>
                 <option value="1" <?= $employee->rol == 1 ? 'selected' : '' ?>>Administrador</option>
-                <option value="7" <?= $employee->rol == 7 ? 'selected' : '' ?>>Perforador</option>                        
+                <option value="4" <?= $employee->rol == 4 ? 'selected' : '' ?>>Perforador</option>                        
             </select> 
         </div>
     </div> 

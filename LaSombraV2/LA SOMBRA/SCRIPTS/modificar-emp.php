@@ -7,7 +7,6 @@ if (isset($_POST["btnupdateemp"])) {
     $PDOLOCAL = $db->getPDO();
 
     $usuario = $_POST["usuario"];
-    $password = $_POST["password"];
     $email = $_POST["email"];
     $telefono = $_POST["telefono"];
     $nombre = $_POST["nombre"];
@@ -23,14 +22,13 @@ if (isset($_POST["btnupdateemp"])) {
             JOIN persona p ON e.persona = p.id_persona
             JOIN usuarios u ON p.usuario = u.id_usuario
             JOIN rol_usuario ru ON u.id_usuario = ru.usuario
-            SET u.nombre_usuario = :usuario, u.password = :password, u.email = :email, u.telefono = :telefono,
+            SET u.nombre_usuario = :usuario, u.email = :email, u.telefono = :telefono,
                 e.nombres = :nombre, e.ap_paterno = :paterno, e.ap_materno = :materno,
                 e.rfc = :rfc, e.nss = :nss, e.curp = :curp, ru.rol = :rol
             WHERE e.id_empleado = :id";
 
     $stmt = $PDOLOCAL->prepare($sql);
     $stmt->bindParam(':usuario', $usuario);
-    $stmt->bindParam(':password', $password);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':telefono', $telefono);
     $stmt->bindParam(':nombre', $nombre);
