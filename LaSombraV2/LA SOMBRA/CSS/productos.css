@@ -198,25 +198,39 @@ body{
 
 .pagination .page-item.active .page-link {
     color: white; 
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: transparent;
+    border-color: none;
 }
 .btn-cart {
-    width: 30px;
-    height: 30px;
-    padding: 10px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    box-shadow: none; /* Sin sombra */
+    padding: 0; /* Sin padding */
+    width: auto; /* Ancho automático */
+    height: auto; /* Altura automática */
 }
 
 .btn-cart i {
-    font-size: 24px;
+    font-size:40px; /* Tamaño del ícono */
+    color: white; /* Color del ícono */
 }
-
 .btn-cart-container {
     position: absolute;
-    top: 20px; 
-    left: 20px; 
+    top: 20px; /* Ajusta según la distancia desde el borde superior */
+    right: 90%; /* Ajusta según la distancia desde el borde derecho */
+    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+}
+.btn-danger {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    color: white; /* Color del texto */
+    padding: 8px 16px; /* Espaciado interno */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+.btn-danger:hover {
+    background-color: rgb(133, 0, 0); /* Rojo al hacer hover */
+    transform: scale(1.05); /* Pequeño aumento de tamaño al hacer hover */
+    color: white;
 }
