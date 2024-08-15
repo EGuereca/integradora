@@ -194,7 +194,7 @@ input{
 }
 .tabla th, .tabla td {
     padding: 1px; 
-    font-size: 10px;    
+       
     text-align: left; 
     word-wrap: break-word;
 }
