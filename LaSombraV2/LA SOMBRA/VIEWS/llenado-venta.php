@@ -184,7 +184,7 @@ $pdo = null;
                     <div class="col-lg-3 col-sm-12">
                         <div class="card mb-3 shadow-sm rounded">                
                             <div class="card-img-container p-3">
-                                <img src="../IMG/blazy-susan.svg" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
+                                <img src="<?php echo $row['url'] ?? '../IMG/PRODUCTOS/notfound.png'; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" class="card-img-top">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($row['nombre']); ?></h5>
