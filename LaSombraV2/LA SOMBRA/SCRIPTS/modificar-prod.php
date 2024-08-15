@@ -40,9 +40,7 @@ if (!empty($_POST["btnreg"])) {
         !empty($_POST["marca"]) && 
         !empty($_POST["cate"]) && 
         !empty($_POST["proveedores"]) && 
-        !empty($_POST["precio"]) && 
-        !empty($_POST["material"]) && 
-        !empty($_POST["desc"])
+        !empty($_POST["precio"]) 
     ) {
         $id = $_POST["id"];
         $nombre = $_POST["nombre"];

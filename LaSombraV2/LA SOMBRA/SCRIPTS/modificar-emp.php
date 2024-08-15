@@ -19,7 +19,6 @@ if (isset($_POST["btnupdateemp"])) {
     $rol = $_POST["rol"];
     $id = $_GET["id"];
 
-   
     $sql = "UPDATE empleado e
             JOIN persona p ON e.persona = p.id_persona
             JOIN usuarios u ON p.usuario = u.id_usuario
