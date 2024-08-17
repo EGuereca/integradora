@@ -151,34 +151,9 @@ include "../SCRIPTS/detalle-usuario.php";
         <br><br>
         <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 3) {?>
         <div class="detalles-venta">
-            <?php if (isset($_POST['ver_detalles'])): ?>
-            <h2>Detalles del Pedido: <?php echo htmlspecialchars($_POST['venta_id']); ?></h2>
-                <?php if ($detalles && count($detalles) > 0): ?>
-                            <table class="table table-dark table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Precio del producto</th>
-                                    <th>Cantidad de producto</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php foreach ($detalles as  $detalle): ?>
-                            <tr>
-                                <td><?php  echo htmlspecialchars($detalle['nombre']); ?> </td>
-                                <td><?php echo htmlspecialchars($detalle['precio']); ?></td>
-                                <td><?php echo htmlspecialchars($detalle['cantidad']); ?></td>
-                            </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                            </table>
-                    
-                <?php else: ?>
-                    <p>No se encontraron detalles para este pedido.</p>
-                <?php endif; ?>
-            <?php endif; ?>
+           
 </div>
-
+        
         <!-- PEDIDOS EN ESPERA -->
         <div class="historial">
             <h1>Pedidos pendientes a completar:</h1>
@@ -195,7 +170,7 @@ include "../SCRIPTS/detalle-usuario.php";
                         <th>Cancelar</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                     <?php foreach ($pendientes as $pen): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($pen['ID']); ?></td>
@@ -204,10 +179,7 @@ include "../SCRIPTS/detalle-usuario.php";
                             <td><?php echo htmlspecialchars($pen['estado']); ?></td>
                             <td><?php echo htmlspecialchars($pen['sucursal']); ?></td>
                             <td>
-                                <form method="post" action="">
-                                    <input type="hidden" name="venta_id" value="<?php echo $pen['ID']; ?>">
-                                    <button type="submit" name="ver_detalles" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
-                                </form>
+                            <button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $venta['ID']; ?>" data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button>
                             </td>
                             <td>
                                 <form method="post" action="">
@@ -228,10 +200,10 @@ include "../SCRIPTS/detalle-usuario.php";
         <div class="historial">
             <h1>Historial de pedidos</h1>
             <?php if ($completadas && count($completadas) > 0): ?>
-            <table class="table table-dark table-striped table-hover">
-                <thead>
+            <table class="table table-sm table-dark table-borderless table-hover">
+                <thead id="head">
                     <tr>
-                        <th>ID Venta</th>
+                        <th>Venta</th>
                         <th>Fecha</th>
                         <th>Total</th>
                         <th>Estado</th>
@@ -239,7 +211,7 @@ include "../SCRIPTS/detalle-usuario.php";
                         <th>Detalles</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="">
                     <?php foreach ($completadas as $venta): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($venta['ID']); ?></td>
@@ -248,10 +220,7 @@ include "../SCRIPTS/detalle-usuario.php";
                             <td><?php echo htmlspecialchars($venta['estado']); ?></td>
                             <td><?php echo htmlspecialchars($venta['sucursal']); ?></td>
                             <td>
-                                <form method="post" action="">
-                                    <input type="hidden" name="venta_id" value="<?php echo $venta['ID']; ?>">
-                                    <button type="submit" name="ver_detalles" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button>
-                                </form>
+                            <button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $venta['ID']; ?>" data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -265,14 +234,59 @@ include "../SCRIPTS/detalle-usuario.php";
     </div>
 </div>
 
+<!-- Modal para mostrar detalles de la compra -->
+<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div id="modal" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleModalLabel">Detalles de la Compra</h5>
+                <button type="button" class="btn-close btn-emphasis-color" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí se cargarán los detalles de la compra -->
+                <div id="detalleCompra"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.ver-detalles').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const ventaId = this.getAttribute('data-venta-id');
+            const formData = new FormData();
+            formData.append('venta_id', ventaId);
+
+            fetch('../SCRIPTS/detalle-usuario.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('detalleCompra').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
+</script>
 </body>
 </html>
