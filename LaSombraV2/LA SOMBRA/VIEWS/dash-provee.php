@@ -56,10 +56,13 @@ include '../SCRIPTS/provee-dsh.php';
                         <a class="nav-link" style="background-color: limegreen;" href="#">PROVEEDOR</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">EMPLEADOS</a>
                     </li>
                     <li>
                         <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="../VIEWS/clientes.php">CLIENTES</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>

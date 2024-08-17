@@ -84,11 +84,15 @@ include '../SCRIPTS/productos-dsh.php';
                         <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">EMPLEADOS</a>
                     </li>
                     
                     <li>
                         <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link" href="../VIEWS/clientes.php">CLIENTES</a>
                     </li>
                     <?php } ?>
                     <li class="nav-item">
