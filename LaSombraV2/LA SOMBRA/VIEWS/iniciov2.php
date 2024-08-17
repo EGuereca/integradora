@@ -93,13 +93,13 @@ session_start();
                         </li>
                     <?php } ?>
                     
-
+                    <?php if (isset($_SESSION['id'])) { ?>
                     <li class='nav-item'>
                         <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
                             <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
                         </a>
                         </li>
-                    
+                    <?php } ?>
                     
                     
                     <?php  if(isset($_SESSION["rol"]) && $_SESSION['rol'] == 1) {?>

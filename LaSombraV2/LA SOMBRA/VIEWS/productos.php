@@ -23,20 +23,22 @@
     
 
     <div class="col-md-3 d-none d-lg-flex justify-content-start">
-            <div class="user-cart dropdown">
+    <div class="user-cart dropdown">
                 <?php
-                    if(isset($_SESSION["id"])) 
+                    if(isset($_SESSION["rol"]) && $_SESSION['rol'] == 3) 
                     { ?>
                     
                     <a href='../VIEWS/detalle-cuenta.php'><img src='../ICONS/user.png' alt='cart'></a>
+
+                    <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
                     <?php }
 
                     else{ ?>
                     <a href='../VIEWS/inicio-sesion.php'><img src='../ICONS/user.png' alt='cart'></a>
-                    
+                    <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/cart.png" alt="cart"></a>
                     <?php } ?>
                     
-                    <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
+                    
             </div>
         </div>
 
@@ -94,11 +96,13 @@
                     <?php } ?>
                     
 
+                    <?php if (isset($_SESSION['id'])) { ?>
                     <li class='nav-item'>
                         <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
                             <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
                         </a>
                         </li>
+                    <?php } ?>
                     
                     
                     

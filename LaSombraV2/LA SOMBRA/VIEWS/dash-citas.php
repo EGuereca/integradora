@@ -92,12 +92,15 @@ $hoy = date('Y-m-d');
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
+                    <li>
                     <div class="usuario-info">
                   <p>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
                    <a href="?logout=1" class="logout-icon">
                     <i class="fas fa-sign-out-alt"></i> 
                      </a>
                       </div>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
