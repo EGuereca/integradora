@@ -2,6 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+$_SESSION['carrito'] = 0;
 if ($_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
@@ -147,10 +148,14 @@ elseif ($_SESSION['rol'] != 3) {
 <div class="container cart-container">
 <?php
         $total = 0;
+
+        
         if (!empty($productos)) {
             foreach ($productos as $row) {
             $subtotal =  ($row['precio'] * $row['cantidad']);
-            $total = $total + $subtotal;?>
+            $total = $total + $subtotal;
+            $_SESSION['carrito'] = $_SESSION['carrito'] +  $row['cantidad'];?>
+            
     <div class="row cart-item">
         <div class="col-lg-3 col-sm-12 col">
             <img src="<?php
@@ -189,7 +194,7 @@ elseif ($_SESSION['rol'] != 3) {
         ?>
     <div class="row cart-total">
         <div>
-            <p>TOTAL: $<?php echo $total ?></p>
+            <p>TOTAL: $<?php echo $total; ?></p>
             <form action="" method="post">
             <div class="form-group">
                 <?php $control = 0; $prod = "";

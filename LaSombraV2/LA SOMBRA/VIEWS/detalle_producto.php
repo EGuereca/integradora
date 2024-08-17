@@ -2,7 +2,10 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
       }
-    require '../SCRIPTS/detalle-prod.php';    
+    require '../SCRIPTS/detalle-prod.php';
+    if (!isset($_SESSION['carrito'])) {
+        $_SESSION['carrito'] = 0;
+    }    
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +16,17 @@
     <title>Productos - La Sombra</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/detalle_producto.css">
+    <script>
+       const toastTrigger = document.getElementById('liveToastBtn')
+        const toastLiveExample = document.getElementById('liveToast')
+
+        if (toastTrigger) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastTrigger.addEventListener('click', () => {
+            toastBootstrap.show()
+            })
+        }
+    </script>
 </head>
 <body>
 
@@ -155,7 +169,9 @@
                 <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
             <?php } ?>
             </select> <br> <br>
-                <button name="btncarrito" type="submit" class="btn btn-pink btn-lg <?php if ($stock < 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"]) || $_SESSION['rol'] != 3) {
+                <button  <?php if ($_SESSION['carrito'] > 20) {
+                    echo " id='liveToastBtn' type='button' ";                    
+                }else{ echo "type='submit' name='btncarrito' "; } ?>  class="btn btn-pink btn-lg <?php if ($stock <= 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"]) || $_SESSION['rol'] != 3) {
                     echo "disabled";
                 }?>">AGREGAR A CARRITO</button>
                 </form>
@@ -179,6 +195,20 @@
                     </div>
                 </div>
                 <?php } ?>
+
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">ALERTA</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      TIENES DEMASIADOS ARTICULOS EN TU CARRITO, CONFIRMA TU PEDIDO Y RECOGELO PARA PODER ORDENAR MÁS
+    </div>
+  </div>
+</div>
+
         </div>
         <h2 class="mt-5">Productos relacionados:</h2>
         <div class="row">
@@ -220,7 +250,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-    <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>        
 
 </body>
 </html>
