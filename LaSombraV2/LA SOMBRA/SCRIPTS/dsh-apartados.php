@@ -22,7 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindParam(':estado', $estado);
     $stmt->execute();
     $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    if (isset($_GET['logout'])) {
+        session_unset(); 
+        session_destroy();  
+    
+        header("Location: ../VIEWS/iniciov2.php");      
+        exit();
+    }
     if ($ventas) {
         $stmt_detalles = $conexion->prepare("SELECT p.nombre, p.precio, dv.cantidad
             FROM detalle_venta dv

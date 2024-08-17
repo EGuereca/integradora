@@ -4,6 +4,8 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null || $_SESSION["rol"] == 4) 
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
+$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
+
 include '../SCRIPTS/dsh-ventas.php';
 
 
@@ -20,6 +22,8 @@ $fecha = date('Y-m-d');
     <link rel="stylesheet" href="../CSS/dash-ventas.css">    
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
+
 </head>
 
 
@@ -72,6 +76,12 @@ $fecha = date('Y-m-d');
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
+                    <div class="usuario-info">
+                  <p>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
+                   <a href="?logout=1" class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i> 
+                     </a>
+                      </div>
                 </ul>
             </div>
         </div>

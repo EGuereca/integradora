@@ -67,7 +67,13 @@ if (isset($_POST["btncrearemp"])) {
     } else {
         echo "<p style='color: red;'>Las contraseñas son diferentes.</p>";
     }   
-
+    if (isset($_GET['logout'])) {
+        session_unset(); 
+        session_destroy();  
+    
+        header("Location: ../VIEWS/iniciov2.php");      
+        exit();
+    }
 $rolfil = isset($_POST['rol']) ? $_POST['rol'] : '';
 
 $sqlrol = "SELECT id_empleado AS id,
