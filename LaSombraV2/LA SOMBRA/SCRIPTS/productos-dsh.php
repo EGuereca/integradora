@@ -22,7 +22,13 @@ if (isset($_POST["contact"])) {
         $marca = isset($_POST["contact"]);
     }
 }
+if (isset($_GET['logout'])) {
+    session_unset(); 
+    session_destroy();  
 
+    header("Location: ../VIEWS/iniciov2.php");      
+    exit();
+}
 
 $precio = isset($_POST["precio"]) ? $_POST["precio"] : '';
 $catego = isset($_POST["cate"]) ? $_POST["cate"] : '';

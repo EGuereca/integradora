@@ -18,7 +18,13 @@ $results = $stm->fetchAll(PDO::FETCH_ASSOC);
 $nombre = isset($_POST["nombre"]) ? $_POST["nombre"] : '';
 $telefono = isset($_POST["telefono"]) ? $_POST["telefono"] : '';
 $url = isset($_POST["url"]) ? $_POST["url"] : '';
+if (isset($_GET['logout'])) {
+    session_unset(); 
+    session_destroy();  
 
+    header("Location: ../VIEWS/iniciov2.php");      
+    exit();
+}
 if (isset($_POST['btnreg'])) {
     $insert->bindParam(1, $nombre, PDO::PARAM_STR);
     $insert->bindParam(2, $telefono, PDO::PARAM_STR);

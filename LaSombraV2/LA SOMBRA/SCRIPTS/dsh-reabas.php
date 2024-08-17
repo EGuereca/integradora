@@ -32,6 +32,12 @@ JOIN proveedores AS pro ON prpr.proveedor = pro.id_proveedor
 WHERE pro.id_proveedor = :proveedor");
 
 
+if (isset($_GET['logout'])) {
+    session_unset(); 
+    session_destroy();  
 
+    header("Location: ../VIEWS/iniciov2.php");      
+    exit();
+}
 
 ?>

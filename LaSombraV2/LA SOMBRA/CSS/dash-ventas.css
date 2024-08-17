@@ -12,6 +12,30 @@ body {
 .card-custom {
     margin-bottom: 20px;
 }
+/*sesion*/
+.usuario-info {
+    padding: 15px;
+    border-top: 3px solid #1b3a1b;
+    background-color: transparent;
+    color: #333;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.logout-icon {
+    color: #333;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.logout-icon:hover {
+    color: #e74c3c;
+}
 /*Burger*/
 #body-burger{
     background-color: #f8f9fa;
@@ -92,4 +116,82 @@ body {
 }
 .forms{
     margin-top: 100px;
+}
+/* Estilos del Modal */
+.modal-contenido {
+    background-color: #f9f9f9;
+    margin: 5% auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-family: 'Courier New', Courier, monospace; 
+    text-align: center;
+}
+
+.modal-contenido h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-bottom: 1px dashed #000;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.modal-contenido p {
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.modal-contenido .table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.modal-contenido .table th, .modal-contenido .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px dashed #000;
+    font-size: 1.2em;
+}
+
+.modal-contenido .table th {
+    background-color: #f2f2f2;
+}
+
+.modal-contenido .table td {
+    text-align: right;
+}
+
+.modal-contenido .table tr:last-child td {
+    border-bottom: none;
+}
+
+.modal-contenido .btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.modal-contenido .btn:hover {
+    background-color: #555;
+}
+
+.modal-contenido .footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    text-align: center;
+    border-top: 1px dashed #000;
+    padding-top: 10px;
 }

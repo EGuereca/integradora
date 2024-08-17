@@ -5,6 +5,7 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null || $_SESSION["rol"] == 4) 
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
+$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
 
 ?>
 <!DOCTYPE html>
@@ -15,6 +16,8 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null || $_SESSION["rol"] == 4) 
     <title>Apartados</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/dash-apartados.css">
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <div class="d-flex">
@@ -63,6 +66,12 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null || $_SESSION["rol"] == 4) 
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
+                    <div class="usuario-info">
+                  <p>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
+                   <a href="?logout=1" class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i> 
+                     </a>
+                      </div>
                 </ul>
             </div>
         </div>
