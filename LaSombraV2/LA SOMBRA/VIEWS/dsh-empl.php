@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
+if ($_SESSION["rol"] != 1 || $_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
@@ -72,28 +72,78 @@ include '../SCRIPTS/empleados-dsh.php';
     </div>
     </nav>
     </header>
-     <!-- Sidebar 
-  <div class="sidebar">
-            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
-            <a href="../VIEWS/dash-ventas.php">Ventas</a>
-            <a href="../VIEWS/dash-apartados.php">Apartados</a>
-            <a href="../VIEWS/productos.php">Productos</a>
-            <a href="../VIEWS/dash-citas.php">Citas</a>
-            <a href="../VIEWS/dash-provee.php">Proveedor</a>
-            <a style="background-color: limegreen;" href="#">Registrar empleado</a>
-
-            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>
-        -->
+  
         <div class="container-fluid">
-        <?php
-    if ($_SESSION['rol'] == 1) { ?>
-        <button id="regemp" type='button' class='btn btn-emp' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar Empleados </button>
-    <?php } ?>
+            <div class="forms">
+                <form action="" class="d-flex row" method="post">
+                    <div class="col-lg-4 col-sm-6 p-1 text-lg-end">
+                        <select class="form-select" aria-label="Default select example" name="rol">
+                            <option value="" disabled selected>Seleccione el rol a buscar</option>
+                            <?php 
+                            $sql = "SELECT id_rol, rol FROM roles";
+                            $stmt = $conexion->prepare($sql);
+                            $stmt->execute();
+                            $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            foreach ($roles as $rol) {
+                            echo "<option value='{$rol['id_rol']}'>{$rol['rol']}</option>";
+                            }
+                            ?>  
+                        </select>
+                    </div>
+
+                    <div class="botonprinci col-lg-4 col-sm-6 p-1 text-lg-start text-center">
+                    <button id="regemp" name="btnfiltrar" type='submit' class='btn btn-emp''> Filtrar </button>
+                    </div>
+
+                    <div class="botonprinci col-lg-4 col-sm-6 p-1 text-lg-end text-center">
+                    <button id="regemp" type='button' class='btn btn-emp' data-bs-toggle='modal' 
+                    data-bs-target='#exampleModal'> Registrar Empleados </button>
+                    </div>
+
+                </form>
+
+                
+            </div>
+        
+
+       
 
 
 <?php
+    if (isset($_POST['btnfiltrar'])) {
+       
+        if($empelados){
+            echo "<h2>Resultados de búsqueda:</h2>";        
+            echo "<div class='tabla'><table border='1' class= 'table table-striped'>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th></th>
+                    </tr>";
+                    foreach ($empelados as $row) {
+                        echo "<tr>
+                                <td>" . htmlspecialchars($row["id"]) . "</td>
+                                <td>" . htmlspecialchars($row["nombre"]) . "</td>
+                                <td>" . htmlspecialchars($row["rol"]) . "</td>
+                                <td>" . htmlspecialchars($row["email"]) . "</td>
+                                <td>" . htmlspecialchars($row["telefono"]) . "</td>
+                                <td><a href='modificar-empleado.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a></td>
+                              </tr>";
+                    }
+                    echo "</table></div>";
+        }
+        else{
+            echo "<div class='alert alert-warning' role='alert'>
+            No hay empleados registrados con ese rol.
+          </div>";
+        }
+
+
+    } else {
     if ($results) {
         echo "<h2>Resultados de búsqueda:</h2>";        
         echo "<div class='tabla'><table border='1' class= 'table table-striped'>
@@ -112,15 +162,17 @@ include '../SCRIPTS/empleados-dsh.php';
                     <td>" . htmlspecialchars($row["rol"]) . "</td>
                     <td>" . htmlspecialchars($row["email"]) . "</td>
                     <td>" . htmlspecialchars($row["telefono"]) . "</td>
-                     <td><a href='modificar-empleado.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a></td>
+                    <td><a href='modificar-empleado.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a></td>
                   </tr>";
         }
         echo "</table></div>";
     } else {
-        echo "<div class='alert alert-danger' role='alert'>
+        echo "<div class='alert alert-warning' role='alert'>
         No hay empleados registrados.
       </div>";
     }
+
+}
 ?>
 <br>
 

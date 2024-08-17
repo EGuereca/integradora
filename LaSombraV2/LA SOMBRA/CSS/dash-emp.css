@@ -30,9 +30,10 @@ img{
 
 .btn-emp{
     margin: 20px;
+    margin-top: 10px;
 }
 .container-fluid{
-    margin-top: 70px;
+    margin-top: 50px;
 }
 /*Burger*/
 #body-burger{

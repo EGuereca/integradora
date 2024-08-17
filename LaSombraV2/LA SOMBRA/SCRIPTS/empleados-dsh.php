@@ -68,6 +68,24 @@ if (isset($_POST["btncrearemp"])) {
         echo "<p style='color: red;'>Las contraseñas son diferentes.</p>";
     }   
 
+$rolfil = isset($_POST['rol']) ? $_POST['rol'] : '';
+
+$sqlrol = "SELECT id_empleado AS id,
+        CONCAT(nombres,' ',ap_paterno,' ',ap_materno) AS nombre,
+        r.rol AS rol,
+        u.email AS email,
+        u.telefono AS telefono
+        FROM empleado AS e
+        JOIN persona AS p ON e.persona = p.id_persona
+        JOIN usuarios AS u ON p.usuario = u.id_usuario
+        JOIN rol_usuario AS ru ON u.id_usuario = ru.usuario
+        JOIN roles AS r ON ru.rol = r.id_rol
+        WHERE ru.rol = :ro";
+$stmt3 = $conexion->prepare($sqlrol);
+$stmt3->bindParam(':ro', $rolfil, PDO::PARAM_INT);
+$stmt3->execute();
+
+$empelados = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
