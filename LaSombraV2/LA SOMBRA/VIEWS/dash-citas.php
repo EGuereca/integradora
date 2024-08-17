@@ -54,6 +54,7 @@ $hoy = date('Y-m-d');
             </div>
             <div  id="body-burger"   class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <?php if ($_SESSION["rol"] == 1 || $_SESSION["rol"] == 2 )  { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-ventas.php">VENTAS</a>
                     </li>
@@ -66,6 +67,13 @@ $hoy = date('Y-m-d');
                     <li class="nav-item">
                         <a class="nav-link" style="background-color: limegreen;" href="#">CITAS</a>
                     </li>
+                    <?php } 
+                    
+                    else { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" style="background-color: limegreen;" href="#">CITAS</a>
+                    </li>
+                    <?php }?>
                     <?php if ($_SESSION["rol"] == 1 ) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>

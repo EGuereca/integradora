@@ -34,8 +34,12 @@ if (isset($_POST["btningreso"])) {
             if ($_SESSION["rol"] == 3) {
                 header("location: ../VIEWS/iniciov2.php");
                 exit();
-            } else {
-                header("location: ../VIEWS/dashboard.php");
+            } else if ($_SESSION["rol"] == 4) {
+                header("location: ../VIEWS/dash-citas.php");
+                exit();
+            }
+            else {
+                header("location: ../VIEWS/dash-ventas.php");
                 exit();
             }
         } else {

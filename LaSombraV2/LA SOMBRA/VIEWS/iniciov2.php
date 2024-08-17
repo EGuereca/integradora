@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -21,18 +23,20 @@ session_start();
     <div class="col-md-3 d-none d-lg-flex justify-content-start">
             <div class="user-cart dropdown">
                 <?php
-                    if(isset($_SESSION["id"])) 
+                    if(isset($_SESSION["rol"]) && $_SESSION['rol'] == 3) 
                     { ?>
                     
                     <a href='../VIEWS/detalle-cuenta.php'><img src='../ICONS/user.png' alt='cart'></a>
+
+                    <a href="../VIEWS/carrito.php"><img src="../ICONS/cart.png" alt="cart"></a>
                     <?php }
 
                     else{ ?>
                     <a href='../VIEWS/inicio-sesion.php'><img src='../ICONS/user.png' alt='cart'></a>
-                    
+                    <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/cart.png" alt="cart"></a>
                     <?php } ?>
                     
-                    <a href="../VIEWS/inicio-sesion.php"><img src="../ICONS/cart.png" alt="cart"></a>
+                    
             </div>
         </div>
 
@@ -64,53 +68,69 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/perforaciones.php">PERFORACIONES</a>
                     </li>
-
+                    
+                    <?php
+                    if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 3) 
+                    { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/carrito.php">CARRITO</a>
                     </li>
                     
-                    <?php
-                    if(isset($_SESSION["id"])) 
-                    { ?>
+                    
                     
                         <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
                         </li>
+                    <?php } ?>
 
+                    <?php if (!isset($_SESSION['id'])) { ?>
                         <li class='nav-item'>
+                        <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
+                        </li>
 
+                        <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/inicio-sesion.php">CARRITO</a>
+                        </li>
+                    <?php } ?>
+                    
+
+                    <li class='nav-item'>
                         <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
                             <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
                         </a>
                         </li>
-                    <?php }
-
-                    else{ ?>
-                        <li class='nav-item'>
-                        <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
-                        </li>
+                    
+                    
+                    
+                    <?php  if(isset($_SESSION["rol"]) && $_SESSION['rol'] == 1) {?>
+                            <div  class="admin">
+                                <li id="panel" class='nav-item'>
+                                    <button class="btn btn-success">
+                                        <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                                    </button>
+                                </li>
+                            </div>
+                    <?php } else if (isset($_SESSION["rol"]) && $_SESSION['rol'] == 4) {?>
+                            <div  class="admin">
+                                <li id="panel" class='nav-item'>
+                                    <button class="btn btn-success">
+                                        <a class='nav-link' href='../VIEWS/dash-citas.php'>PANEL DE PERFORADOR</a>
+                                    </button>
+                                </li>
+                            </div>
+                    <?php } else if(isset($_SESSION["rol"]) && $_SESSION['rol'] == 2){ ?>
+                            <div  class="admin">
+                                <li id="panel" class='nav-item'>
+                                    <button class="btn btn-success">
+                                        <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE EMPLEADO</a>
+                                    </button>
+                                </li>
+                            </div>
                     <?php } ?>
-                    
-                    
-                    <div  class="admin">
-                    
-                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] != 3) {?>
-                            <li id="panel" class='nav-item'>
-                            <button class="btn btn-success">
-                                    <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
-                                </button>
-                            </li>
-                    <?php } ?>
-            
-                    
-                    </div>
-
                     <div class="contacto">
                         <p>Whatsapp: 8715066383</P>
                         <p>Correo: lasombratrc@hotmail.com</P>
                     </div>
-                    
-
                 </ul>
             </div>
         </div>

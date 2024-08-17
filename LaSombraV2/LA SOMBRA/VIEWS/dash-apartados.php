@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if ($_SESSION["rol"] == 3|| $_SESSION["rol"] == null) {
+if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null || $_SESSION["rol"] == 4) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }

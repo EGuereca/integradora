@@ -98,15 +98,19 @@ include "../SCRIPTS/detalle-usuario.php";
                     
                     <div  class="admin">
                     
-                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] != 3) {?>
+                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 1 || $_SESSION["rol"] == 2) {?>
                             <li id="panel" class='nav-item'>
                             <button class="btn btn-success">
                                     <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
                                 </button>
                             </li>
-                    <?php } ?>
-            
-                    
+                    <?php } else if (isset($_SESSION["rol"]) && $_SESSION["rol"] == 4) {?>
+                    <li id="panel" class='nav-item'>
+                            <button class="btn btn-success">
+                                    <a class='nav-link' href='../VIEWS/dash-citas.php'>PANEL DE PERFORADOR</a>
+                                </button>
+                            </li>
+                    <?php }?>
                     </div>
 
                     <div class="contacto">

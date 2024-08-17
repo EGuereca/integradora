@@ -59,7 +59,7 @@ if (isset($_POST["btncrearemp"])) {
             
             if ($stmt2->execute()) {
                 echo "<p style='color: green;'>Usuario registrado exitosamente.</p>";
-                header("refresh:3; ../VIEWS/dsh-empl.php");
+                header("refresh:1; ../VIEWS/dsh-empl.php");
             } else {
                 echo "<p style='color: red;'>Error al registrar el usuario.</p>";
             }

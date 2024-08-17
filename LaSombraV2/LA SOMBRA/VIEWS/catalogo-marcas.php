@@ -59,7 +59,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div  id="body-burger"   class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="../VIEWS/iniciov2.php">INICIO</a>
                     </li>
@@ -69,49 +69,69 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/perforaciones.php">PERFORACIONES</a>
                     </li>
-
+                    
+                    <?php
+                    if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 3) 
+                    { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/carrito.php">CARRITO</a>
                     </li>
-
-                    <?php
-                    if(isset($_SESSION["id"])) 
-                    { ?>
+                    
+                    
                     
                         <li class='nav-item'>
                         <a class='nav-link' href='../VIEWS/detalle-cuenta.php'>CUENTA</a>
                         </li>
+                    <?php } ?>
 
+                    <?php if (!isset($_SESSION['id'])) { ?>
                         <li class='nav-item'>
+                        <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
+                        </li>
 
+                        <li class="nav-item">
+                        <a class="nav-link" href="../VIEWS/inicio-sesion.php">CARRITO</a>
+                        </li>
+                    <?php } ?>
+                    
+
+                    <li class='nav-item'>
                         <a class='nav-link' href='../SCRIPTS/cerrarsesion.php'>
                             <button id="cerrar" class="btn btn-danger"> CERRAR SESION</button>
                         </a>
                         </li>
-                    <?php }
-
-                    else{ ?>
-                        <li class='nav-item'>
-                        <a class='nav-link' href='../VIEWS/inicio-sesion.php'>CUENTA</a>
-                        </li>
-                    <?php } ?>
                     
-                    <li class="nav-item">
-
-                    <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] != 3) {?>
-                            <li id="panel" class='nav-item'>
-                            <button class="btn btn-success">
-                                    <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
-                                </button>
-                            </li>
+                    
+                    
+                    <?php  if(isset($_SESSION["rol"]) && $_SESSION['rol'] == 1) {?>
+                            <div  class="admin">
+                                <li id="panel" class='nav-item'>
+                                    <button class="btn btn-success">
+                                        <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE ADMINISTRADOR</a>
+                                    </button>
+                                </li>
+                            </div>
+                    <?php } else if (isset($_SESSION["rol"]) && $_SESSION['rol'] == 4) {?>
+                            <div  class="admin">
+                                <li id="panel" class='nav-item'>
+                                    <button class="btn btn-success">
+                                        <a class='nav-link' href='../VIEWS/dash-citas.php'>PANEL DE PERFORADOR</a>
+                                    </button>
+                                </li>
+                            </div>
+                    <?php } else if(isset($_SESSION["rol"]) && $_SESSION['rol'] == 2){ ?>
+                            <div  class="admin">
+                                <li id="panel" class='nav-item'>
+                                    <button class="btn btn-success">
+                                        <a class='nav-link' href='../VIEWS/dash-ventas.php'>PANEL DE EMPLEADO</a>
+                                    </button>
+                                </li>
+                            </div>
                     <?php } ?>
-
                     <div class="contacto">
                         <p>Whatsapp: 8715066383</P>
                         <p>Correo: lasombratrc@hotmail.com</P>
                     </div>
-                    
-
                 </ul>
             </div>
         </div>
