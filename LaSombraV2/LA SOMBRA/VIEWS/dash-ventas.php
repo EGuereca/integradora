@@ -203,7 +203,7 @@ $fecha = date('Y-m-d');
                     <div class="card card-custom">
                         <div class="card-header"><?php echo $row['id'];?></div>
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table table-sm">
                                 <thead>
                                     <tr>
                                         <th>Productos</th>
@@ -343,7 +343,7 @@ $fecha = date('Y-m-d');
 <p>Total: <?php echo isset($venta['monto_total']) ? $venta['monto_total'] : 'N/A'; ?></p>
 
         <h3>Productos</h3>
-        <table class="table">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th>Producto</th>
