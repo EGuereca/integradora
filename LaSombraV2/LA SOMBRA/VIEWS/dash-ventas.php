@@ -8,9 +8,20 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
 
 include '../SCRIPTS/dsh-ventas.php';
 
+$fecha = date('Y-m-d');
+
+if (isset($_GET['id'])) {
+    $idVenta = $_GET['id'];
+   
+    $venta = obtenerDetallesVenta($idVenta); 
+    $productos = obtenerProductosVenta($idVenta); 
+}
 
 
 $fecha = date('Y-m-d');
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,12 +158,12 @@ $fecha = date('Y-m-d');
                                 $tot += $row['total'];
                                 ?>
                                 <td>
-                                    <button class="btn btn-success">
-                                    <a data-bs-toggle="collapse" href="#collapse<?php echo $row['id'];?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $row['id'];?>">
-                                        Detalles
-                                    </a>
-                                    </button>
-                                </td>
+                                <td>
+    <a href="dash-ventas.php?id=<?php echo $row['id']; ?>" class="btn btn-success">
+        Detalles
+    </a>
+</td>
+
                             </tr>
                             <?php } ?>
                         </tbody>
@@ -320,6 +331,42 @@ $fecha = date('Y-m-d');
     </div>
 </div>
 -->
+
+
+<?php if (isset($venta)) { ?>
+<div id="detalleVentaModal" class="modal" style="display:block;">
+    <div class="modal-contenido">
+        <h2>Detalle de la Venta</h2>
+        <p>ID Venta: <?php echo isset($venta['id_venta']) ? $venta['id_venta'] : 'N/A'; ?></p>
+<p>Fecha: <?php echo isset($venta['fecha_venta']) ? $venta['fecha_venta'] : 'N/A'; ?></p>
+<p>Vendedor: <?php echo isset($vendedor) ? $vendedor : 'N/A'; ?></p>
+<p>Total: <?php echo isset($venta['monto_total']) ? $venta['monto_total'] : 'N/A'; ?></p>
+
+        <h3>Productos</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($productos as $producto) { ?>
+                <tr>
+                    <td><?php echo $producto['nombre']; ?></td>
+                    <td><?php echo $producto['cantidad']; ?></td>
+                    <td>$ <?php echo $producto['subtotal']; ?></td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <a href="dash-ventas.php" class="btn btn-secondary">Cerrar</a>
+    </div>
+</div>
+<?php } ?>
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
