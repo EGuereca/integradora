@@ -71,58 +71,125 @@ include '../SCRIPTS/provee-dsh.php';
     </div>
     </nav>
     </header>
-  <!--
-<div class="sidebar">
-            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
-            <a href="../VIEWS/dash-ventas.php">Ventas</a>
-            <a href="../VIEWS/dash-apartados.php">Apartados</a>
-            <a href="../VIEWS/productos.php">Productos</a>
-            <a href="../VIEWS/dash-citas.php">Citas</a>
-            <a style="background-color: limegreen;" href="#">Proveedor</a>
-            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
-
-            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>-->
         <div class="container-fluid">
-  <?php 
-    if ($_SESSION["rol"] == 1 ) { ?>
-        <div class="botonprinci">
-        <button id="botonprinci" type='button' class='btn btn-success' data-bs-toggle='modal' 
-        data-bs-target='#exampleModal'> Registrar Proveedor </button>
-        </div>
         
-    <?php }
-  ?>    
-    <?php 
-        if ($results) {
-            $telefono = ""; $pagina = "";
-            echo "<h2>Proveedores:</h2>";
-            echo "<div class='table-responsive'><table border='1' class='table table-striped'>
+        <div class="forms">
+    <form method="post" class="d-flex row" role="search">
 
+        <div class="col-lg-4 col-sm-6 p-1">
+            <select class="form-select" aria-label="Default select example" name="categoria">
+            <option value="" disabled selected>Selecciona un producto</option>
+            <?php 
+                $sql = "SELECT id_producto, nombre FROM productos";
+                $stmt = $conexion->prepare($sql);
+                $stmt->execute();
+                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($productos as $producto) {
+                    echo "<option value='{$producto['id_producto']}'>{$producto['nombre']}</option>";
+                }
+            ?>  
+            </select>
+        </div>
+
+        <div class="col-lg-4 col-sm-6 p-1">
+            <select class="form-select" aria-label="Default select example" name="provee">
+            <option value="" disabled selected>Selecciona un proveedor</option>
+            <?php 
+                $sql = "SELECT id_proveedor, nombre FROM proveedores";
+                $stmt = $conexion->prepare($sql);
+                $stmt->execute();
+                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($productos as $producto) {
+                    echo "<option value='{$producto['id_proveedor']}'>{$producto['nombre']}</option>";
+                }
+            ?>  
+
+        
+            </select>
+        </div>
+
+        <div class="botonprinci col-lg-4 col-sm-6 p-1 text-start-lg text-center-sm">
+            <button name="btnfiltrar" id="botonfiltrar" type='sumbit' class='btn btn-success'>Filtrar </button>
+            </div>
+            
+
+
+            </form>
+        <br>
+                
+        <form class="d-flex row" method="post" action="">
+        <div class="botonprinci col-lg-6 col-sm-6 p-1 text-center-sm">
+            <button id="botonprinci" type='button' class='btn btn-success' data-bs-toggle='modal' 
+            data-bs-target='#exampleModal'> Registrar Proveedor </button>
+            </div>
+
+            
+            <div class="botonprinci col-lg-6 col-sm-6 p-1 text-center-sm">
+            <button name="btntodos" id="botonfiltrar" type='buton' class='btn btn-success'>Mostrar todos los proveedores </button>
+            </div>
+        </form>
+        
+    <br>
+    
+        
+
+<?php
+
+if (isset($_POST['btnfiltrar'])) {
+    if (!empty($filteredResults)) {
+        echo "<h2>Resultados del Filtro:</h2>";
+        echo "<div class='table-responsive'><table border='1' class='table table-striped'>
+                <tr>
+                    <th>PRODUCTO</th>
+                    <th>PROVEEDOR</th>
+                    <th>PRECIO</th>
+                    <th><th>
+                </tr>";
+        foreach ($filteredResults as $row) {
+            echo "<tr>                            
+                    <td>" . htmlspecialchars($row["producto_nombre"]) . "</td>
+                    <td>" . htmlspecialchars($row["proveedor_nombre"]) . "</td>
+                    <td>" . htmlspecialchars($row["precio"]) . "</td>
+                    <td><a href='modificarpreciopro.php?id=" . htmlspecialchars($row['id_provee_producto']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a></td>
+                  </tr>";                    
+        }
+        echo "</table></div>";
+    } else {
+        echo "<div class='alert alert-warning'>El proveedor seleccionado no ofrece ningún producto.</div>";
+    }
+} else {
+
+    if (($results) || isset($_POST['btntodos'])) {
+        echo "<h2>Proveedores:</h2>";
+        echo "<div class='table-responsive'><table border='1' class='table table-striped'>
                 <tr>
                     <th>NOMBRE</th>
                     <th>TELEFONO</th>
                     <th>PAGINA</th>
                     <th></th>
                 </tr>";
-                foreach ($results as $row) {
-                    if ($row['telefono'] == null) { $telefono = "-";} else{ $telefono = $row['telefono'];}
-                    if ($row['pagina'] == null) { $pagina = "-";} else{ $pagina = $row['pagina'];}
-                        echo "<tr>                            
-                            <td>" . htmlspecialchars($row["nombre"]) . "</td>
-                            <td>" . htmlspecialchars($telefono) . "</td>
-                            <td>" . htmlspecialchars($pagina) . "</td>
-                            <td>
-                        <a href='modificar-proveedor.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
+        foreach ($results as $row) {
+            $telefono = $row['telefono'] ? $row['telefono'] : '-';
+            $pagina = $row['pagina'] ? $row['pagina'] : '-';
+            echo "<tr>                            
+                    <td>" . htmlspecialchars($row["nombre"]) . "</td>
+                    <td>" . htmlspecialchars($telefono) . "</td>
+                    <td>" . htmlspecialchars($pagina) . "</td>
+                    <td>
+                        <a href='modificar-proveedor.php?id=" . htmlspecialchars($row['id']) .   "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
                     </td>
-                            </tr>";                    
+                  </tr>";                    
         }
         echo "</table></div>";
+    } else {
+        echo "<div class='alert alert-warning'>No se encontraron proveedores.</div>";
     }
-    else {
-        echo "NO SE ENCONTRARON PROVEEDORES";
-    }
-    ?>
+}
+
+?>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

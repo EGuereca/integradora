@@ -116,11 +116,17 @@ img{
 #botonprinci{
     background-color: green;
     color: white;
-    text-align: right;
+    
+}
+
+#botonfiltrar{
+    background-color: green;
+    color: white;
+    
 }
 
 .botonprinci{
-    text-align: right;
+    text-align: center;
 }
 /*Tabla*/
 .tabla{

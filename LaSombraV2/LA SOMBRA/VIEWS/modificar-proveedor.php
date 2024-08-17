@@ -40,7 +40,9 @@ $proveedor = $stmtProveedor->fetch(PDO::FETCH_OBJ);
         <label for="url">Página Web:</label>
         <input type="url" class="form-control" id="url" name="pagina" value="<?= htmlspecialchars($proveedor->pagina) ?>">
     </div>
-    <button type="submit" name="btnupdateprov" class="btn btn-primary">Modificar Proveedor</button>
+    <button type="submit" name="btnupdateprov" class="btn btn-success">Modificar Proveedor</button>
+    <br><br>
+    <button type="submit" name="btnupdateprov" href="../VIEWS/dash-provee.php" class="btn btn-danger">Cancelar</button>
 </form>
 
 </body>

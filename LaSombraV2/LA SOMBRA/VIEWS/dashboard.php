@@ -100,18 +100,7 @@ include '../SCRIPTS/productos-dsh.php';
     </div>
     </nav>
     </header>
-  <!-- Sidebar
-  <div class="sidebar">
-            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
-            <a href="../VIEWS/dash-ventas.php">Ventas</a>
-            <a href="../VIEWS/dash-apartados.php">Apartados</a>
-            <a style="background-color: limegreen;" href="#">Productos</a>
-            <a href="../VIEWS/dash-citas.php">Citas</a>
-            <a href="../VIEWS/dash-provee.php">Proveedor</a>
-            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
 
-            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>-->
         <div class="container-fluid">
 <div class="forms">
     <form method="post" class="d-flex row" role="search">

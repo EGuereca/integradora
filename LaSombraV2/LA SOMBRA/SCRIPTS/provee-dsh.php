@@ -26,4 +26,41 @@ if (isset($_POST['btnreg'])) {
     $insert->execute();
 }
 
+//FILTRADO
+
+$categoria = isset($_POST['categoria']) ? $_POST['categoria'] : '';
+$provee = isset($_POST['provee']) ? $_POST['provee'] : '';
+
+$filteredResults = [];
+if (isset($_POST['btnfiltrar'])) {
+    $sql = "SELECT p.nombre AS producto_nombre, pr.nombre AS proveedor_nombre, pp.precio_unitario_proveedor AS precio,
+            pp.id_provee_producto
+            FROM proveedor_producto pp
+            INNER JOIN productos p ON pp.producto = p.id_producto
+            INNER JOIN proveedores pr ON pp.proveedor = pr.id_proveedor";
+
+    $whereClauses = [];
+    $params = [];
+
+    if (!empty($categoria)) {
+        $whereClauses[] = "p.id_producto = ?";
+        $params[] = $categoria;
+    }
+
+    if (!empty($provee)) {
+        $whereClauses[] = "pr.id_proveedor = ?";
+        $params[] = $provee;
+    }
+
+    if (!empty($whereClauses)) {
+        $sql .= " WHERE " . implode(" AND ", $whereClauses);
+    }
+
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute($params);
+    $filteredResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
 ?>
