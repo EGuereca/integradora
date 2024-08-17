@@ -4,6 +4,8 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
+$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
+
 include '../SCRIPTS/productos-dsh.php';
 
 ?>
@@ -92,6 +94,13 @@ include '../SCRIPTS/productos-dsh.php';
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
+                    <div class="usuario-info">
+                  <p>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
+                   <a href="?logout=1" class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i> 
+                     </a>
+                      </div>
+
                 </ul>
             </div>
         </div>

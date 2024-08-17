@@ -4,6 +4,8 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
+$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
+
 include '../SCRIPTS/dsh-reabas.php';
 
 ?>
@@ -15,6 +17,8 @@ include '../SCRIPTS/dsh-reabas.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/49e84e2ffb.js" crossorigin="anonymous"></script>
+
     <title>Reabastecimiento</title>
     <link rel="stylesheet" href="../CSS/dashboard.css">
 </head>
@@ -63,6 +67,12 @@ include '../SCRIPTS/dsh-reabas.php';
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/iniciov2.php">IR A LA PÁGINA PRINCIPAL</a>
                     </li>
+                    <div class="usuario-info">
+                  <p>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
+                   <a href="?logout=1" class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i> 
+                     </a>
+                      </div>
                 </ul>
             </div>
         </div>

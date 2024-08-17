@@ -25,7 +25,13 @@ if (isset($_POST["perfo"])) {
         $tipo_perforacion = $_POST["perfo"];
     }
 }
+if (isset($_GET['logout'])) {
+    session_unset(); 
+    session_destroy();  
 
+    header("Location: ../VIEWS/iniciov2.php");      
+    exit();
+}
 
 $con = "SELECT e.nombres AS perforadores, e.id_empleado AS id 
 FROM empleado AS e 
