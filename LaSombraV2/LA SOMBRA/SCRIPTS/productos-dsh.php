@@ -1,25 +1,34 @@
 <?php  
+if (isset($_GET['sucursal'])) {
+    $_SESSION['sucursal'] = $_GET['sucursal'];
+}
 
+$sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : null;
 include "../CLASS/database.php";
 $db = new Database();
 $db->conectarBD();
 
 $conexion = $db->getPDO();
 
-$nm_prod = isset($_POST["nm_prod"]) ? $_POST["nm_prod"] : '';
-$id_prod = isset($_POST["id_prod"]) ? $_POST["id_prod"] : '';
-$categoria = isset($_POST["categoria"]) ? $_POST["categoria"] : '';
-$sucursal = isset($_POST["sucursal"]) ? $_POST["sucursal"] : '';
+$nm_prod = isset($_GET["nm_prod"]) ? $_GET["nm_prod"] : '';
+$id_prod = isset($_GET["id_prod"]) ? $_GET["id_prod"] : '';
+$categoria = isset($_GET["categoria"]) ? $_GET["categoria"] : '';
+$sucursal = isset($_GET["sucursal"]) ? $_GET["sucursal"] : '';
 
-$des = isset($_POST["desc"]) ? $_POST["desc"] : '';
-$nombre = isset($_POST["nombre"]) ? $_POST["nombre"] : '';
+$productos_por_pagina = 30;
+$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$pagina = $pagina > 0 ? $pagina : 1;
+$inicio = ($pagina - 1) * $productos_por_pagina;
+
+$des = isset($_GET["desc"]) ? $_GET["desc"] : '';
+$nombre = isset($_GET["nombre"]) ? $_GET["nombre"] : '';
 $marca = '';
-if (isset($_POST["contact"])) {
-    if ($_POST["contact"] == 'otro') {
-        $marca = $_POST["extra"];
+if (isset($_GET["contact"])) {
+    if ($_GET["contact"] == 'otro') {
+        $marca = $_GET["extra"];
     }
     else  {
-        $marca = isset($_POST["contact"]);
+        $marca = isset($_GET["contact"]);
     }
 }
 if (isset($_GET['logout'])) {
@@ -30,10 +39,10 @@ if (isset($_GET['logout'])) {
     exit();
 }
 
-$precio = isset($_POST["precio"]) ? $_POST["precio"] : '';
-$catego = isset($_POST["cate"]) ? $_POST["cate"] : '';
-$provee = isset($_POST["proveedores"]) ? $_POST["proveedores"] : '';
-$material = isset($_POST["material"]) ? $_POST["material"] : '';
+$precio = isset($_GET["precio"]) ? $_GET["precio"] : '';
+$catego = isset($_GET["cate"]) ? $_GET["cate"] : '';
+$provee = isset($_GET["proveedores"]) ? $_GET["proveedores"] : '';
+$material = isset($_GET["material"]) ? $_GET["material"] : '';
 
 
 $proveedores = "SELECT nombre, id_proveedor AS id FROM proveedores";
@@ -72,7 +81,8 @@ if ($id_prod) {
 if ($categoria) {
     $sql .= " AND c.id_categoria = :categoria";
 }
-
+// Paginación
+$sql .= " LIMIT :inicio, :productos_por_pagina";
 
 $stmt = $conexion->prepare($sql);
 
@@ -83,13 +93,13 @@ if ($id_prod) {
     $stmt->bindValue(':id_prod', $id_prod);
 }
 if ($categoria) {
-    $stmt->bindValue(':categoria', $categoria);            
+    $stmt->bindValue(':categoria', $categoria, PDO::PARAM_INT);
 }
-if ($sucursal) {
-    if ($sucursal != '3') {
-        $stmt->bindValue(':sucursal', $sucursal);
-    }                
+if ($sucursal !== null) {
+    $stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
 }
+$stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
+$stmt->bindValue(':productos_por_pagina', $productos_por_pagina, PDO::PARAM_INT);
 
 $stmt->execute();
 $st->execute();
@@ -100,9 +110,39 @@ echo "Número de resultados: " . $stmt->rowCount();
 $cat = $s->fetchAll(PDO::FETCH_ASSOC);
 $prov = $st->fetchAll(PDO::FETCH_ASSOC);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Definir la consulta inicial para contar el total de productos
+$total_sql = "SELECT COUNT(DISTINCT p.id_producto) 
+              FROM productos AS p
+              JOIN producto_categoria AS pc ON p.id_producto = pc.producto
+              JOIN categorias AS c ON pc.categoria = c.id_categoria
+              JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
+              WHERE 1=1";
+if ($sucursal !== null) {
+    $total_sql .= " AND ins.id_sucursal = :sucursal";
+}
+if ($nm_prod) {
+    $total_sql .= " AND p.nombre LIKE :nm_prod";
+}
+if ($categoria) {
+    $total_sql .= " AND c.id_categoria = :categoria";
+}
 
+$total_stmt = $conexion->prepare($total_sql);
+if ($sucursal !== null) {
+    $total_stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
+}
+if ($nm_prod) {
+    $total_stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
+}
+if ($categoria) {
+    $total_stmt->bindValue(':categoria', $categoria, PDO::PARAM_INT);
+}
+$total_stmt->execute();
+$total_productos = $total_stmt->fetchColumn();
+$total_paginas = ceil($total_productos / $productos_por_pagina);
+$pdo = null;
 $pral = $conexion->prepare("INSERT INTO productos(nombre,marca,precio,stock,material,descripcion,url) VALUES(?,?,?,0,?,?,?)");
-if (isset($_POST['btnreg'])) {
+if (isset($_GET['btnreg'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
         if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
             $nombreArchivo = $_FILES['img']['name'];

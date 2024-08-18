@@ -13,8 +13,7 @@ $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : null;
 include "../CLASS/database.php";
 require '../SCRIPTS/config-prod.php';
 
-//sucursales
-
+// Conectar a la base de datos
 $db = new Database();
 $db->conectarBD();
 $conexion = $db->getPDO();
@@ -34,41 +33,40 @@ $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre,
         JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
         WHERE ins.cantidad > 0";
 
+$parametros = [];
+
 // Filtrar por sucursal
 if ($sucursal) {
     $sql .= " AND ins.id_sucursal = :sucursal";
+    $parametros[':sucursal'] = $sucursal;
 }
 
 // Filtrar por nombre de producto
 if ($nm_prod) {
     $sql .= " AND p.nombre LIKE :nm_prod";
+    $parametros[':nm_prod'] = '%' . $nm_prod . '%';
 }
 
 // Filtrar por categoría
 if ($categoria) {
     $sql .= " AND c.id_categoria = :categoria";
+    $parametros[':categoria'] = $categoria;
 }
 
 // Paginación
-$sql .= " LIMIT :inicio, :productos_por_pagina";
+$sql .= " LIMIT $inicio, $productos_por_pagina";
 
 $stmt = $conexion->prepare($sql);
 
-if ($sucursal !== null) {
-    $stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
+// Enlazar parámetros
+foreach ($parametros as $key => $value) {
+    $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
 }
-if ($nm_prod) {
-    $stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
-}
-if ($categoria) {
-    $stmt->bindValue(':categoria', $categoria, PDO::PARAM_INT);
-}
-$stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
-$stmt->bindValue(':productos_por_pagina', $productos_por_pagina, PDO::PARAM_INT);
 
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Contar el total de productos
 $total_sql = "SELECT COUNT(DISTINCT p.id_producto)
             FROM productos AS p
             JOIN producto_categoria AS pc ON p.id_producto = pc.producto
@@ -101,5 +99,5 @@ $total_stmt->execute();
 $total_productos = $total_stmt->fetchColumn();
 $total_paginas = ceil($total_productos / $productos_por_pagina);
 
-$pdo = null;
+$db->desconectarBD();
 ?>

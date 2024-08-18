@@ -2,7 +2,10 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$_SESSION['carrito'] = 0;
+if (!isset($_SESSION['carrito'])) {
+    $_SESSION['carrito'] = 0;    
+}
+
 if ($_SESSION["rol"] == null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
@@ -153,8 +156,7 @@ elseif ($_SESSION['rol'] != 3) {
         if (!empty($productos)) {
             foreach ($productos as $row) {
             $subtotal =  ($row['precio'] * $row['cantidad']);
-            $total = $total + $subtotal;
-            $_SESSION['carrito'] = $_SESSION['carrito'] +  $row['cantidad'];?>
+            $total = $total + $subtotal;?>
             
     <div class="row cart-item">
         <div class="col-lg-3 col-sm-12 col">
@@ -174,7 +176,12 @@ elseif ($_SESSION['rol'] != 3) {
             <p class="product-price">$ <?php echo $subtotal; ?></p>
         </div>
         <div class="col-md-2">
-            <p class="product-price"><?php echo $row['cantidad']; ?></p>
+            <input type="hidden" class="detalle-id" value="<?php echo $row['detalle_venta_id']; ?>">
+            <button class="btn-decrementar" data-id="<?php echo $row['detalle_venta_id']; ?>">-</button>
+            <input type="number" class="cantidad" id="cantidad-<?php echo $row['detalle_venta_id']; ?>" value="<?php echo $row['cantidad']; ?>" min="1" max="<?php echo $row['stock']; ?>" readonly>
+            <?php
+                echo "<button class='btn-incrementar' data-id='".$row['detalle_venta_id']."'>+</button>";
+            ?>            
         </div>
         <div class="col-md-2">
     <form action="" method="post">
@@ -182,7 +189,7 @@ elseif ($_SESSION['rol'] != 3) {
         <button type="submit" name="eliminar" class="btn btn-danger">
             <i class="fas fa-trash-alt"></i>
         </button>
-    </form>
+    </form>   
 </div>
 
     </div>
@@ -236,59 +243,98 @@ elseif ($_SESSION['rol'] != 3) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-<!--
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const quantityInputs = document.querySelectorAll('.quantity');
-    const totalElement = document.querySelector('.cart-total p');
-    let total = <?php echo $total; ?>;
+/*
+$(document).ready(function() {
+    $('.btn-incrementar, .btn-decrementar').on('click', function() {
+        var detalleVentaId = $(this).siblings('.detalle-id').val();
+        var action = $(this).hasClass('btn-incrementar') ? 'incrementar' : 'decrementar';
+        var cantidadInput = $('#cantidad-' + detalleVentaId);
+        var nuevaCantidad = parseInt(cantidadInput.val());
 
-    // Funcion para actualizar precios
-    function updatePrices() {
-        total = 0;
-        quantityInputs.forEach(input => {
-            const price = parseFloat(input.getAttribute('data-precio'));
-            const quantity = parseInt(input.value);
-            const productTotal = price * quantity;
-            
-            // Actualiza producto individual
-            const productPriceElement = input.closest('.product').parentElement.previousElementSibling.querySelector('.product-price');
-            productPriceElement.textContent = `$ ${productTotal.toFixed(2)}`;
+        if (action === 'incrementar') {
+            nuevaCantidad += 1;
+        } else if (action === 'decrementar' && nuevaCantidad > 1) {
+            nuevaCantidad -= 1;
+        }
 
-            // Total
-            total += productTotal;
+        // Enviar AJAX
+        $.ajax({
+            url: '../SCRIPTS/actualizar-stock.php',
+            type: 'POST',
+            data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
+            success: function(response) {
+                cantidadInput.val(nuevaCantidad);
+                // Actualiza el subtotal si es necesario
+            },
+            error: function() {
+                alert('Error al actualizar la cantidad. Intenta de nuevo.');
+            }
         });
-        totalElement.textContent = `Subtotal: $${total.toFixed(2)}`;
-    }
+    });
+});
+*/
+$(document).ready(function() {
+    $('.btn-incrementar').on('click', function() {
+        var detalleVentaId = $(this).siblings('.detalle-id').val();
+        var cantidadInput = $('#cantidad-' + detalleVentaId);
+        var nuevaCantidad = parseInt(cantidadInput.val()) + 1;
 
-    // Incremento
-    document.querySelectorAll('.increment').forEach(button => {
-        button.addEventListener('click', function() {
-            let input = this.closest('.product').querySelector('.quantity');
-            let value = parseInt(input.value);
-            if (value < 10) {
-                input.value = value + 1;
-                updatePrices();
+        // Sumar las cantidades actuales
+        var totalCantidad = 0;
+        $('.cantidad').each(function() {
+            totalCantidad += parseInt($(this).val());
+        });
+
+        // Verificar si la nueva cantidad total supera 20
+        if (totalCantidad + 1 > 20) {
+            alert("No puedes agregar más productos. La cantidad total no puede superar 20.");
+            return;
+        }
+
+        // Enviar AJAX
+        $.ajax({
+            url: '../SCRIPTS/actualizar-carrito.php',
+            type: 'POST',
+            data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
+            success: function(response) {
+                cantidadInput.val(nuevaCantidad);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error en AJAX: ", textStatus, errorThrown);
+                alert('Error al actualizar la cantidad. Intenta de nuevo.');
             }
         });
     });
 
-    // Decremento
-    document.querySelectorAll('.decrement').forEach(button => {
-        button.addEventListener('click', function() {
-            let input = this.closest('.product').querySelector('.quantity');
-            let value = parseInt(input.value);
-            if (value > 1) {
-                input.value = value - 1;
-                updatePrices();
+    $('.btn-decrementar').on('click', function() {
+        var detalleVentaId = $(this).siblings('.detalle-id').val();
+        var cantidadInput = $('#cantidad-' + detalleVentaId);
+        var nuevaCantidad = parseInt(cantidadInput.val()) - 1;
+
+        if (nuevaCantidad < 1) {
+            alert("La cantidad no puede ser menor que 1.");
+            return;
+        }
+
+        // Enviar AJAX
+        $.ajax({
+            url: '../SCRIPTS/actualizar-carrito.php',
+            type: 'POST',
+            data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
+            success: function(response) {
+                cantidadInput.val(nuevaCantidad);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error en AJAX: ", textStatus, errorThrown);
+                alert('Error al actualizar la cantidad. Intenta de nuevo.');
             }
         });
     });
-
-    // Precio inicial
-    updatePrices();
 });
 </script>
--->
+
 </body>
 </html>

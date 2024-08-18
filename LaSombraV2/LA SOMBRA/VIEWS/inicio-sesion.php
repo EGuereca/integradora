@@ -13,11 +13,11 @@
         <h2>Inicia sesión</h2>
         <form method="post" action="">
             <label for="user">Ingresa tu nombre de usuario:</label><br>
-            <input type="text" id="user" placeholder="Ingresa tu nombre de usuario aquí" name="usuario"><br>
+            <input type="text" id="user" placeholder="Ingresa tu nombre de usuario aquí" name="usuario" maxlength="15" required><br>
 
             <label for="password">Ingresa tu contraseña:</label><br>
             <div class="input-container">
-                <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password">
+                <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password" maxlength="20" required>
                 <img class="toggle-password" id="togglePasswordImage" src="../IMG/closeeye.png" alt="Mostrar contraseña" onclick="togglePasswordVisibility('password', 'togglePasswordImage')">
             </div>
             <?php 
