@@ -205,6 +205,7 @@ include '../SCRIPTS/dash-clientes.php';
                                 <th>ID Venta</th>
                                 <th>Monto Total</th>
                                 <th>Sucursal</th>
+                                <th>Detalles</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -215,6 +216,8 @@ include '../SCRIPTS/dash-clientes.php';
                                         <td><?php echo $pedido['id_venta']; ?></td>
                                         <td><?php echo $pedido['monto_total']; ?></td>
                                         <td><?php echo $pedido['sucursal']; ?></td>
+                                        <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $pedido['id_venta']; ?>" 
+                                        data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php elseif (isset($pedidosSucursal)): ?>
@@ -224,6 +227,8 @@ include '../SCRIPTS/dash-clientes.php';
                                         <td><?php echo $pedido['id_venta']; ?></td>
                                         <td><?php echo $pedido['monto_total']; ?></td>
                                         <td><?php echo $pedido['sucursal']; ?></td>
+                                        <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $pedido['id_venta']; ?>"
+                                        data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -233,6 +238,8 @@ include '../SCRIPTS/dash-clientes.php';
                                         <td><?php echo $cliente['id_venta']; ?></td>
                                         <td><?php echo $cliente['monto_total']; ?></td>
                                         <td><?php echo $cliente['sucursal']; ?></td>
+                                        <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $cliente['id_venta']; ?>"
+                                        data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -245,6 +252,53 @@ include '../SCRIPTS/dash-clientes.php';
     <br>
 </div>
 </div>
+
+<!-- Modal para mostrar detalles de la compra -->
+<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div id="modal" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleModalLabel">Detalles de la Compra</h5>
+                <button type="button" class="btn-close btn-emphasis-color" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí se cargarán los detalles de la compra -->
+                <div id="detalleCompra"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.ver-detalles').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const ventaId = this.getAttribute('data-venta-id');
+            const formData = new FormData();
+            formData.append('venta_id', ventaId);
+
+            fetch('../SCRIPTS/detalle-usuario.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('detalleCompra').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
+</script>
 </body>
 </html>
