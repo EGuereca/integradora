@@ -135,4 +135,42 @@ if (isset($_POST['provee'])) {
     $pedidosSucursalStmt->execute();
     $pedidosSucursal = $pedidosSucursalStmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+// Detalles de venta
+if (isset($_POST['venta_id'])) {
+    $idVenta = $_POST['venta_id'];
+    try {
+        $stmt_detalles = $pdo->prepare("
+            SELECT p.nombre, p.precio, dv.cantidad
+            FROM detalle_venta dv
+            JOIN productos p ON dv.producto = p.id_producto
+            WHERE dv.venta = :idVenta;
+        ");
+        $stmt_detalles->bindParam(':idVenta', $idVenta, PDO::PARAM_INT);
+        $stmt_detalles->execute();
+        $detalles = $stmt_detalles->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($detalles && count($detalles) > 0) {
+            echo '<table class="table table-borderless table-hover">';
+            echo '<thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th></tr></thead>';
+            echo '<tbody>';
+            foreach ($detalles as $detalle) {
+                echo '<tr>';
+                echo '<td>' . htmlspecialchars($detalle['nombre']) . '</td>';
+                echo '<td>' . htmlspecialchars($detalle['precio']) . '</td>';
+                echo '<td>' . htmlspecialchars($detalle['cantidad']) . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody></table>';
+        } else {
+            echo '<p>No se encontraron detalles para esta compra.</p>';
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    } finally {
+        $db->desconectarBD();
+    }
+} else {
+    echo '<p>ID de venta no proporcionado.</p>';
+}
 ?>
