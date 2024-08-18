@@ -189,9 +189,13 @@ if (!empty($productos)) { ?>
 <?php
     }
 } else { ?>
+
     <p style="text-align:center;">El carrito parece vacío, agrega productos para llenarlo!</p>
+    <?php if($nombres) {?><p style="text-align:center;">Tu carrito actualmente tiene como destino: <?php echo $nombres?></p><?php }?>
 <?php }
 ?>
+<?php if(!$nombres) {?> <p style="text-align:center;">Tu carrito no tiene destino, agrega un producto de alguna sucursal para destinarlo!</p>
+     <?php }?>
 <div class="row cart-total">
     <div>
         <p>TOTAL: $<?php echo $total; ?></p>

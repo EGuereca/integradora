@@ -31,6 +31,12 @@ if ($venta) {
     $consulta->execute();
 
     $id_v = $consulta->fetch(PDO::FETCH_ASSOC)['id'];
+
+
+    // Verifica si la sucursal actual es diferente de la seleccionada
+    
+   
+    
     $update = $conexion->prepare("UPDATE venta SET sucursal = ? WHERE id_venta = ?");
     $stm = $conexion->prepare("CALL LLENAR_VENTA(?,?,?)");
     $id = isset($_GET['id']) ? $_GET['id'] : '';

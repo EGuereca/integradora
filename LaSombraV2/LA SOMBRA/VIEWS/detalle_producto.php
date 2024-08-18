@@ -5,7 +5,26 @@
     require '../SCRIPTS/detalle-prod.php';
     if (!isset($_SESSION['carrito'])) {
         $_SESSION['carrito'] = 0;
-    }    
+    }   
+    
+    if (isset($_SESSION['id'])) {
+        $venta = $_SESSION['id'];    
+    }
+    else{
+        $venta = '';
+    }
+
+    // Inicializa la variable $sucursal
+    $sucursal = isset($_SESSION['sucursal']) ? $_SESSION['sucursal'] : null;
+
+
+    if($venta){
+    $consulta = $conexion->prepare("SELECT v.sucursal from venta as v join cliente as c on v.id_cliente = c.id_cliente
+    join persona as p on c.persona = p.id_persona join usuarios as u on p.usuario
+    = u.id_usuario where u.id_usuario = $venta and v.estado = 'CARRITO'");
+    $consulta->execute();
+    $sucuact = $consulta->fetch(PDO::FETCH_ASSOC)['sucursal'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -174,17 +193,29 @@
             <?php } ?>
             </select> <br> <br>
                 <button  <?php if ($_SESSION['carrito'] > 20) {
-                    echo " id='liveToastBtn' type='button' ";                    
-                }else{ echo "type='submit' name='btncarrito' "; } ?>  class="btn btn-pink btn-lg <?php if ($stock <= 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"]) || $_SESSION['rol'] != 3) {
+                    echo " id='liveToastBtn' type='button'";                    
+                } else if($sucuact != null) {  if($sucuact != $sucursal) { echo " id='liveToastBtn' type='button' disabled ";} }
+                else if($sucuact == $sucursal){ echo "type='submit' name='btncarrito' "; } ?>  class="btn btn-pink btn-lg
+                <?php if ($stock <= 0 || !isset($_SESSION["sucursal"]) || !isset($_SESSION["id"]) || $_SESSION['rol'] != 3 /*|| $sucuact != $sucursal*/) {
                     echo "disabled";
-                }?>">AGREGAR A CARRITO</button>
+                }?>"type='submit' name='btncarrito'>AGREGAR A CARRITO <?php /* echo $sucursal; echo $sucuact;*/?></button>
                 </form>
                 <?php if (isset($_POST['btncarrito'])) { ?>
                     <br>
                     <div class="alert alert-success" role="alert">
                     Tu solicitud se agregó correctamente a tu carrito, puedes ir a checarlo si gustas.
                 </div>
-                <?php } ?>        
+                <?php } ?>   
+                
+                <?php if($sucuact != null) { ?>
+                <?php if ($sucuact != $sucursal) { ?>
+                    <br>
+                    <div class="alert alert-danger" role="alert">
+                    Estas en diferente sucursal, completa tu pedido en la otra sucursal para agregar de la nueva sucursal.
+                </div>
+                <?php } ?>  
+                <?php } ?>  
+                
                 <?php 
                     if (!isset($_SESSION["id"])) {                                            
                 ?>
