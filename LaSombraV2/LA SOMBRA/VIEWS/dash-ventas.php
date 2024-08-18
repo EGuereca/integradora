@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
 }
 
 $selectedDate = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
-
+$week_max = date('Y-\WW');
 
 ?>
 <!DOCTYPE html>
@@ -192,13 +192,13 @@ $selectedDate = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
             <div class="col-md-20">
     <div class="card card-custom">
         <div class="card-header">
-            <h4>Detalle de Ventas por Semana</h4>
+            Detalle de Ventas por Semana
         </div>
         <div class="card-body">
             <form action="" method="post">
                 <label for="week">Selecciona la semana:</label>
-                <input type="week" id="week" name="selected_week" required>
-                <button type="submit" class="btn btn-primary">Ver Detalles</button>
+                <input type="week" id="week" name="selected_week" required max="<?php echo $week_max; ?>">
+                <button type="submit" class="btn btn-primary">Ver Detalles</button> 
             </form>
             <div id="resultadoConsulta" class="resultado-consulta" style="margin-top: 20px;">
                 <?php
