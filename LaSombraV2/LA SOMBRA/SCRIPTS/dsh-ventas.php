@@ -84,4 +84,48 @@ function obtenerNombreEmpleado($idEmpleado) {
     return $query->fetchColumn();
 }
 
+$selectedDate = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['selected_week'])) {
+    $selected_week = $_POST['selected_week'];
+    
+    $weekDate = new DateTime();
+    $weekDate->setISODate((int)substr($selected_week, 0, 4), (int)substr($selected_week, 6, 2));
+    $formatted_week_date = $weekDate->format('Y-m-d');
+
+    $sql_total_ventas = "SELECT 
+                            SUM(v.monto_total) AS total_ventas
+                         FROM 
+                            venta v
+                         WHERE 
+                            YEARWEEK(v.fecha_venta, 1) = YEARWEEK(:formatted_week_date, 1)";
+    $stmt_total = $conexion->prepare($sql_total_ventas);
+    $stmt_total->execute(['formatted_week_date' => $formatted_week_date]);
+    $result_total = $stmt_total->fetch();
+
+    $sql_producto_mas_vendido = "SELECT 
+                                    p.nombre AS producto,
+                                    MAX(v.monto_total) AS monto_total
+                                 FROM 
+                                    venta v
+                                 JOIN 
+                                    detalle_venta dv ON v.id_venta = dv.venta
+                                 JOIN 
+                                    productos p ON dv.producto = p.id_producto
+                                 WHERE 
+                                    YEARWEEK(v.fecha_venta, 1) = YEARWEEK(:formatted_week_date, 1)
+                                 GROUP BY 
+                                    p.nombre
+                                 ORDER BY 
+                                    monto_total DESC
+                                 LIMIT 1";
+    $stmt_producto = $conexion->prepare($sql_producto_mas_vendido);
+    $stmt_producto->execute(['formatted_week_date' => $formatted_week_date]);
+    $result_producto = $stmt_producto->fetch();
+
+    $total_ventas = $result_total['total_ventas'] ?? 0;
+    $producto_mas_vendido = $result_producto['producto'] ?? 'N/A';
+    $monto_total_venta = $result_producto['monto_total'] ?? 0;
+}
+
 ?>
