@@ -1,4 +1,5 @@
 <?php
+
     include '../SCRIPTS/productos-bien.php';
     require '../SCRIPTS/config-prod.php';
 ?>
@@ -39,7 +40,7 @@
                     <?php } ?>
                     
                     
-            </div>
+            </div>x 
         </div>
 
 
