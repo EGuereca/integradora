@@ -58,7 +58,10 @@ $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre,
         JOIN categorias AS c ON pc.categoria = c.id_categoria
         JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
         WHERE 1=1";
-        
+     
+     $parametros = [];
+
+
 if ($sucursal) {
     if ($sucursal != '3') {
         $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre, 
@@ -69,37 +72,36 @@ if ($sucursal) {
         JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
         WHERE 1=1";
         $sql .= " AND ins.id_sucursal = :sucursal";
+        $parametros[':sucursal'] = $sucursal;    
     }
     
 }
 if ($nm_prod) {
     $sql .= " AND p.nombre LIKE :nm_prod";
+    $parametros[':nm_prod'] = '%' . $nm_prod . '%';
 }
 if ($id_prod) {
     $sql .= " AND p.id_producto = :id_prod";
+    $parametros[':id_prod'] = $id_prod;
 }
-if ($categoria) {
+if ($categoria ) {
     $sql .= " AND c.id_categoria = :categoria";
+    $parametros[':categoria'] = $categoria;
 }
+if ($sucursal) {
+    $sql .= " AND ins.id_sucursal = :sucursal";
+    $parametros[':sucursal'] = $sucursal;
+}
+
 // Paginación
-$sql .= " LIMIT :inicio, :productos_por_pagina";
+$sql .= " LIMIT $inicio, $productos_por_pagina";
 
 $stmt = $conexion->prepare($sql);
 
-if ($nm_prod) {
-    $stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
+// Vinculación de todos los parámetros
+foreach ($parametros as $key => $value) {
+    $stmt->bindValue($key, $value);
 }
-if ($id_prod) {
-    $stmt->bindValue(':id_prod', $id_prod);
-}
-if ($categoria) {
-    $stmt->bindValue(':categoria', $categoria, PDO::PARAM_INT);
-}
-if ($sucursal !== null) {
-    $stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
-}
-$stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
-$stmt->bindValue(':productos_por_pagina', $productos_por_pagina, PDO::PARAM_INT);
 
 $stmt->execute();
 $st->execute();
@@ -117,29 +119,31 @@ $total_sql = "SELECT COUNT(DISTINCT p.id_producto)
               JOIN categorias AS c ON pc.categoria = c.id_categoria
               JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
               WHERE 1=1";
-if ($sucursal !== null) {
+if ($sucursal ) {
     $total_sql .= " AND ins.id_sucursal = :sucursal";
 }
-if ($nm_prod) {
+if ($nm_prod != null) {
     $total_sql .= " AND p.nombre LIKE :nm_prod";
 }
-if ($categoria) {
+if ($categoria != null) {
     $total_sql .= " AND c.id_categoria = :categoria";
 }
 
 $total_stmt = $conexion->prepare($total_sql);
-if ($sucursal !== null) {
+if ($sucursal) {
     $total_stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
 }
-if ($nm_prod) {
+if ($nm_prod != null) {
     $total_stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
 }
-if ($categoria) {
+if ($categoria != null) {
     $total_stmt->bindValue(':categoria', $categoria, PDO::PARAM_INT);
 }
 $total_stmt->execute();
 $total_productos = $total_stmt->fetchColumn();
 $total_paginas = ceil($total_productos / $productos_por_pagina);
+
+
 $pdo = null;
 $pral = $conexion->prepare("INSERT INTO productos(nombre,marca,precio,stock,material,descripcion,url) VALUES(?,?,?,0,?,?,?)");
 if (isset($_GET['btnreg'])) {
