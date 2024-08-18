@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData();
             formData.append('venta_id', ventaId);
 
-            fetch('../SCRIPTS/detalle-usuario.php', {
+            fetch('../SCRIPTS/dash-clientes.php', {
                 method: 'POST',
                 body: formData
             })
