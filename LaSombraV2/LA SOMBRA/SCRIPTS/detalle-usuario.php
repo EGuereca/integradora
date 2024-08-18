@@ -67,7 +67,7 @@ if ($iduser) {
 }
 
 // Mostrar detalles de la venta
-if (isset($_POST['ver_detalles'])) {
+if (isset($_POST['venta_id'])) {
     $idVenta = $_POST['venta_id'];
     try {
         $stmt_detalles = $pdo->prepare("
