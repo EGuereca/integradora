@@ -276,3 +276,20 @@ textarea {
         
         }
     
+        .pagination .page-item .page-link {
+            color: #28a745; 
+            background-color: white; 
+            border: 1px solid #28a745;
+        }
+        
+        .pagination .page-item .page-link:hover {
+            color: white; 
+            background-color: #28a745; 
+            border-color: #218838;
+        }
+        
+        .pagination .page-item.active .page-link {
+            color: white; 
+            background-color: #28a745;
+            border-color: #218838;
+        }
