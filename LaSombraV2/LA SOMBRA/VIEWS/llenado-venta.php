@@ -274,5 +274,42 @@ $pdo = null;
     </div>
 </div>
     
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast <?php echo $producto_agregado ? 'show' : ''; ?>" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Notificación</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Producto agregado exitosamente, dirígete al carrito.
+        </div>
+    </div>
+    <style>
+        .toast {
+    background-color: #333; 
+    color: #f1f1f1; 
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+}
+
+.toast-header {
+    background-color: #444; 
+    color: #f1f1f1;
+    border-bottom: 1px solid #555;
+}
+
+.toast-body {
+    background-color: #333; 
+    color: #f1f1f1; 
+}
+
+.btn-close {
+    color: #f1f1f1; 
+}
+
+    </style>
+</div>
+
+
 </body>
 </html>
