@@ -154,7 +154,7 @@ if($count > 0){
     <form action="../SCRIPTS/upd.php" method="post">
         <div class="form-group">
             <input type="hidden" name="id" value="<?= $datos['id_usuario']?>">
-            <input type="text" name="username" id="username" class="form-control" required placeholder="Nombre de usuario" value="<?= $datos['nombre_usuario']?> ">
+            <input type="text" name="username" id="username" class="form-control" required maxlength="15"  minlength="8" placeholder="Nombre de usuario" value="<?= $datos['nombre_usuario']?> ">
         </div>
 
         <div class="form-group">
@@ -162,9 +162,9 @@ if($count > 0){
         </div>
 
         <div class="form-group">
-            <input type="text" name="telefono" id="telefono" class="form-control" required placeholder="Telefono" value="<?= $datos['telefono']?>">
+            <input type="text" name="telefono" id="telefono" class="form-control" required maxlength="15"  minlength="8" placeholder="Telefono" value="<?= $datos['telefono']?>">
         </div>
-        <input id="actualizar" type="submit" value="Actualizar" class="btn btn-success"> <button class="btn btn-secondary">Regresar</button>
+        <input id="actualizar" type="submit" value="Actualizar" class="btn btn-success"> <button class="btn btn-danger">Regresar</button>
 
     </form>
 </div>

@@ -75,11 +75,15 @@ $selectedDate = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dsh-empl.php">REGISTRAR EMPLEADO</a>
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">EMPLEADOS</a>
                     </li>
                     
                     <li>
                         <a class="nav-link" href="../VIEWS/reabastecimiento.php">REABASTECIMIENTO</a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link" href="../VIEWS/clientes.php">CLIENTES</a>
                     </li>
                     <?php } ?>
                     <li class="nav-item">
@@ -227,7 +231,7 @@ $selectedDate = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
                     <div class="card card-custom">
                         <div class="card-header"><?php echo $row['id'];?></div>
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table table-sm">
                                 <thead>
                                     <tr>
                                         <th>Productos</th>
@@ -367,7 +371,7 @@ $selectedDate = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
 <p>Total: <?php echo isset($venta['monto_total']) ? $venta['monto_total'] : 'N/A'; ?></p>
 
         <h3>Productos</h3>
-        <table class="table">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th>Producto</th>

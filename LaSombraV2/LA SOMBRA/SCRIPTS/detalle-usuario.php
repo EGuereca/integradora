@@ -7,13 +7,15 @@ $db->conectarBD();
 session_start();
 $iduser =  $_SESSION["id"];
 
+
+
 $user = null;
 $completadas = [];
-$detalles = [];
 
+
+$pdo = $db->getPDO();
 if ($iduser) {
     try {
-        $pdo = $db->getPDO();
         $stmt = $pdo->prepare("SELECT * FROM usuarios u WHERE u.id_usuario = :id");
         $stmt->bindParam(':id', $iduser, PDO::PARAM_INT);
         $stmt->execute();
@@ -46,18 +48,7 @@ if ($iduser) {
 
         $pendientes = $stmt_pendientes->fetchAll(PDO::FETCH_ASSOC);
 
-        if (isset($_POST['ver_detalles'])) {
-            $idVenta = $_POST['venta_id'];
-            $stmt_detalles = $pdo->prepare("
-                SELECT p.nombre, p.precio, dv.cantidad
-                FROM detalle_venta dv
-                JOIN productos p ON dv.producto = p.id_producto
-                WHERE dv.venta = :idVenta;
-            ");
-            $stmt_detalles->bindParam(':idVenta', $idVenta, PDO::PARAM_INT);
-            $stmt_detalles->execute();
-            $detalles = $stmt_detalles->fetchAll(PDO::FETCH_ASSOC);
-        }
+
 
         if (isset($_POST['cancelar_pedido'])) {
             $idVenta = $_POST['venta_id'];
@@ -70,27 +61,57 @@ if ($iduser) {
                 $stmt_cancelar->execute();
         
                 // Verifica si se actualizó alguna fila
-                if ($stmt_cancelar->rowCount() > 0) {
-                    header("Location: detalle-cuenta.php");
-                    exit();
-                } else {
-                    echo "<p>No se pudo cancelar el pedido. Es posible que ya esté procesado.</p>";
-                }
+               
         
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             } 
         }
-       
 
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    } 
+
+} else {
+    echo "No se encontró el ID del usuario en la sesión.";
+}
+
+if (isset($_POST['venta_id'])) {
+    $idVenta = $_POST['venta_id'];
+    try {
+        $stmt_detalles = $pdo->prepare("
+            SELECT p.nombre, p.precio, dv.cantidad
+            FROM detalle_venta dv
+            JOIN productos p ON dv.producto = p.id_producto
+            WHERE dv.venta = :idVenta;
+        ");
+        $stmt_detalles->bindParam(':idVenta', $idVenta, PDO::PARAM_INT);
+        $stmt_detalles->execute();
+        $detalles = $stmt_detalles->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($detalles && count($detalles) > 0) {
+            echo '<table class="table table-dark table-borderless table-hover">';
+            echo '<thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th></tr></thead>';
+            echo '<tbody>';
+            foreach ($detalles as $detalle) {
+                echo '<tr>';
+                echo '<td>' . htmlspecialchars($detalle['nombre']) . '</td>';
+                echo '<td>' . htmlspecialchars($detalle['precio']) . '</td>';
+                echo '<td>' . htmlspecialchars($detalle['cantidad']) . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody></table>';
+        } else {
+            echo '<p>No se encontraron detalles para esta compra.</p>';
+        }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     } finally {
         $db->desconectarBD();
     }
-
 } else {
-    echo "No se encontró el ID del usuario en la sesión.";
+    echo '<p>ID de venta no proporcionado.</p>';
 }
 ?>
 
