@@ -140,9 +140,10 @@ if (isset($_POST['provee'])) {
 if (isset($_POST['venta_id'])) {
     $idVenta = $_POST['venta_id'];
     try {
-        $stmt_detalles = $pdo->prepare("
-            SELECT p.nombre, p.precio, dv.cantidad
-            FROM detalle_venta dv
+        $stmt_detalles = $conexion->prepare("
+            SELECT p.nombre, p.precio, dv.cantidad, v.monto_total
+            FROM venta v
+            JOIN detalle_venta dv ON dv.venta = v.id_venta
             JOIN productos p ON dv.producto = p.id_producto
             WHERE dv.venta = :idVenta;
         ");
@@ -151,7 +152,7 @@ if (isset($_POST['venta_id'])) {
         $detalles = $stmt_detalles->fetchAll(PDO::FETCH_ASSOC);
 
         if ($detalles && count($detalles) > 0) {
-            echo '<table class="table table-borderless table-hover">';
+            echo '<table class="table table-borderless">';
             echo '<thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th></tr></thead>';
             echo '<tbody>';
             foreach ($detalles as $detalle) {
@@ -161,6 +162,13 @@ if (isset($_POST['venta_id'])) {
                 echo '<td>' . htmlspecialchars($detalle['cantidad']) . '</td>';
                 echo '</tr>';
             }
+            echo '</tbody></table>';
+            echo '<table class="table  table-borderless">';
+            echo '<thead> <tr> <th></th> </thead>';
+            echo '<tbody>';
+            echo '<tr>';
+            echo '<td>  <b>Total:</b> $' .  htmlspecialchars($detalles[0]['monto_total']) . '</td>';
+            echo '</tr>';
             echo '</tbody></table>';
         } else {
             echo '<p>No se encontraron detalles para esta compra.</p>';

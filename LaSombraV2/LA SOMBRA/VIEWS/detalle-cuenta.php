@@ -244,6 +244,7 @@ include "../SCRIPTS/detalle-usuario.php";
             </div>
             <div class="modal-body">
                 <!-- Aquí se cargarán los detalles de la compra -->
+                
                 <div id="detalleCompra"></div>
             </div>
             <div class="modal-footer">
