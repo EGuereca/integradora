@@ -179,7 +179,7 @@ include "../SCRIPTS/detalle-usuario.php";
                             <td><?php echo htmlspecialchars($pen['estado']); ?></td>
                             <td><?php echo htmlspecialchars($pen['sucursal']); ?></td>
                             <td>
-                            <button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $venta['ID']; ?>" data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button>
+                            <button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $pen['ID']; ?>" data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button>
                             </td>
                             <td>
                                 <form method="post" action="">

@@ -296,7 +296,7 @@ $(document).ready(function() {
 
         // Enviar AJAX
         $.ajax({
-            url: '../SCRIPTS/actualizar-carrito.php',
+            url: '../SCRIPTS/actualizar-stock.php',
             type: 'POST',
             data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
             success: function(response) {
@@ -321,7 +321,7 @@ $(document).ready(function() {
 
         // Enviar AJAX
         $.ajax({
-            url: '../SCRIPTS/actualizar-carrito.php',
+            url: '../SCRIPTS/actualizar-stock.php',
             type: 'POST',
             data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
             success: function(response) {
