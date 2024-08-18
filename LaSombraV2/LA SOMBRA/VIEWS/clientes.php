@@ -129,10 +129,10 @@ include '../SCRIPTS/dash-clientes.php';
     <div class="col-lg-3 col-sm-6 p-1 text-end-lg text-center-sm">
         <div class="card card-custom">
             <div class="card-header">
-                <b>Producto más solicitado en línea para Matamoros</b>
+                <b>Producto más vendido por línea para Matamoros</b>
             </div>
             <div class="card-body">
-                <p><?php echo $productoMasVendidoMata['nombre'] . ' - ' . $productoMasVendidoMata['total_vendido']; ?></p>
+                <p><?php echo $productoMasVendidoMata['nombre'] . ' con ' . $productoMasVendidoMata['total_vendido'] . ' vendidos'; ?></p>
             </div>
         </div>
     </div>
@@ -140,10 +140,10 @@ include '../SCRIPTS/dash-clientes.php';
     <div class="col-lg-3 col-sm-6 p-1 text-end-lg text-center-sm">
         <div class="card card-custom">
             <div class="card-header">
-                <b>Producto más solicitado en línea para sucursal Nazas</b>
+                <b>Producto más vendido por línea para sucursal Nazas</b>
             </div>
             <div class="card-body">
-                <p><?php echo $productoMasVendidoNazas['nombre'] . ' - ' . $productoMasVendidoNazas['total_vendido']; ?></p>
+                <p><?php echo $productoMasVendidoNazas['nombre'] . ' con ' . $productoMasVendidoNazas['total_vendido'] . ' vendidos'; ?></p>
             </div>
         </div>
     </div>
