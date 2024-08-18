@@ -152,13 +152,12 @@ include "../SCRIPTS/detalle-usuario.php";
         <?php  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 3) {?>
         <div class="detalles-venta">
            
-</div>
-        
+</div>     
         <!-- PEDIDOS EN ESPERA -->
         <div class="historial">
             <h1>Pedidos pendientes a completar:</h1>
             <?php if ($pendientes && count($pendientes) > 0): ?>
-            <table class="table table-dark table-striped table-hover">
+            <table class="table table-borderless table-dark ">
                 <thead>
                     <tr>
                         <th>ID Venta</th>
@@ -170,7 +169,7 @@ include "../SCRIPTS/detalle-usuario.php";
                         <th>Cancelar</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider">
+                <tbody>
                     <?php foreach ($pendientes as $pen): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($pen['ID']); ?></td>
@@ -200,7 +199,7 @@ include "../SCRIPTS/detalle-usuario.php";
         <div class="historial">
             <h1>Historial de pedidos</h1>
             <?php if ($completadas && count($completadas) > 0): ?>
-            <table class="table table-sm table-dark table-borderless table-hover">
+            <table class="table table-sm table-dark table-borderless">
                 <thead id="head">
                     <tr>
                         <th>Venta</th>

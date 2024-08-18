@@ -71,7 +71,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
                     </li>
                     <div class="usuario-info">
                   <p>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
-                   <a href="?logout=1" class="logout-icon">
+                   <a href="../SCRIPTS/cerrarsesion.php" class="logout-icon">
                     <i class="fas fa-sign-out-alt"></i> 
                      </a>
                       </div>
@@ -90,7 +90,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
     $detalles=[];
     include "../SCRIPTS/dsh-apartados.php"
     ?>
-       <!-- Main Content -->
+    <!-- Main Content -->
 <div id="gestion" class="container-fluid">
     <h1 class="mt-5">Gestión de pedidos</h1>
     <form action="" method="post" class="mb-5">
@@ -111,7 +111,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
 
     <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
         <?php if ($ventas) { ?>
-            <table class="table table-bordered">
+            <table class="table table-borderless table-sm">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID Venta</th>
@@ -120,6 +120,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
                         <th>Tipo de Venta</th>
                         <th>Monto del pedido</th>
                         <th>Sucursal</th>
+                        <th>Detalles</th>
                         <?php if ($estado == 'PENDIENTE') { ?>
                             <th>Acciones</th>
                         <?php } ?>
@@ -134,6 +135,8 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
                             <td><?php echo $venta['tipo_venta'] ?></td>
                             <td><?php echo $venta['monto_total'] ?></td>
                             <td><?php echo $venta['sucursal'] ?></td>
+                            <td><button type="button" class="btn btn-info ver-detalles" data-venta-id="<?php echo $venta['id_venta']; ?>"
+                            data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
                             <?php if ($estado == 'PENDIENTE') { ?>
                                 <td>
                                     <form action="../SCRIPTS/confirmar-pedido.php" method="post">
@@ -150,35 +153,56 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
             <div class="alert alert-warning">No se encontraron ventas con el estado seleccionado.</div>
         <?php } ?>
 
-        <div class="detalles-venta">
-            <h2>Detalles del Pedido:</h2>
-            <?php if ($detalles && count($detalles) > 0 && $ventas): ?>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Precio del producto</th>
-                            <th>Cantidad de producto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($detalles as $detalle): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($detalle['nombre']); ?></td>
-                                <td><?php echo htmlspecialchars($detalle['precio']); ?></td>
-                                <td><?php echo htmlspecialchars($detalle['cantidad']); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <div class="alert alert-info">No se encontraron ventas con el estado seleccionado.</div>
-            <?php endif; ?>
-        </div>
+        
     <?php } ?>
 </div>
-    
+<!-- Modal para mostrar detalles de la compra -->
+<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div id="modal" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleModalLabel">Detalles de la Compra</h5>
+                <button type="button" class="btn-close btn-emphasis-color" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí se cargarán los detalles de la compra -->
+                <div id="detalleCompra"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
         <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+        <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.ver-detalles').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const ventaId = this.getAttribute('data-venta-id');
+            const formData = new FormData();
+            formData.append('venta_id', ventaId);
+
+            fetch('../SCRIPTS/dsh-apartados.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('detalleCompra').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
+</script>
 </body>
 </html>
