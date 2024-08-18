@@ -17,9 +17,7 @@ if (isset($_GET['id'])) {
     $productos = obtenerProductosVenta($idVenta); 
 }
 
-
-$fecha = date('Y-m-d');
-
+$selectedDate = isset($_POST["fecha"]) ? $_POST["fecha"] : '';
 
 
 ?>
@@ -185,6 +183,32 @@ $fecha = date('Y-m-d');
                     <h3>$ <?php echo $tot; ?></h3>
                 </div>
             </div>
+
+            
+            <div class="col-md-20">
+    <div class="card card-custom">
+        <div class="card-header">
+            <h4>Detalle de Ventas por Semana</h4>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                <label for="week">Selecciona la semana:</label>
+                <input type="week" id="week" name="selected_week" required>
+                <button type="submit" class="btn btn-primary">Ver Detalles</button>
+            </form>
+            <div id="resultadoConsulta" class="resultado-consulta" style="margin-top: 20px;">
+                <?php
+                if (isset($total_ventas) && isset($producto_mas_vendido) && isset($monto_total_venta)) {
+                    echo "<p><strong>Total de ventas:</strong> $" . number_format($total_ventas, 2) . "</p>";
+                    echo "<p><strong>Producto más vendido:</strong> " . htmlspecialchars($producto_mas_vendido) . "</p>";
+                    echo "<p><strong>Monto total de esa venta:</strong> $" . number_format($monto_total_venta, 2) . "</p>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
 
             <?php 
             foreach ($results as $row) {
