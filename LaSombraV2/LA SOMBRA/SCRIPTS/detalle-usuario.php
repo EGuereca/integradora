@@ -7,21 +7,20 @@ $db->conectarBD();
 session_start();
 $iduser =  $_SESSION["id"];
 
-
-
 $user = null;
 $completadas = [];
-
+$pendientes = [];
 
 $pdo = $db->getPDO();
 if ($iduser) {
     try {
+        // Obtener datos del usuario
         $stmt = $pdo->prepare("SELECT * FROM usuarios u WHERE u.id_usuario = :id");
         $stmt->bindParam(':id', $iduser, PDO::PARAM_INT);
         $stmt->execute();
-
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Obtener ventas completadas
         $stmt_ventas = $pdo->prepare("SELECT v.id_venta as ID, v.fecha_venta as fecha_venta, v.monto_total as monto_total, v.estado as estado, s.nombre as sucursal
                 FROM venta v 
                 JOIN cliente c ON v.id_cliente = c.id_cliente
@@ -29,12 +28,11 @@ if ($iduser) {
                 JOIN usuarios u  ON p.usuario = u.id_usuario
                 JOIN sucursales s ON v.sucursal = s.id_sucursal
                 WHERE u.id_usuario = :id AND v.estado = 'COMPLETADA'");
-    
         $stmt_ventas->bindParam(':id', $iduser, PDO::PARAM_INT);
         $stmt_ventas->execute();
-
         $completadas = $stmt_ventas->fetchAll(PDO::FETCH_ASSOC);
 
+        // Obtener ventas pendientes
         $stmt_pendientes = $pdo->prepare("SELECT v.id_venta as ID, v.fecha_venta as fecha_venta, v.monto_total as monto_total, v.estado as estado, s.nombre as sucursal
                 FROM venta v 
                 JOIN cliente c ON v.id_cliente = c.id_cliente
@@ -42,32 +40,23 @@ if ($iduser) {
                 JOIN usuarios u  ON p.usuario = u.id_usuario
                 JOIN sucursales s ON v.sucursal = s.id_sucursal
                 WHERE u.id_usuario = :id AND v.estado = 'PENDIENTE'");
-        
         $stmt_pendientes->bindParam(':id', $iduser, PDO::PARAM_INT);
         $stmt_pendientes->execute();
-
         $pendientes = $stmt_pendientes->fetchAll(PDO::FETCH_ASSOC);
 
-
-
+        // Cancelar venta
         if (isset($_POST['cancelar_pedido'])) {
             $idVenta = $_POST['venta_id'];
-        
             try {
-                $pdo = $db->getPDO();
-                // Actualiza el estado de la venta a "CANCELADA"
                 $stmt_cancelar = $pdo->prepare("UPDATE venta SET estado = 'CANCELADA' WHERE id_venta = :idVenta AND estado = 'PENDIENTE'");
                 $stmt_cancelar->bindParam(':idVenta', $idVenta, PDO::PARAM_INT);
                 $stmt_cancelar->execute();
-        
-                // Verifica si se actualizó alguna fila
-               
-        
+                header("Location: " . $_SERVER['REQUEST_URI']);
+                exit();
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
-            } 
+            }
         }
-
 
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
@@ -77,7 +66,8 @@ if ($iduser) {
     echo "No se encontró el ID del usuario en la sesión.";
 }
 
-if (isset($_POST['venta_id'])) {
+// Mostrar detalles de la venta
+if (isset($_POST['ver_detalles'])) {
     $idVenta = $_POST['venta_id'];
     try {
         $stmt_detalles = $pdo->prepare("
@@ -122,5 +112,3 @@ if (isset($_POST['venta_id'])) {
     echo '<p>ID de venta no proporcionado.</p>';
 }
 ?>
-
-

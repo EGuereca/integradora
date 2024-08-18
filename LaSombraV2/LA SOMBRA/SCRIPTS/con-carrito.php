@@ -51,6 +51,6 @@ if (isset($_POST['btncarrito'])) {
         $update->bindParam(2, $id_v, PDO::PARAM_INT);
         $update->execute();
 
-        header("refresh:3; url=../VIEWS/carrito.php");    
+        header("location: ../VIEWS/carrito.php");
 }
 ?>

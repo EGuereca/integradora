@@ -17,6 +17,7 @@ elseif ($_SESSION['rol'] != 3) {
 
 
     include '../SCRIPTS/imprimir-carrito.php';
+    
 ?>
 
 <!DOCTYPE html>
@@ -136,6 +137,12 @@ elseif ($_SESSION['rol'] != 3) {
     </div>
     </nav>
 </header>
+
+<div class="container cart-container">
+<?php
+$total = 0;
+
+if (!empty($productos)) { ?>
 <div class="container cart-container">
     <div class="table">
     <table border='1' class= 'table table-striped'>
@@ -148,14 +155,11 @@ elseif ($_SESSION['rol'] != 3) {
     </table>
     </div>
 </div>
-<div class="container cart-container">
 <?php
-$total = 0;
-
-if (!empty($productos)) {
     foreach ($productos as $row) {
         $subtotal =  ($row['precio'] * $row['cantidad']);
         $total = $total + $subtotal;
+        
 ?>
 <div class="row cart-item">
     <div class="col-lg-3 col-sm-12 col">
@@ -184,9 +188,9 @@ if (!empty($productos)) {
 </div>
 <?php
     }
-} else {
-    echo "No hay productos en el carrito";
-}
+} else { ?>
+    <p style="text-align:center;">El carrito parece vacío, agrega productos para llenarlo!</p>
+<?php }
 ?>
 <div class="row cart-total">
     <div>
@@ -206,14 +210,20 @@ if (!empty($productos)) {
                         }
                     }
                     if ($control == 0) { ?>
+                        <p>Tu carrito actualmente tiene como destino: <?php echo $nombres?></p>
                         <button type="submit" name="btn" id="confirmar" class="btn btn-success">Confirmar pedido</button>                                                                  
                     <?php } else { ?>
+                        <div class="alert alert-warning" role="alert">
+                        No hay stock suficiente para el producto "<?php echo $prod; ?>", debe de eliminarlo
+                        </div>
                         <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php echo $prod; ?>, debe de eliminarlo">Confirmar pedido</button>                              
                     <?php } 
                 }
-            } else { 
-                echo "<p>Tienes un pedido pendiente. Espera a que se confirme antes de hacer un nuevo pedido.</p>"; 
-            } ?>
+            } else { ?>
+                <div class="alert alert-success" role="alert">
+                    Podrás confirmar pedido hasta que se te confirme o cancele el anterior. Los pedidos se cancelan automáticamente despues de 48 horas.
+                </div>
+           <?php } ?>
         </div>      
         </form>
     </div>

@@ -179,22 +179,28 @@
                     echo "disabled";
                 }?>">AGREGAR A CARRITO</button>
                 </form>
+                <?php if (isset($_POST['btncarrito'])) { ?>
+                    <br>
+                    <div class="alert alert-success" role="alert">
+                    Tu solicitud se agregó correctamente a tu carrito, puedes ir a checarlo si gustas.
+                </div>
+                <?php } ?>        
                 <?php 
                     if (!isset($_SESSION["id"])) {                                            
                 ?>
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-warning" role="alert">
                     Inicie sesión para poder ordenar
                 </div>
                 <?php } elseif (!isset($_SESSION['sucursal'])) {                
                     ?>
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-warning" role="alert">
                     Seleccione una sucursal para poder ordenar
                 </div>
                     <div class="container">
-                        <h5>Seleccione una sucursal:</h5> <br>
-                        <form method="post" action="">                            
-                            <button type="submit" class="btn btn-outline-secondary" name="nazas">Nazas</button>
-                            <button type="submit" class="btn btn-outline-success" name="matamoros">Matamoros</button>
+                        <h5 style="text-align: center;">Seleccione una sucursal:</h5> <br>
+                        <form method="post" action="" style="text-align:center">                            
+                            <button type="submit" class="btn btn-secondary" name="nazas">Nazas</button>
+                            <button type="submit" class="btn btn-success" name="matamoros">Matamoros</button>
                         </form>
                     </div>
                 </div>
