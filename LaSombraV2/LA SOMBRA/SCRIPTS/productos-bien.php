@@ -67,34 +67,35 @@ $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Contar el total de productos
-$total_sql = "SELECT COUNT(DISTINCT p.id_producto)
+$total_sql = "SELECT COUNT(DISTINCT p.id_producto) as total
             FROM productos AS p
             JOIN producto_categoria AS pc ON p.id_producto = pc.producto
             JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
             JOIN categorias AS c ON pc.categoria = c.id_categoria
             WHERE ins.cantidad > 0";
 
-if ($sucursal !== null) {
+if ($sucursal != null) {
     $total_sql .= " AND ins.id_sucursal = :sucursal";
 }
-if ($nm_prod) {
+if ($nm_prod != null) {
     $total_sql .= " AND p.nombre LIKE :nm_prod";
 }
-if ($categoria) {
+if ($categoria != null) {
     $total_sql .= " AND c.id_categoria = :categoria";
 }
 
 $total_stmt = $conexion->prepare($total_sql);
 
-if ($sucursal !== null) {
+if ($sucursal != null) {
     $total_stmt->bindValue(':sucursal', $sucursal, PDO::PARAM_INT);
 }
-if ($nm_prod) {
+if ($nm_prod != null) {
     $total_stmt->bindValue(':nm_prod', '%' . $nm_prod . '%');
 }
-if ($categoria) {
+if ($categoria != null) {
     $total_stmt->bindValue(':categoria', $categoria, PDO::PARAM_INT);
 }
+    
 $total_stmt->execute();
 $total_productos = $total_stmt->fetchColumn();
 $total_paginas = ceil($total_productos / $productos_por_pagina);
