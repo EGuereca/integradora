@@ -7,9 +7,8 @@ if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
 $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
 
 include '../SCRIPTS/productos-dsh.php';
-
 ?>
-
+a
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,7 +115,7 @@ include '../SCRIPTS/productos-dsh.php';
 
         <div class="container-fluid">
 <div class="forms">
-    <form method="post" class="d-flex row" role="search">
+    <form method="get" class="d-flex row" role="search">
       <div class="col-lg-2 col-sm-6 p-1">
       <input class="form-control" type="search" placeholder="ID Producto" aria-label="Search" id="id_prod" name="id_prod">
       </div>
@@ -124,25 +123,26 @@ include '../SCRIPTS/productos-dsh.php';
         <input class="form-control" type="search" placeholder="Nombre Producto" aria-label="Search" id="nm_prod" name="nm_prod">
       </div>
       <div class="col-lg-2 col-sm-6 p-1">
-        <select class="form-select" aria-label="Default select example" name="categoria">
-            <option selected value="">Categoria</option>
-            <option value="1">Pipas</option>
-            <option value="2">Bongs</option>
-            <option value="3">Canalas</option>
-            <option value="4">Hitters</option>
-            <option value="5">Electronicos</option>
-            <option value="6">Ropa</option>            
-            <option value="8">Blunts</option>            
-            <option value="7">Accesorios</option>
-        </select>
+      <select class="form-control" name="categoria">
+                        <option value="">Todas las Categorías</option>
+                        <option value="1" <?php if ($categoria == 1) echo 'selected'; ?>>Pipas</option>
+                        <option value="2" <?php if ($categoria == 2) echo 'selected'; ?>>Bongs</option>
+                        <option value="3" <?php if ($categoria == 3) echo 'selected'; ?>>Canalas</option>
+                        <option value="4" <?php if ($categoria == 4) echo 'selected'; ?>>Hitters</option>
+                        <option value="5" <?php if ($categoria == 5) echo 'selected'; ?>>Electrónicos</option>
+                        <option value="6" <?php if ($categoria == 6) echo 'selected'; ?>>Ropa</option>
+                        <option value="7" <?php if ($categoria == 7) echo 'selected'; ?>>Blunts</option>
+                        <option value="8" <?php if ($categoria == 8) echo 'selected'; ?>>Piercings</option>
+                        <option value="9" <?php if ($categoria == 9) echo 'selected'; ?>>Grinders</option>
+                        <option value="10" <?php if ($categoria == 10) echo 'selected'; ?>>Charolas</option>
+                        <option value="11" <?php if ($categoria == 11) echo 'selected'; ?>>Accesorios</option>
+                    </select>
         </div>
         <div class="col-lg-2 col-sm-6 p-1">
-        <select class="form-select" aria-label="Default select example" name="sucursal">
-            <option selected value="">Sucursal</option>
-            <option value="3">Todo</option>
-            <option value="2">Nazas</option>
-            <option value="1">Matamoros</option>
-        </select>
+        <select class="form-control" name="sucursal">
+                        <option value="1" <?php if ($sucursal == 1) echo 'selected'; ?>>Matamoros</option>
+                        <option value="2" <?php if ($sucursal == 2) echo 'selected'; ?>>Nazas</option>
+                    </select>
         </div>
         <div class="col-lg-2 col-sm-6 p-1">
       <button id="regprod" class="boton btn" type="submit" name="btn-aplicar">Aplicar</button>
@@ -188,7 +188,25 @@ include '../SCRIPTS/productos-dsh.php';
         echo "<p>No se encontraron productos.</p>";
     }
 ?>
-
+<nav aria-label="Paginación de productos">
+        <ul class="pagination justify-content-center">
+            <?php if ($pagina > 1) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Anterior</a>
+                </li>
+            <?php } ?>
+            <?php for ($i = max(1, $pagina - 3); $i <= min($total_paginas, $pagina + 3); $i++) { ?>
+                <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                    <a class="page-link" href="?pagina=<?= $i ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>"><?= $i ?></a>
+                </li>
+            <?php } ?>
+            <?php if ($pagina < $total_paginas) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&nm_prod=<?= urlencode($nm_prod) ?>&categoria=<?= urlencode($categoria) ?>&sucursal=<?= urlencode($sucursal) ?>">Siguiente</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </nav>
 <form action="../SCRIPTS/productos-dsh.php" method="post" enctype="multipart/form-data">
 <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

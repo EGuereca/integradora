@@ -33,13 +33,13 @@
 
             <div class="input-container">
             <label for="contraseña">Contraseña:</label><br>
-                <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password" required maxlength="15" required minlength="8">
+                <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password" required maxlength="20" required minlength="8">
                 <img class="toggle-password" id="togglePasswordImage" src="../IMG/closeeye.png" alt="Mostrar contraseña" onclick="togglePasswordVisibility('password', 'togglePasswordImage')">
-            </div>
+                <p class="password-hint">Tu contraseña debe contener al menos 8 caracteres.</p>            </div>
             <br>
             <div class="form-group">
                 <label for="confirm-password">Confirmar contraseña:</label><br>
-                <input type="password" id="confirm-password" placeholder="Vuelve a escribir tu contraseña aquí" name="pass" required maxlength="15" required minlength="8">
+                <input type="password" id="confirm-password" placeholder="Vuelve a escribir tu contraseña aquí" name="pass" required maxlength="20" required minlength="8">
             </div>
 
             <button type="submit" class="btn btn-green" name="btncrearclient">Crear cuenta</button>
