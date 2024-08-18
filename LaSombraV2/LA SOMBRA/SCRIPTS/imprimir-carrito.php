@@ -14,6 +14,7 @@ if($_SESSION['rol'] != '3'){
     header("location: ../VIEWS/iniciov2.php");
     exit();
 }
+$_SESSION['carrito'] = 0;  
 
 include "../CLASS/database.php";
 $db = new Database();
@@ -60,7 +61,7 @@ $stmtPendiente->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
 $stmtPendiente->execute();
 $pedidoPendiente = $stmtPendiente->fetch(PDO::FETCH_ASSOC)['pendientes'];
 
-$q_productos = "SELECT SUM(dv.cantidad) AS cantidad, p.nombre AS nombre, p.url AS url ,p.precio AS precio,
+$q_productos = "SELECT SUM(dv.cantidad) AS cantidad, p.nombre AS nombre, dv.id_detalle as detalle_venta_id, p.url AS url ,p.precio AS precio,
 						ins.cantidad AS stock, dv.producto AS id_prod, dv.id_detalle AS id
 						FROM detalle_venta AS dv 
 						JOIN productos AS p ON dv.producto = p.id_producto
@@ -81,6 +82,10 @@ $update = $conexion->prepare("UPDATE venta SET estado = 'PENDIENTE' WHERE id_cli
 AND estado = 'CARRITO'");
 
 $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($productos as $row) {
+    $_SESSION['carrito'] = $_SESSION['carrito'] + $row['cantidad'] ;
+}
 
 if (isset($_POST['btn'])) { 
     $update->execute();   
