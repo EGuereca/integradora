@@ -286,25 +286,25 @@ $pdo = null;
     </div>
     <style>
         .toast {
-    background-color: #333; /* Fondo oscuro para el toast */
-    color: #f1f1f1; /* Texto claro para buen contraste */
+    background-color: #333; 
+    color: #f1f1f1; 
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
 }
 
 .toast-header {
-    background-color: #444; /* Fondo un poco más claro para la cabecera */
+    background-color: #444; 
     color: #f1f1f1;
-    border-bottom: 1px solid #555; /* Ligeramente delineado */
+    border-bottom: 1px solid #555;
 }
 
 .toast-body {
-    background-color: #333; /* Asegura que el cuerpo tenga el mismo fondo oscuro */
-    color: #f1f1f1; /* Texto claro */
+    background-color: #333; 
+    color: #f1f1f1; 
 }
 
 .btn-close {
-    color: #f1f1f1; /* Cierre de botón en color claro */
+    color: #f1f1f1; 
 }
 
     </style>

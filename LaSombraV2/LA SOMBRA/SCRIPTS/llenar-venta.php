@@ -56,11 +56,23 @@ $details=[];
 $llenado = $conexion->prepare("INSERT INTO detalle_venta(venta,producto,cantidad) 
 VALUES(?,?,?)");
 
-$detalles = $conexion->prepare("SELECT dv.id_detalle AS id, dv.producto AS id_producto, dv.cantidad AS cantidad, 
-p.nombre AS nombre, (p.precio * dv.cantidad) AS precio
-FROM detalle_venta AS dv 
-JOIN productos AS p ON dv.producto = p.id_producto
-WHERE dv.venta = ?");
+$detalles = $conexion->prepare("
+    SELECT MIN(dv.id_detalle) AS id, 
+           dv.producto AS id_producto, 
+           p.nombre AS nombre, 
+           SUM(dv.cantidad) AS cantidad, 
+           p.precio AS precio_unitario, 
+           SUM(dv.cantidad) * p.precio AS precio 
+    FROM detalle_venta dv
+    JOIN productos p ON dv.producto = p.id_producto
+    WHERE dv.venta = ?
+    GROUP BY dv.producto, p.nombre, p.precio
+    ORDER BY p.nombre ASC
+");
+
+$detalles->bindParam(1, $venta, PDO::PARAM_INT);
+$detalles->execute();
+$details = $detalles->fetchAll(PDO::FETCH_ASSOC);
 
 $registrar = $conexion->prepare("UPDATE venta SET estado = 'COMPLETADA', tipo_pago = ? WHERE id_venta = ?");
 
