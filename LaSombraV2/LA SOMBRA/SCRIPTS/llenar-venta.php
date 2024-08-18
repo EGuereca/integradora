@@ -27,7 +27,7 @@ $consulta = $conexion->prepare("SELECT id_empleado FROM empleado
 
 $consulta->execute();
 $emp = $consulta->fetch(PDO::FETCH_ASSOC)['id_empleado'];
-
+$producto_agregado = false;
 
 if ($_SESSION['sucursal'] == null) {
     $sql = $sql = "SELECT id_producto, nombre, descripcion, precio, stock 
@@ -91,6 +91,8 @@ if (isset($_POST['btn-reg'])) {
         $detalles->bindParam(1, $venta, PDO::PARAM_INT);
         $detalles->execute();
         $details = $detalles->fetchAll(PDO::FETCH_ASSOC);
+        $producto_agregado = true;
+        
     }
 }    
 

@@ -202,35 +202,38 @@ body{
     border-color: none;
 }
 .btn-cart {
-    background-color: transparent; /* Fondo transparente */
-    border: none; /* Sin borde */
-    box-shadow: none; /* Sin sombra */
-    padding: 0; /* Sin padding */
-    width: auto; /* Ancho automático */
-    height: auto; /* Altura automática */
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    width: auto;
+    height: auto;
 }
 
 .btn-cart i {
-    font-size:40px; /* Tamaño del ícono */
-    color: white; /* Color del ícono */
+    font-size: 40px;
+    color: white;
 }
+
 .btn-cart-container {
     position: absolute;
-    top: 20px; /* Ajusta según la distancia desde el borde superior */
-    right: 90%; /* Ajusta según la distancia desde el borde derecho */
-    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+    top: 20px;
+    right: 90%;
+    z-index: 1000;
 }
+
 .btn-danger {
-    background-color: transparent; /* Fondo transparente */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    color: white; /* Color del texto */
-    padding: 8px 16px; /* Espaciado interno */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-danger:hover {
-    background-color: rgb(133, 0, 0); /* Rojo al hacer hover */
-    transform: scale(1.05); /* Pequeño aumento de tamaño al hacer hover */
+    background-color: rgb(133, 0, 0);
+    transform: scale(1.05);
     color: white;
 }
+
