@@ -213,6 +213,7 @@ session_start();
             
             <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 1) { ?>
             <div class="content row">
+            <div class="form-container"> 
                 <h2>Agregar Perforador</h2>
                 <form action="../SCRIPTS/procesar_perforador.php" method="POST" enctype="multipart/form-data">
                     <label for="nombre">Nombre:</label>
@@ -229,6 +230,7 @@ session_start();
 
                     <button type="submit">Registrar Perforador</button>
                 </form>
+            </div>
             </div>
             <?php } ?>
 
