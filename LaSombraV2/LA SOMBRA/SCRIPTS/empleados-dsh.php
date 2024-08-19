@@ -7,7 +7,7 @@ $db->conectarBD();
 $conexion = $db->getPDO();
 
 
-$empleados_por_pagina = 2;
+$empleados_por_pagina = 10;
 $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $pagina = $pagina > 0 ? $pagina : 1;
 $inicio = ($pagina - 1) * $empleados_por_pagina;
