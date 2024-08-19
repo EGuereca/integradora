@@ -10,6 +10,8 @@ session_start();
     <title>LA SOMBRA - OZUNA TRC</title>
     <link rel="stylesheet" href="../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/perforaciones.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 <body>
 
@@ -170,23 +172,38 @@ session_start();
                 $json_data = file_get_contents('../SCRIPTS/perforadores.json');
                 $perforadores = json_decode($json_data, true);
 
-                foreach ($perforadores as $perforador) {
-                    echo '<div class="content row mb-4">';
-                    echo '<div class="about-text col-lg-6 col-sm-12">';
-                    echo '<h3>' . htmlspecialchars($perforador['nombre']) . '</h3>';
-                    echo '<p>' . htmlspecialchars($perforador['descripcion']) . '</p>';
-                    echo '</div>';
-                    echo '<div class="about-img col-lg-6 col-sm-12">';
-                    echo '<img src="../SCRIPTS/' . htmlspecialchars($perforador['imagen']) . '" alt="Perforador" class="img-fluid">';
-                    echo '</div>';
-                    
-                    echo '<div class="col-12">';
-                    echo '<a target="_blank" href="https://wa.me/' . htmlspecialchars($perforador['telefono']) . '" class="btn btn-success mt-2">Contactar por WhatsApp</a>';
-                    echo '</div>';
+                
+foreach ($perforadores as $perforador) {
+    echo '<div class="content row mb-4">';
+    echo '<div class="about-text col-lg-6 col-sm-12">';
+    echo '<h3>' . htmlspecialchars($perforador['nombre']) . '</h3>';
+    echo '<p>' . htmlspecialchars($perforador['descripcion']) . '</p>';
+    echo '</div>';
+    echo '<div class="about-img col-lg-6 col-sm-12">';
+    echo '<img src="../SCRIPTS/' . htmlspecialchars($perforador['imagen']) . '" alt="Perforador" class="img-fluid">';
+    echo '</div>';
+    
+    echo '<div class="col-12">';
+    echo '<a target="_blank" href="https://wa.me/' . htmlspecialchars($perforador['telefono']) . '" class="btn btn-success mt-2">Contactar por WhatsApp</a>';
+    echo '</div>';
 
-                    echo '</div>';
-                }
-                ?>
+    if (isset($_SESSION['rol']) && $_SESSION['rol'] == 1) {  
+        echo '<div class="col-12 mt-2">';
+        echo '<form action="../SCRIPTS/procesar_perforador.php" method="POST" style="display:inline;">';
+        echo '<input type="hidden" name="nombre" value="' . htmlspecialchars($perforador['nombre']) . '">';
+        echo '<input type="hidden" name="accion" value="eliminar">';
+        echo '<button type="submit" class="btn btn-danger">';
+        echo '<i class="fas fa-trash-alt"></i> ';
+        echo '</button>';
+        echo '</form>';
+        echo '</div>';
+    }
+
+    echo '</div>';
+}
+?>
+
+            
             </div>
         </div>
             <div class="perforaciones">
