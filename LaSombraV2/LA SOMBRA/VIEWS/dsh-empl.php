@@ -220,7 +220,7 @@ include '../SCRIPTS/empleados-dsh.php';
                 <div class="row">
                     <div class="form-group">
                         <label for="username">Ingresa tu nombre de usuario:</label><br>
-                        <input type="text" id="username" placeholder="Ingresa tu nombre de usuario aquí" name="usuario" maxlength="20" required>
+                        <input type="text" id="username" placeholder="Mínimo 8 caracteres" name="usuario" maxlength="15" required minlength="8" >
                     </div>
                     <div class="form-group">
                         <label for="email">Ingresa tu correo:</label><br>
@@ -233,11 +233,11 @@ include '../SCRIPTS/empleados-dsh.php';
                     </div>
                     <div class="form-group">
                         <label for="password">Ingresa tu contraseña:</label><br>
-                        <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="password" maxlength="20" minlength="8" required>
+                        <input type="password" id="password" placeholder="Mínimo 8 caracteres" name="password" maxlength="20" minlength="8" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Confirma contraseña:</label><br>
-                        <input type="password" id="password" placeholder="Ingresa tu contraseña aquí" name="confirm_password" maxlength="20" minlength="8" required>
+                        <input type="password" id="password" placeholder="Confirma tu contraseña aquí" name="confirm_password" maxlength="20" minlength="8" required>
                     </div>
 
                     <div class="form-group">

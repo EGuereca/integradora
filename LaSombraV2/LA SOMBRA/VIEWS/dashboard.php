@@ -173,17 +173,17 @@ a
                     <th><th>
                 </tr>";
                 foreach ($results as $row) {
-                  echo "<tr>";
-                  echo "<td>" . htmlspecialchars($row["id_producto"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($row["nombre"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($row["stock"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($row["precio"]) . "</td>";
-                  echo "<td>" . htmlspecialchars($row["categoria"]) . "</td>";
-                  echo "<td>";
-                  if($_SESSION ['rol'] == 1 ) { echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>"; } 
-                  echo "</td>";
-                  echo "</tr>";
-              }
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row["id_producto"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["nombre"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["stock"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["precio"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["categoria"]) . "</td>";
+                    echo "<td>";
+                    if($_SESSION ['rol'] == 1 ) { echo "<a href='modificar.producto.php?id=" . $row['id_producto'] . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>"; } 
+                    echo "</td>";
+                    echo "</tr>";
+                }
 
         echo "</table>";
     } else {
@@ -210,6 +210,7 @@ a
             <?php } ?>
         </ul>
     </nav>
+
 <form action="../SCRIPTS/productos-dsh.php" method="post" enctype="multipart/form-data">
 <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -326,7 +327,7 @@ a
     </div>
   </div>
 </div>
-
+                    </form>
 </div>
 </div>
 </body>

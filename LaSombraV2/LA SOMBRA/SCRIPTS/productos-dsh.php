@@ -58,8 +58,8 @@ $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre,
         JOIN categorias AS c ON pc.categoria = c.id_categoria
         JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
         WHERE 1=1";
-     
-     $parametros = [];
+
+        $parametros = [];
 
 
 if ($sucursal) {
@@ -145,6 +145,8 @@ $total_paginas = ceil($total_productos / $productos_por_pagina);
 
 
 $pdo = null;
+
+/*
 $pral = $conexion->prepare("INSERT INTO productos(nombre,marca,precio,stock,material,descripcion,url) VALUES(?,?,?,0,?,?,?)");
 if (isset($_GET['btnreg'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
@@ -157,13 +159,11 @@ if (isset($_GET['btnreg'])) {
     
             if (move_uploaded_file($temporal, $url)) {
                 echo "La imagen se ha subido correctamente. Puedes verla <a href='$url'>aquí</a>.";
-            } else {
-                echo "Hubo un error al subir la imagen.";
-            }
-        } else {
-            echo "No se ha seleccionado ningún archivo o hubo un error en la subida.";
-        }
-    }
+                header("Location: ../VIEWS/dashboard.php");
+                exit();
+
+            
+    
 
     $pral->bindParam(1, $nombre, PDO::PARAM_STR);
     $pral->bindParam(2, $marca, PDO::PARAM_STR);
@@ -192,10 +192,74 @@ if (isset($_GET['btnreg'])) {
         $ll_prpro->bindParam(':id', $id_p, PDO::PARAM_INT);
         $ll_prpro->execute(); 
     }
-    
-    header("refresh:3  ; ../VIEWS/dashboard.php");
+            } else {
+                echo "Hubo un error al subir la imagen.";
+            }
+        } else {
+            echo "No se ha seleccionado ningún archivo o hubo un error en la subida.";
+        }
+    }
+    header("Location: ../VIEWS/dashboard.php");
 }
+*/
+if (isset($_POST['btnreg'])) {
+    $db = new Database();
+    $db->conectarBD();
+    $conexion = $db->getPDO();
 
+    $nombre = $_POST['nombre'];
+    $marca = $_POST['contact'] === 'otro' ? $_POST['extra'] : $_POST['contact'];
+    $precio = $_POST['precio'];
+    $material = $_POST['material'];
+    $des = $_POST['desc'];
+    $catego = $_POST['cate'];
+    $provee = $_POST['proveedores'];
+
+    if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
+        $nombreArchivo = $_FILES['img']['name'];
+        $temporal = $_FILES['img']['tmp_name'];
+        $carpeta = '../IMG';
+        $url = $carpeta . '/' . $nombreArchivo;
+
+        if (move_uploaded_file($temporal, $url)) {
+            $pral = $conexion->prepare("INSERT INTO productos(nombre, marca, precio, stock, material, descripcion, url) VALUES (?, ?, ?, 0, ?, ?, ?)");
+            $pral->bindParam(1, $nombre, PDO::PARAM_STR);
+            $pral->bindParam(2, $marca, PDO::PARAM_STR);
+            $pral->bindParam(3, $precio, PDO::PARAM_STR);
+            $pral->bindParam(4, $material, PDO::PARAM_STR);
+            $pral->bindParam(5, $des, PDO::PARAM_STR);
+            $pral->bindParam(6, $url, PDO::PARAM_STR);
+
+            if ($pral->execute()) {
+                $id_p = $conexion->lastInsertId();
+
+                $ll_cat = $conexion->prepare("INSERT INTO producto_categoria (producto, categoria) VALUES (:id, :cat)");
+                foreach ($catego as $opcion) {
+                    $ll_cat->bindParam(':id', $id_p, PDO::PARAM_INT);
+                    $ll_cat->bindParam(':cat', $opcion, PDO::PARAM_STR);
+                    $ll_cat->execute(); 
+                }
+
+                $ll_prpro = $conexion->prepare("INSERT INTO proveedor_producto (proveedor, producto, precio_unitario_proveedor) VALUES (:prove, :id, 0)");
+                foreach ($provee as $opcion) {
+                    $opcion_int = intval($opcion);
+                    $ll_prpro->bindParam(':prove', $opcion_int, PDO::PARAM_INT);
+                    $ll_prpro->bindParam(':id', $id_p, PDO::PARAM_INT);
+                    $ll_prpro->execute(); 
+                }
+
+                header("Location: ../VIEWS/dashboard.php");
+                exit();
+            } else {
+                echo "Hubo un error al registrar el producto.";
+            }
+        } else {
+            echo "Hubo un error al subir la imagen.";
+        }
+    } else {
+        echo "No se ha seleccionado ningún archivo o hubo un error en la subida.";
+    }
+}
 
 function get_selected_categories($producto_id, $PDOLOCAL) {
     $selected_categories = [];
@@ -238,7 +302,7 @@ function get_selected_providers($producto_id, $PDOLOCAL) {
 
 <?php
 
- 
+// MODIFICAR PRODUCTO
 if (!empty($_POST["btnsubmit"])) {
     if (!empty($_POST["nombre"]) && !empty($_POST["marca"]) && !empty($_POST["cate"]) 
         && !empty($_POST["proveedores"]) && !empty($_POST["precio"]) 
