@@ -1,14 +1,23 @@
 <?php
 session_start();
-if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null) {
+
+if ($_SESSION["rol"] == 3 || $_SESSION["rol"] == null || $_SESSION["rol"] == 2) {
     header("location: ../VIEWS/iniciov2.php");
     exit();    
 }
-$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
 
 include '../SCRIPTS/dsh-citas.php';
 
+$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
+$perforadorId = isset($_SESSION['id_empleado']) ? $_SESSION['id_empleado'] : null;
+
+if (!$perforadorId) {
+    echo "Error: El ID del perforador no está definido.";
+    exit();
+}
+
 $hoy = date('Y-m-d');
+
 ?>
 
 <!DOCTYPE html>
@@ -99,7 +108,7 @@ $hoy = date('Y-m-d');
                     <li>
                     <div class="usuario-info">
                   <p>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
-                   <a href="?logout=1" class="logout-icon">
+                   <a href="../SCRIPTS/cerrarsesion.php" class="logout-icon">
                     <i class="fas fa-sign-out-alt"></i> 
                      </a>
                       </div>
@@ -231,14 +240,21 @@ if ($results) {
         <input type="text" name="costo" id="costo"> <br>
         <label for="nombre">Ingrese el número telefonico del cliente</label>
         <input type="tel" id="phone" name="telefono"maxlength="15" minlength="8" required/> <br>
-        <label for="nombre">Seleccione un perforador</label>
-        <select class="form-select" aria-label="Default select example" name="empleado">
-            <option selected value="">Perforador</option>
-            <?php 
-                foreach ($pe as $row) {
-                    echo "<option value=".$row['id'].">".$row['perforadores']."</option>";
-                }
-            ?>            
+        <?php
+    if ($_SESSION["rol"] == 4) { 
+        echo '<input type="hidden" name="empleado" value="' . $_SESSION["id_empleado"] . '">';
+    } else {
+       
+        echo '<label for="empleado">Seleccione un perforador</label>';
+        echo '<select class="form-select" aria-label="Default select example" name="empleado">';
+        echo '<option selected value="">Perforador</option>';
+        foreach ($pe as $row) {
+            echo '<option value="' . $row['id'] . '">' . $row['perforadores'] . '</option>';
+        }
+        echo '</select>';
+    }
+    ?>
+       
         </select> <br>
         <div class="tipo-perforacion">
         <fieldset>
@@ -276,7 +292,6 @@ if ($results) {
                     </select>
 
                     <label for="meeting-time">Seleccione la fecha y hora:</label>
-
                     <input type="datetime-local" id="meeting-time" name="datetime" value="" min="<?php echo $fecha_min; ?>" max="<?php echo $fecha_max; ?>" />
                     <legend>Comentarios:</legend>
                     <textarea name="coments" class="form-control" rows="5"></textarea><br><br>

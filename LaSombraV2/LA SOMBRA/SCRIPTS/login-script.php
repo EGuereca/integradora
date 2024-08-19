@@ -8,11 +8,14 @@ $db->conectarBD();
 
 $conexion = $db->getPDO();
 
-$sql = "SELECT u.nombre_usuario, u.id_usuario, ru.rol 
+$sql = "SELECT u.nombre_usuario, u.id_usuario, ru.rol, e.id_empleado 
         FROM usuarios u
         JOIN rol_usuario ru ON u.id_usuario = ru.usuario 
+        LEFT JOIN persona p ON u.id_usuario = p.usuario 
+        LEFT JOIN empleado e ON p.id_persona = e.persona
         WHERE u.nombre_usuario = :usuario 
         AND u.password = AES_ENCRYPT(:password, 'clave_segura')";
+
 
 $stmt = $conexion->prepare($sql);
 
@@ -27,9 +30,11 @@ if (isset($_POST["btningreso"])) {
 
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            var_dump($row);
             $_SESSION['id'] = $row['id_usuario'];
             $_SESSION['nombre'] = $row['nombre_usuario'];
             $_SESSION['rol'] = $row['rol'];
+            $_SESSION['id_empleado'] = $row['id_empleado'];
 
             if ($_SESSION["rol"] == 3) {
                 header("location: ../VIEWS/iniciov2.php");
