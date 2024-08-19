@@ -174,7 +174,8 @@ if (!empty($productos)) { ?>
     <div class="col-md-2">
         <input type="hidden" class="detalle-id" value="<?php echo $row['detalle_venta_id']; ?>">
         <button class="btn-decrementar" data-id="<?php echo $row['detalle_venta_id']; ?>">-</button>
-        <input type="number" class="cantidad" id="cantidad-<?php echo $row['detalle_venta_id']; ?>" value="<?php echo $row['cantidad']; ?>" min="1" max="<?php echo $row['stock']; ?>" readonly>
+        <input type="number" class="cantidad" id="cantidad-<?php echo $row['detalle_venta_id']; ?>" value="<?php if($row['cantidad'] > $row['stock'] ){
+            echo $row['stock'];}else{echo $row['cantidad'];} ?>" min="1" max="<?php echo $row['stock']; ?>" readonly>
         <button class='btn-incrementar' data-id='<?php echo $row['detalle_venta_id']; ?>' data-stock='<?php echo $row['stock']; ?>'>+</button>
     </div>
     <div class="col-md-2">
@@ -260,11 +261,16 @@ $(document).ready(function() {
         }
 
         // Actualizar la cantidad en el input
+        
         cantidadInput.val(nuevaCantidad);
+
+        if (nuevaCantidad > stockDisponible) {
+            nuevaCantidad = stockDisponible;
+        }
 
         // Enviar AJAX para actualizar el carrito
         $.ajax({
-            url: '../SCRIPTS/actualizar-carrito.php',
+            url: '../SCRIPTS/actualizar-stock.php',
             type: 'POST',
             data: { detalleVentaId: $(this).data('id'), cantidad: nuevaCantidad },
             success: function(response) {
@@ -309,7 +315,7 @@ $(document).ready(function() {
 
         // Enviar AJAX para actualizar el carrito
         $.ajax({
-            url: '../SCRIPTS/actualizar-carrito.php',
+            url: '../SCRIPTS/actualizar-stock.php',
             type: 'POST',
             data: { detalleVentaId: $(this).data('id'), cantidad: nuevaCantidad },
             success: function(response) {
