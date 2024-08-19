@@ -220,7 +220,7 @@
                 <?php if ($sucuact != $sucursal && $sucursal != null) { ?>
                     <br>
                     <div class="alert alert-danger" role="alert">
-                    Estas en diferente sucursal, completa tu pedido en la otra sucursal para agregar de la nueva sucursal.
+                    Estas en diferente sucursal a la de tu carrito, cambia tu sucursal o completa tu pedido en la otra sucursal para agregar de la nueva sucursal.
                 </div>
                 <?php } ?>  
                 <?php } ?>  

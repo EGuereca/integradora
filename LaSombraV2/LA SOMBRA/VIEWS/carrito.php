@@ -15,6 +15,12 @@ elseif ($_SESSION['rol'] != 3) {
     exit();
 }
 
+if (isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+} else {    
+    header("location: ../VIEWS/inicio-sesion.php");
+    exit();
+}
 
     include '../SCRIPTS/imprimir-carrito.php';
     
@@ -192,6 +198,36 @@ if (!empty($productos)) { ?>
 } else { ?>
 
     <p style="text-align:center;">El carrito parece vacío, agrega productos para llenarlo!</p>
+
+    <div class="container">
+        <div class="row">
+            <div class="pregunta col-4">
+            <p style="text-align:center;" >Cambiar o agregar sucursal?</p>
+            </div>
+        <div class="select col-4">
+        <form action="" method="post">
+        <select class="form-select" aria-label="Default select example" name="lasucu">
+            <option value="" disabled selected>Selecciona una sucursal</option>
+            <?php
+            // Rellenar el select con las sucursales
+            $sucursalesQuery = "SELECT id_sucursal, nombre FROM sucursales";
+            $result = $conexion->query($sucursalesQuery);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value='{$row['id_sucursal']}'>{$row['nombre']}</option>";
+            }
+            ?>
+        </select>
+       
+        </div>
+
+        <div class="boton col-4">
+            
+            <button type="submit" name="cambio" class="btn btn-success" style="text-align:center;" >Cambiar sucursal</button>
+            </form>
+        </div>
+        </div>
+    </div>
+    <br>
     
 <?php }
 ?>
