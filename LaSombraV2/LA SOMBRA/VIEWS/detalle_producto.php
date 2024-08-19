@@ -208,7 +208,7 @@
                 <?php } ?>   
                 
                 <?php if($sucuact != null) { ?>
-                <?php if ($sucuact != $sucursal) { ?>
+                <?php if ($sucuact != $sucursal && $sucursal != null) { ?>
                     <br>
                     <div class="alert alert-danger" role="alert">
                     Estas en diferente sucursal, completa tu pedido en la otra sucursal para agregar de la nueva sucursal.

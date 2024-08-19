@@ -192,13 +192,14 @@ if (!empty($productos)) { ?>
 } else { ?>
 
     <p style="text-align:center;">El carrito parece vacío, agrega productos para llenarlo!</p>
-    <?php if($nombres) {?><p style="text-align:center;">Tu carrito actualmente tiene como destino: <?php echo $nombres?></p><?php }?>
+    
 <?php }
 ?>
 <?php if(!$nombres) {?> <p style="text-align:center;">Tu carrito no tiene destino, agrega un producto de alguna sucursal para destinarlo!</p>
      <?php }?>
 <div class="row cart-total">
     <div>
+    <?php if($nombres) {?><p style="text-align:center;">Tu carrito actualmente tiene como destino: <?php echo $nombres?></p><?php }?>
         <p>TOTAL: $<?php echo $total; ?></p>
         <form action="" method="post">
         <div class="form-group">
@@ -215,7 +216,6 @@ if (!empty($productos)) { ?>
                         }
                     }
                     if ($control == 0) { ?>
-                        <p>Tu carrito actualmente tiene como destino: <?php echo $nombres?></p>
                         <button type="submit" name="btn" id="confirmar" class="btn btn-success">Confirmar pedido</button>                                                                  
                     <?php } else { ?>
                         <div class="alert alert-warning" role="alert">
@@ -278,6 +278,7 @@ $(document).ready(function() {
                 if (nuevaCantidad >= stockDisponible) {
                     $(this).prop('disabled', true);
                 }
+                location.reload();
             }.bind(this), // Usamos .bind(this) para que el contexto de "this" en la función success sea el botón.
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error en AJAX: ", textStatus, errorThrown);
@@ -300,6 +301,8 @@ $(document).ready(function() {
                     data: { detalleVentaId: $(this).data('id') },
                     success: function(response) {
                         cantidadInput.closest('.cart-item').remove();
+                        
+                        location.reload(); //Recargar página
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error("Error en AJAX: ", textStatus, errorThrown);
@@ -319,9 +322,11 @@ $(document).ready(function() {
             type: 'POST',
             data: { detalleVentaId: $(this).data('id'), cantidad: nuevaCantidad },
             success: function(response) {
+                location.reload(); //Recargar la página
                 // Rehabilitar el botón de incrementar si la cantidad es menor que el stock
                 if (nuevaCantidad < stockDisponible) {
                     $(this).siblings('.btn-incrementar').prop('disabled', false);
+
                 }
             }.bind(this),
             error: function(jqXHR, textStatus, errorThrown) {
