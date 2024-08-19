@@ -56,8 +56,7 @@ $details=[];
 $llenado = $conexion->prepare("INSERT INTO detalle_venta(venta,producto,cantidad) 
 VALUES(?,?,?)");
 
-$detalles = $conexion->prepare("
-    SELECT MIN(dv.id_detalle) AS id, 
+$detalles = $conexion->prepare("SELECT MIN(dv.id_detalle) AS id, 
            dv.producto AS id_producto, 
            p.nombre AS nombre, 
            SUM(dv.cantidad) AS cantidad, 
@@ -81,7 +80,7 @@ $eliminar = $conexion->prepare("DELETE FROM detalle_venta WHERE id_detalle = ?")
 if (isset($_POST['btn-reg'])) {
     if ($control == 1) {    
         $insert = $conexion->prepare("INSERT INTO venta(id_empleado,estado,tipo_venta,sucursal)
-        VALUES(?,'CARRITO','FISICA',?)");   
+        VALUES(?,'PENDIENTE','FISICA',?)");   
         $insert->bindParam(1, $emp, PDO::PARAM_INT); 
         $insert->bindParam(2, $suc, PDO::PARAM_INT); 
         $insert->execute();

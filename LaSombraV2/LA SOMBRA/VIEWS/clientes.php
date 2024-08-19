@@ -114,7 +114,7 @@ include '../SCRIPTS/dash-clientes.php';
             <div class="card-body">
                 <?php if($topClientesNazas) { ?>
                 <?php foreach ($topClientesNazas as $cliente): ?>
-                    <p><?php echo $clienteNazas['nombre_usuario'] . ' con ' . $clienteNazas['total_ventas'] . ' compras'; ?></p>
+                    <p><?php echo $cliente['nombre_usuario'] . ' con ' . $cliente['total_ventas'] . ' compras'; ?></p>
                 <?php endforeach; ?>
                 <?php } else { ?>
                     <div class="alert alert-warning" role="alert">No se encontraron resultados para nazas.</div>
@@ -157,97 +157,99 @@ include '../SCRIPTS/dash-clientes.php';
     </div>
 
     <form method="post" class="d-flex row" role="search">
-        <div class="col-lg-3 col-sm-6 p-1">
-            <input class="form-control" type="search" placeholder="Buscar usuario" aria-label="Search" id="nm_prod" name="nm_prod">
-        </div>
+    <div class="col-lg-3 col-sm-6 p-1">
+        <input class="form-control" type="search" placeholder="Buscar usuario" aria-label="Search" id="nm_prod" name="nm_prod">
+    </div>
 
-        <div class="col-lg-3 col-sm-6 p-1">
-            <select class="form-select" aria-label="Default select example" name="provee">
-                <option value="" disabled selected>Selecciona una sucursal</option>
-                <?php
-                // Rellenar el select con las sucursales
-                $sucursalesQuery = "SELECT id_sucursal, nombre FROM sucursales";
-                $result = $conexion->query($sucursalesQuery);
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<option value='{$row['id_sucursal']}'>{$row['nombre']}</option>";
-                }
-                ?>
-            </select>
-        </div>
+    <div class="col-lg-3 col-sm-6 p-1">
+        <select class="form-select" aria-label="Default select example" name="provee">
+            <option value="" disabled selected>Selecciona una sucursal</option>
+            <?php
+            // Rellenar el select con las sucursales
+            $sucursalesQuery = "SELECT id_sucursal, nombre FROM sucursales";
+            $result = $conexion->query($sucursalesQuery);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value='{$row['id_sucursal']}'>{$row['nombre']}</option>";
+            }
+            ?>
+        </select>
+    </div>
 
+    <div class="botonprinci col-lg-3 col-sm-6 p-1 text-lg-start text-center">
+        <button id="botonprinci" name="btnfiltrar" type='submit' class='btn btn-success'>Filtrar</button>
+    </div>
+    
+    <div class="botonprinci col-lg-3 col-sm-6 p-1 text-lg-start text-center">
+        <button name="btntodos" id="botonfiltrar" type='submit' class='btn btn-success'>Mostrar todos los clientes</button>
+    </div>
+</form>
 
-        <div class="botonprinci col-lg-3 col-sm-6 p-1 text-lg-start text-center">
-            <button id="botonprinci" type='submit' class='btn btn-success'>Filtrar</button>
-        </div>
-        
-        <div class="botonprinci col-lg-3 col-sm-6 p-1 text-lg-start text-center">
-            <button name="btntodos" id="botonfiltrar" type='submit' class='btn btn-success'>Mostrar todos los clientes</button>
-        </div>
-        
-    </form>
+<br>
 
-    <br>
-
-   
-    <br>
-
-    <div class="row">
-            <div class="data col-lg-12 col-sm-12">
-                <?php if (isset($pedidosCliente) && empty($pedidosCliente)): ?>
-                    <div class="alert alert-warning" role="alert">No se encontraron resultados para el usuario buscado.</div>
-                <?php elseif (isset($pedidosSucursal) && empty($pedidosSucursal)): ?>
-                    <div class="alert alert-warning" role="alert">No se encontraron resultados para la sucursal seleccionada.</div>
-                <?php else: ?>
-                    <table class="table">
-                        <thead>
+<div class="row">
+    <div class="data col-lg-12 col-sm-12">
+        <?php if (isset($pedidosCliente) && empty($pedidosCliente)) { ?>
+            <div class="alert alert-warning" role="alert">No se encontraron resultados para el usuario buscado.</div>
+        <?php } elseif (isset($pedidosSucursal) && empty($pedidosSucursal)) { ?>
+            <div class="alert alert-warning" role="alert">No se encontraron resultados para la sucursal seleccionada.</div>
+        <?php } elseif (isset($pedidosFiltrados) && empty($pedidosFiltrados)) { ?>
+            <div class="alert alert-warning" role="alert">No se encontraron resultados para los filtros aplicados.</div>
+        <?php } else { ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre de Usuario</th>
+                        <th>ID Venta</th>
+                        <th>Monto Total</th>
+                        <th>Sucursal</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (isset($pedidosCliente)) { ?>
+                        <?php foreach ($pedidosCliente as $pedido): ?>
                             <tr>
-                                <th>Nombre de Usuario</th>
-                                <th>ID Venta</th>
-                                <th>Monto Total</th>
-                                <th>Sucursal</th>
-                                <th>Detalles</th>
+                                <td><?php echo $pedido['nombre_usuario']; ?></td>
+                                <td><?php echo $pedido['id_venta']; ?></td>
+                                <td><?php echo $pedido['monto_total']; ?></td>
+                                <td><?php echo $pedido['sucursal']; ?></td>
+                                <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $pedido['id_venta']; ?>" 
+                                data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (isset($pedidosCliente)): ?>
-                                <?php foreach ($pedidosCliente as $pedido): ?>
-                                    <tr>
-                                        <td><?php echo $pedido['nombre_usuario']; ?></td>
-                                        <td><?php echo $pedido['id_venta']; ?></td>
-                                        <td><?php echo $pedido['monto_total']; ?></td>
-                                        <td><?php echo $pedido['sucursal']; ?></td>
-                                        <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $pedido['id_venta']; ?>" 
-                                        data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php elseif (isset($pedidosSucursal)): ?>
-                                <?php foreach ($pedidosSucursal as $pedido): ?>
-                                    <tr>
-                                        <td><?php echo $pedido['nombre_usuario']; ?></td>
-                                        <td><?php echo $pedido['id_venta']; ?></td>
-                                        <td><?php echo $pedido['monto_total']; ?></td>
-                                        <td><?php echo $pedido['sucursal']; ?></td>
-                                        <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $pedido['id_venta']; ?>"
-                                        data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <?php foreach ($clientes as $cliente): ?>
-                                    <tr>
-                                        <td><?php echo $cliente['nombre_usuario']; ?></td>
-                                        <td><?php echo $cliente['id_venta']; ?></td>
-                                        <td><?php echo $cliente['monto_total']; ?></td>
-                                        <td><?php echo $cliente['sucursal']; ?></td>
-                                        <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $cliente['id_venta']; ?>"
-                                        data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
-            </div>
-        </div>
+                        <?php endforeach; ?>
+                    <?php } ?>
+
+                    <?php if (isset($pedidosSucursal)) { ?>
+                        <?php foreach ($pedidosSucursal as $pedidosuc): ?>
+                            <tr>
+                                <td><?php echo $pedidosuc['nombre_usuario']; ?></td>
+                                <td><?php echo $pedidosuc['id_venta']; ?></td>
+                                <td><?php echo $pedidosuc['monto_total']; ?></td>
+                                <td><?php echo $pedidosuc['sucursal']; ?></td>
+                                <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $pedidosuc['id_venta']; ?>"
+                                data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php } ?>
+                    
+                    <?php if (isset($clientes)) { ?>
+                        <?php foreach ($clientes as $cliente): ?>
+                            <tr>
+                                <td><?php echo $cliente['nombre_usuario']; ?></td>
+                                <td><?php echo $cliente['id_venta']; ?></td>
+                                <td><?php echo $cliente['monto_total']; ?></td>
+                                <td><?php echo $cliente['sucursal']; ?></td>
+                                <td><button type="button" class="btn btn-success ver-detalles" data-venta-id="<?php echo $cliente['id_venta']; ?>"
+                                data-bs-toggle="modal" data-bs-target="#detalleModal">Ver Detalles</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php } ?>
+                    
+                </tbody>
+            </table>
+        <?php } ?>
+    </div>
+</div>
 
     <br>
 </div>
@@ -280,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData();
             formData.append('venta_id', ventaId);
 
-            fetch('../SCRIPTS/detalle-usuario.php', {
+            fetch('../SCRIPTS/dash-clientes.php', {
                 method: 'POST',
                 body: formData
             })

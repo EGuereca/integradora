@@ -34,7 +34,7 @@ class Database
     {
         session_start();
         session_destroy();
-        header("Location: ../VIEWS/iniciov2.php");
+        header("Location: ../VIEWS/inicio-sesion.php");
     }
 }
 ?>

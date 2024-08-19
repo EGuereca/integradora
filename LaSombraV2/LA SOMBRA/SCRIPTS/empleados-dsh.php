@@ -6,6 +6,12 @@ $db->conectarBD();
 
 $conexion = $db->getPDO();
 
+
+$empleados_por_pagina = 2;
+$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$pagina = $pagina > 0 ? $pagina : 1;
+$inicio = ($pagina - 1) * $empleados_por_pagina;
+
 // Consulta para obtener los empleados existentes
 $sql = "SELECT id_empleado AS id,
         CONCAT(nombres,' ',ap_paterno,' ',ap_materno) AS nombre,
@@ -18,12 +24,24 @@ $sql = "SELECT id_empleado AS id,
         JOIN rol_usuario AS ru ON u.id_usuario = ru.usuario
         JOIN roles AS r ON ru.rol = r.id_rol";
 
+$sql .= " LIMIT $inicio, $empleados_por_pagina";
+
 $stmt = $conexion->prepare($sql);
 $stmt->execute();
 
 echo "Número de resultados: " . $stmt->rowCount();
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$total_sql="SELECT COUNT(DISTINCT id_empleado) FROM empleado AS e
+        JOIN persona AS p ON e.persona = p.id_persona
+        JOIN usuarios AS u ON p.usuario = u.id_usuario
+        JOIN rol_usuario AS ru ON u.id_usuario = ru.usuario
+        JOIN roles AS r ON ru.rol = r.id_rol";
+$total_stmt = $conexion->prepare($total_sql);
+$total_stmt->execute();
+$total_productos = $total_stmt->fetchColumn();
+$total_paginas = ceil($total_productos / $empleados_por_pagina);
 
 $stmt2 = $conexion->prepare("CALL REGISTRO_EMPLEADOS(?,?,?,?,?,?,?,?,?,?,?)");
 

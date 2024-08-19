@@ -84,60 +84,13 @@ include '../SCRIPTS/provee-dsh.php';
         <div class="container-fluid">
         
         <div class="forms">
-    <form method="post" class="d-flex row" role="search">
-
-        <div class="col-lg-4 col-sm-6 p-1">
-            <select class="form-select" aria-label="Default select example" name="categoria">
-            <option value="" disabled selected>Selecciona un producto</option>
-            <?php 
-                $sql = "SELECT id_producto, nombre FROM productos";
-                $stmt = $conexion->prepare($sql);
-                $stmt->execute();
-                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                foreach ($productos as $producto) {
-                    echo "<option value='{$producto['id_producto']}'>{$producto['nombre']}</option>";
-                }
-            ?>  
-            </select>
-        </div>
-
-        <div class="col-lg-4 col-sm-6 p-1">
-            <select class="form-select" aria-label="Default select example" name="provee">
-            <option value="" disabled selected>Selecciona un proveedor</option>
-            <?php 
-                $sql = "SELECT id_proveedor, nombre FROM proveedores";
-                $stmt = $conexion->prepare($sql);
-                $stmt->execute();
-                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                foreach ($productos as $producto) {
-                    echo "<option value='{$producto['id_proveedor']}'>{$producto['nombre']}</option>";
-                }
-            ?>  
-
-        
-            </select>
-        </div>
-
-        <div class="botonprinci col-lg-4 col-sm-6 p-1 text-start-lg text-center-sm">
-            <button name="btnfiltrar" id="botonfiltrar" type='sumbit' class='btn btn-success'>Filtrar </button>
+        <div class="botonprinci col-lg-4 col-sm-6 p-1 text-center-sm">
+            <button name="btntodos" id="botonfiltrar" type='buton' class='btn btn-success'><a class="propro" href="../VIEWS/productos-proveedores.php">Produtos y Proveedores</a> </button>
             </div>
-            
-
-
-            </form>
-        <br>
-                
         <form class="d-flex row" method="post" action="">
-        <div class="botonprinci col-lg-6 col-sm-6 p-1 text-center-sm">
+        <div class="botonprinci col-lg-4 col-sm-6 p-1 text-center-sm">
             <button id="botonprinci" type='button' class='btn btn-success' data-bs-toggle='modal' 
             data-bs-target='#exampleModal'> Registrar Proveedor </button>
-            </div>
-
-            
-            <div class="botonprinci col-lg-6 col-sm-6 p-1 text-center-sm">
-            <button name="btntodos" id="botonfiltrar" type='buton' class='btn btn-success'>Mostrar todos los proveedores </button>
             </div>
         </form>
         
@@ -166,6 +119,15 @@ if (isset($_POST['btnfiltrar'])) {
                   </tr>";                    
         }
         echo "</table></div>";
+        // Mostrar paginación
+        echo "<nav aria-label='Page navigation example'><ul class='pagination justify-content-center'>";
+        for ($i = 1; $i <= $totalPaginas; $i++) {
+            echo "<li class='page-item " . ($i == $paginaActual ? 'active' : '') . "'>
+                    <a class='page-link' href='?pagina=$i'>$i</a>
+                  </li>";
+        }
+        echo "</ul></nav>";
+
     } else {
         echo "<div class='alert alert-warning'>El proveedor seleccionado no ofrece ningún producto.</div>";
     }

@@ -15,8 +15,15 @@ elseif ($_SESSION['rol'] != 3) {
     exit();
 }
 
+if (isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+} else {    
+    header("location: ../VIEWS/inicio-sesion.php");
+    exit();
+}
 
     include '../SCRIPTS/imprimir-carrito.php';
+    
 ?>
 
 <!DOCTYPE html>
@@ -136,6 +143,12 @@ elseif ($_SESSION['rol'] != 3) {
     </div>
     </nav>
 </header>
+
+<div class="container cart-container">
+<?php
+$total = 0;
+
+if (!empty($productos)) { ?>
 <div class="container cart-container">
     <div class="table">
     <table border='1' class= 'table table-striped'>
@@ -148,89 +161,114 @@ elseif ($_SESSION['rol'] != 3) {
     </table>
     </div>
 </div>
-<div class="container cart-container">
 <?php
-        $total = 0;
-
+    foreach ($productos as $row) {
+        $subtotal =  ($row['precio'] * $row['cantidad']);
+        $total = $total + $subtotal;
         
-        if (!empty($productos)) {
-            foreach ($productos as $row) {
-            $subtotal =  ($row['precio'] * $row['cantidad']);
-            $total = $total + $subtotal;?>
-            
-    <div class="row cart-item">
-        <div class="col-lg-3 col-sm-12 col">
-            <img src="<?php
-                if ($row['url']) {
-                    echo $row['url'];
-                }
-                else {
-                    echo "../IMG/PRODUCTOS/notfound.png";
-                }
-            ?>" class="img-fluid" alt="Producto 1">
-        </div>
-        <div class="cart-item-details col-lg-4 col-sm-12">
-            <p><?php echo $row['nombre'] ?></p>
-        </div>
-        <div class="col-lg-2 col-sm-12">
-            <p class="product-price">$ <?php echo $subtotal; ?></p>
-        </div>
-        <div class="col-md-2">
-            <input type="hidden" class="detalle-id" value="<?php echo $row['detalle_venta_id']; ?>">
-            <button class="btn-decrementar" data-id="<?php echo $row['detalle_venta_id']; ?>">-</button>
-            <input type="number" class="cantidad" id="cantidad-<?php echo $row['detalle_venta_id']; ?>" value="<?php echo $row['cantidad']; ?>" min="1" max="<?php echo $row['stock']; ?>" readonly>
-            <?php
-                echo "<button class='btn-incrementar' data-id='".$row['detalle_venta_id']."'>+</button>";
-            ?>            
-        </div>
-        <div class="col-md-2">
-    <form action="" method="post">
-        <input type="hidden" name="dv" value="<?php echo $row['id']; ?>">
-        <button type="submit" name="eliminar" class="btn btn-danger">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-    </form>   
-</div>
-
+?>
+<div class="row cart-item">
+    <div class="col-lg-3 col-sm-12 col">
+        <img src="<?php echo $row['url'] ? $row['url'] : "../IMG/PRODUCTOS/notfound.png"; ?>" class="img-fluid" alt="Producto">
     </div>
-    <?php
+    <div class="cart-item-details col-lg-4 col-sm-12">
+        <p><?php echo $row['nombre'] ?></p>
+    </div>
+    <div class="col-lg-2 col-sm-12">
+        <p class="product-price">$ <?php echo $subtotal; ?></p>
+    </div>
+    <div class="col-md-2">
+        <input type="hidden" class="detalle-id" value="<?php echo $row['detalle_venta_id']; ?>">
+        <button class="btn-decrementar" data-id="<?php echo $row['detalle_venta_id']; ?>">-</button>
+        <input type="number" class="cantidad" id="cantidad-<?php echo $row['detalle_venta_id']; ?>" value="<?php if($row['cantidad'] > $row['stock'] ){
+            echo $row['stock'];}else{echo $row['cantidad'];} ?>" min="1" max="<?php echo $row['stock']; ?>" readonly>
+        <button class='btn-incrementar' data-id='<?php echo $row['detalle_venta_id']; ?>' data-stock='<?php echo $row['stock']; ?>'>+</button>
+    </div>
+    <div class="col-md-2">
+        <form action="" method="post">
+            <input type="hidden" name="dv" value="<?php echo $row['id']; ?>">
+            <button type="submit" name="eliminar" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </form>   
+    </div>
+</div>
+<?php
+    }
+} else { ?>
+
+    <p style="text-align:center;">El carrito parece vacío, agrega productos para llenarlo!</p>
+
+    <div class="container">
+        <div class="row">
+            <div class="pregunta col-4">
+            <p style="text-align:center;" >Cambiar o agregar sucursal?</p>
+            </div>
+        <div class="select col-4">
+        <form action="" method="post">
+        <select class="form-select" aria-label="Default select example" name="lasucu">
+            <option value="" disabled selected>Selecciona una sucursal</option>
+            <?php
+            // Rellenar el select con las sucursales
+            $sucursalesQuery = "SELECT id_sucursal, nombre FROM sucursales";
+            $result = $conexion->query($sucursalesQuery);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value='{$row['id_sucursal']}'>{$row['nombre']}</option>";
             }
-        } else {
-            echo "No hay productos en el carrito";
-        }
-        ?>
-    <div class="row cart-total">
-        <div>
-            <p>TOTAL: $<?php echo $total; ?></p>
-            <form action="" method="post">
-            <div class="form-group">
-                <?php $control = 0; $prod = "";
-                if ($pedidoPendiente == 0) {
-                        if (empty($productos)) {
-                            echo "<button type='submit' name='btn' class='btn btn-success'  disabled>Confirmar pedido</button>";
-                        }
-                        else { 
-                            foreach ($productos as $row) {
-                                if ($row['cantidad'] > $row['stock']) {
-                                    $control++;
-                                    $prod = $row['nombre'];
-                                }
-                            }
-                            ?>
-                            <?php  
-                                if ($control == 0) { ?>
-                                    <button type="submit" name="btn" id="confirmar" class="btn btn-success">Confirmar pedido</button>                                                                  
-                            <?php }
-                            else {
-                            ?>
-                            <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php $row['nombre'] ?>, debe de eliminarlo">Confirmar pedido</button>                              
-                    <?php }} 
-                    }
-                    else{ echo "<p>Tienes un pedido pendiente. Espera a que se confirme antes de hacer un nuevo pedido.</p>"; } ?>
-            </div>      
+            ?>
+        </select>
+       
+        </div>
+
+        <div class="boton col-4">
+            
+            <button type="submit" name="cambio" class="btn btn-success" style="text-align:center;" >Cambiar sucursal</button>
             </form>
         </div>
+        </div>
     </div>
+    <br>
+    
+<?php }
+?>
+<?php if(!$nombres) {?> <p style="text-align:center;">Tu carrito no tiene destino, agrega un producto de alguna sucursal para destinarlo!</p>
+     <?php }?>
+<div class="row cart-total">
+    <div>
+    <?php if($nombres) {?><p style="text-align:center;">Tu carrito actualmente tiene como destino: <?php echo $nombres?></p><?php }?>
+        <p>TOTAL: $<?php echo $total; ?></p>
+        <form action="" method="post">
+        <div class="form-group">
+            <?php 
+            $control = 0; 
+            if ($pedidoPendiente == 0) {
+                if (empty($productos)) {
+                    echo "<button type='submit' name='btn' class='btn btn-success' disabled>Confirmar pedido</button>";
+                } else { 
+                    foreach ($productos as $row) {
+                        if ($row['cantidad'] > $row['stock']) {
+                            $control++;
+                            $prod = $row['nombre'];
+                        }
+                    }
+                    if ($control == 0) { ?>
+                        <button type="submit" name="btn" id="confirmar" class="btn btn-success">Confirmar pedido</button>                                                                  
+                    <?php } else { ?>
+                        <div class="alert alert-warning" role="alert">
+                        No hay stock suficiente para el producto "<?php echo $prod; ?>", debe de eliminarlo
+                        </div>
+                        <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-title="ALERTA" data-bs-content="No hay stock suficiente para el producto <?php echo $prod; ?>, debe de eliminarlo">Confirmar pedido</button>                              
+                    <?php } 
+                }
+            } else { ?>
+                <div class="alert alert-success" role="alert">
+                    Podrás confirmar pedido hasta que se te confirme o cancele el anterior. Los pedidos se cancelan automáticamente despues de 48 horas.
+                </div>
+           <?php } ?>
+        </div>      
+        </form>
+    </div>
+</div>
 </div>
     <footer class="footer row">
             <div class=" offset-lg-1 col-lg-9 text">
@@ -246,62 +284,38 @@ elseif ($_SESSION['rol'] != 3) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-/*
-$(document).ready(function() {
-    $('.btn-incrementar, .btn-decrementar').on('click', function() {
-        var detalleVentaId = $(this).siblings('.detalle-id').val();
-        var action = $(this).hasClass('btn-incrementar') ? 'incrementar' : 'decrementar';
-        var cantidadInput = $('#cantidad-' + detalleVentaId);
-        var nuevaCantidad = parseInt(cantidadInput.val());
-
-        if (action === 'incrementar') {
-            nuevaCantidad += 1;
-        } else if (action === 'decrementar' && nuevaCantidad > 1) {
-            nuevaCantidad -= 1;
-        }
-
-        // Enviar AJAX
-        $.ajax({
-            url: '../SCRIPTS/actualizar-stock.php',
-            type: 'POST',
-            data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
-            success: function(response) {
-                cantidadInput.val(nuevaCantidad);
-                // Actualiza el subtotal si es necesario
-            },
-            error: function() {
-                alert('Error al actualizar la cantidad. Intenta de nuevo.');
-            }
-        });
-    });
-});
-*/
 $(document).ready(function() {
     $('.btn-incrementar').on('click', function() {
-        var detalleVentaId = $(this).siblings('.detalle-id').val();
-        var cantidadInput = $('#cantidad-' + detalleVentaId);
+        var cantidadInput = $(this).siblings('.cantidad');
         var nuevaCantidad = parseInt(cantidadInput.val()) + 1;
+        var stockDisponible = parseInt($(this).data('stock'));
 
-        // Sumar las cantidades actuales
-        var totalCantidad = 0;
-        $('.cantidad').each(function() {
-            totalCantidad += parseInt($(this).val());
-        });
-
-        // Verificar si la nueva cantidad total supera 20
-        if (totalCantidad + 1 > 20) {
-            alert("No puedes agregar más productos. La cantidad total no puede superar 20.");
+        // Verificar si la nueva cantidad supera el stock disponible
+        if (nuevaCantidad > stockDisponible) {
+            alert("No puedes agregar más productos. La cantidad supera el stock disponible.");
             return;
         }
 
-        // Enviar AJAX
+        // Actualizar la cantidad en el input
+        
+        cantidadInput.val(nuevaCantidad);
+
+        if (nuevaCantidad > stockDisponible) {
+            nuevaCantidad = stockDisponible;
+        }
+
+        // Enviar AJAX para actualizar el carrito
         $.ajax({
             url: '../SCRIPTS/actualizar-stock.php',
             type: 'POST',
-            data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
+            data: { detalleVentaId: $(this).data('id'), cantidad: nuevaCantidad },
             success: function(response) {
-                cantidadInput.val(nuevaCantidad);
-            },
+                // Deshabilitar el botón si se alcanza el stock
+                if (nuevaCantidad >= stockDisponible) {
+                    $(this).prop('disabled', true);
+                }
+                location.reload();
+            }.bind(this), // Usamos .bind(this) para que el contexto de "this" en la función success sea el botón.
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error en AJAX: ", textStatus, errorThrown);
                 alert('Error al actualizar la cantidad. Intenta de nuevo.');
@@ -310,23 +324,47 @@ $(document).ready(function() {
     });
 
     $('.btn-decrementar').on('click', function() {
-        var detalleVentaId = $(this).siblings('.detalle-id').val();
-        var cantidadInput = $('#cantidad-' + detalleVentaId);
+        var cantidadInput = $(this).siblings('.cantidad');
         var nuevaCantidad = parseInt(cantidadInput.val()) - 1;
+        var stockDisponible = parseInt($(this).siblings('.btn-incrementar').data('stock'));
 
         if (nuevaCantidad < 1) {
-            alert("La cantidad no puede ser menor que 1.");
+            if (confirm("¿Deseas eliminar este producto del carrito?")) {
+                // Enviar AJAX para eliminar el producto
+                $.ajax({
+                    url: '../SCRIPTS/eliminar-del-carrito.php',
+                    type: 'POST',
+                    data: { detalleVentaId: $(this).data('id') },
+                    success: function(response) {
+                        cantidadInput.closest('.cart-item').remove();
+                        
+                        location.reload(); //Recargar página
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Error en AJAX: ", textStatus, errorThrown);
+                        alert('Error al eliminar el producto. Intenta de nuevo.');
+                    }
+                });
+            }
             return;
         }
 
-        // Enviar AJAX
+        // Actualizar la cantidad en el input
+        cantidadInput.val(nuevaCantidad);
+
+        // Enviar AJAX para actualizar el carrito
         $.ajax({
             url: '../SCRIPTS/actualizar-stock.php',
             type: 'POST',
-            data: { detalleVentaId: detalleVentaId, cantidad: nuevaCantidad },
+            data: { detalleVentaId: $(this).data('id'), cantidad: nuevaCantidad },
             success: function(response) {
-                cantidadInput.val(nuevaCantidad);
-            },
+                location.reload(); //Recargar la página
+                // Rehabilitar el botón de incrementar si la cantidad es menor que el stock
+                if (nuevaCantidad < stockDisponible) {
+                    $(this).siblings('.btn-incrementar').prop('disabled', false);
+
+                }
+            }.bind(this),
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error en AJAX: ", textStatus, errorThrown);
                 alert('Error al actualizar la cantidad. Intenta de nuevo.');

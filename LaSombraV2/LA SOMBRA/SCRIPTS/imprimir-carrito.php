@@ -45,9 +45,28 @@ $sucursal = $conexion->prepare("SELECT sucursal FROM venta WHERE id_venta = $id_
 $sucursal->execute();
 $sucu = $sucursal->fetch(PDO::FETCH_ASSOC)['sucursal'];
 
+$nombresucu = $conexion->prepare("SELECT s.nombre FROM venta v JOIN sucursales s ON v.sucursal = s.id_sucursal WHERE v.id_venta = $id_venta");
+$nombresucu->execute();
+$nombres = $nombresucu->fetch(PDO::FETCH_ASSOC)['nombre'];
+
 if ($idCliente === null) {
     header("location: ../VIEWS/iniciov2.php");
     exit();
+}
+
+// Cambiar de sucursal
+if (isset($_POST['cambio'])) {
+    $sucua = $_POST['lasucu'];
+    try {
+        $stmt_cambiar = $conexion->prepare("UPDATE venta SET sucursal = :suc WHERE id_cliente = $idCliente AND estado = 'CARRITO'");
+        $stmt_cambiar->bindParam(':suc', $sucua, PDO::PARAM_INT);
+        $stmt_cambiar->execute();
+
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 }
 
 // Consulta para verificar si hay algún pedido pendiente
@@ -93,7 +112,7 @@ if (isset($_POST['btn'])) {
     $stmtInsert->bindParam(1, $idCliente, PDO::PARAM_INT);
     $stmtInsert->execute();    
     #HACER UNA PAGINA CON EL ID DEL PEDIDO, Y DE QUE ESTA EXITOSO
-    header("location: ../VIEWS/iniciov2.php");
+    header("location: ../VIEWS/detalle-cuenta.php");
     exit();
 }
 

@@ -188,6 +188,7 @@ a
         echo "<p>No se encontraron productos.</p>";
     }
 ?>
+
 <nav aria-label="Paginación de productos">
         <ul class="pagination justify-content-center">
             <?php if ($pagina > 1) { ?>
