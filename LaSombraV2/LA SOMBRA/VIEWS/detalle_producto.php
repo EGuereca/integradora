@@ -23,7 +23,15 @@
     join persona as p on c.persona = p.id_persona join usuarios as u on p.usuario
     = u.id_usuario where u.id_usuario = $venta and v.estado = 'CARRITO'");
     $consulta->execute();
-    $sucuact = $consulta->fetch(PDO::FETCH_ASSOC)['sucursal'];
+    $sucuact = $consulta->fetch(PDO::FETCH_ASSOC);
+
+     // Verificar si se obtuvo un resultado
+    if ($sucuact) {
+        $sucuact = $sucuact['sucursal'];
+    } else {
+        // Manejo del caso cuando no hay resultado
+        $sucuact = null;
+    }
     }
 ?>
 
@@ -48,7 +56,7 @@
     </script>
 </head>
 <body>
-
+<?php  ?>
 <header>
 <nav id="contenedor-todo" class="navbar navbar-dark  fixed-top">
     <div  class="container">
@@ -177,6 +185,7 @@
     </div>
     </nav>
 </header> 
+<?php ?>
     <div class="container" id="in">
         <div class="row" style="padding-top: 150px;">
             <div class="col-lg-6 col-sm-12">                                
