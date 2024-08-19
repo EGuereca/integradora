@@ -30,11 +30,19 @@ if ($venta) {
     = u.id_usuario where u.id_usuario = $venta and v.estado = 'CARRITO'");
     $consulta->execute();
 
-    $id_v = $consulta->fetch(PDO::FETCH_ASSOC)['id'];
+    $id_v = $consulta->fetch(PDO::FETCH_ASSOC);
 
 
     // Verifica si la sucursal actual es diferente de la seleccionada
-    
+
+
+     // Verificar si se obtuvo un resultado
+     if ($id_v) {
+        $id_v = $id_v['id'];
+    } else {
+        // Manejo del caso cuando no hay resultado
+        $id_v = null;
+    }
    
     
     $update = $conexion->prepare("UPDATE venta SET sucursal = ? WHERE id_venta = ?");

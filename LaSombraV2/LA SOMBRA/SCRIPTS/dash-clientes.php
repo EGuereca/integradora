@@ -76,9 +76,10 @@ $productoMasVendidoStmt = $conexion->prepare($productoMasVendidoQuery);
 $productoMasVendidoStmt->execute();
 $productoMasVendidoNazas = $productoMasVendidoStmt->fetch(PDO::FETCH_ASSOC);
 
-
+/*
 // Todos los clientes
-function obtenerClientes($conexion) {
+
+if(isset($_POST['btntodos'])) {
     $clientesQuery = "
         SELECT u.nombre_usuario, v.id_venta, v.monto_total, s.nombre AS sucursal
         FROM venta v
@@ -91,10 +92,9 @@ function obtenerClientes($conexion) {
 
     $clientesStmt = $conexion->prepare($clientesQuery);
     $clientesStmt->execute();
-    return $clientesStmt->fetchAll(PDO::FETCH_ASSOC);
+    $clientes = $clientesStmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-$clientes = obtenerClientes($conexion);
 
 //Mostrar ventas de un cliente
 if (isset($_POST['nm_prod'])) {
@@ -114,6 +114,7 @@ if (isset($_POST['nm_prod'])) {
     $pedidosClienteStmt->bindValue(':nombreUsuario', '%' . $nombreUser . '%');
     $pedidosClienteStmt->execute();
     $pedidosCliente = $pedidosClienteStmt->fetchAll(PDO::FETCH_ASSOC);
+
 }
 
 // Filtrado por sucursal
@@ -127,14 +128,70 @@ if (isset($_POST['provee'])) {
         JOIN persona p ON c.persona = p.id_persona
         JOIN usuarios u ON p.usuario = u.id_usuario
         JOIN sucursales s ON v.sucursal = s.id_sucursal
-        WHERE v.estado = 'COMPLETADA' AND s.id_sucursal = :sucursal
+        WHERE v.estado = 'COMPLETADA' AND v.sucursal = :sucursal
     ";
 
     $pedidosSucursalStmt = $conexion->prepare($pedidosSucursalQuery);
     $pedidosSucursalStmt->bindValue(':sucursal', $sucursalSeleccionada);
     $pedidosSucursalStmt->execute();
     $pedidosSucursal = $pedidosSucursalStmt->fetchAll(PDO::FETCH_ASSOC);
+}*/
+
+if (isset($_POST['btntodos'])) {
+    // Mostrar todos los clientes
+    $clientesQuery = "
+        SELECT u.nombre_usuario, v.id_venta, v.monto_total, s.nombre AS sucursal
+        FROM venta v
+        JOIN cliente c ON v.id_cliente = c.id_cliente
+        JOIN persona p ON c.persona = p.id_persona
+        JOIN usuarios u ON p.usuario = u.id_usuario
+        JOIN sucursales s ON v.sucursal = s.id_sucursal
+        WHERE v.estado = 'COMPLETADA'
+    ";
+    $clientesStmt = $conexion->prepare($clientesQuery);
+    $clientesStmt->execute();
+    $clientes = $clientesStmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+if (isset($_POST['btnfiltrar'])) {
+    $nombreUser = $_POST['nm_prod'] ?? null;
+    $sucursalSeleccionada = $_POST['provee'] ?? null;
+    $params = [];
+    $sql = "
+        SELECT u.nombre_usuario, v.id_venta, v.monto_total, s.nombre AS sucursal
+        FROM venta v
+        JOIN cliente c ON v.id_cliente = c.id_cliente
+        JOIN persona p ON c.persona = p.id_persona
+        JOIN usuarios u ON p.usuario = u.id_usuario
+        JOIN sucursales s ON v.sucursal = s.id_sucursal
+        WHERE v.estado = 'COMPLETADA'
+    ";
+
+    if ($nombreUser && $sucursalSeleccionada) {
+        $sql .= " AND u.nombre_usuario LIKE :nombreUsuario AND v.sucursal = :sucursal";
+        $params[':nombreUsuario'] = '%' . $nombreUser . '%';
+        $params[':sucursal'] = $sucursalSeleccionada;
+    } elseif ($nombreUser) {
+        $sql .= " AND u.nombre_usuario LIKE :nombreUsuario";
+        $params[':nombreUsuario'] = '%' . $nombreUser . '%';
+    } elseif ($sucursalSeleccionada) {
+        $sql .= " AND v.sucursal = :sucursal";
+        $params[':sucursal'] = $sucursalSeleccionada;
+    }
+
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute($params);
+    $pedidosFiltrados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($nombreUser) {
+        $pedidosCliente = $pedidosFiltrados;
+    }
+
+    if ($sucursalSeleccionada) {
+        $pedidosSucursal = $pedidosFiltrados;
+    }
+}
+
 
 // Detalles de venta
 if (isset($_POST['venta_id'])) {
