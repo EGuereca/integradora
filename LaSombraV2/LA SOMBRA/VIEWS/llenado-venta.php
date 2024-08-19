@@ -145,6 +145,12 @@ $pdo = null;
     <i class="bi bi-x-circle"></i> Salir
     </a>
 
+    <div class="container">
+        <div class="text-center">
+            <p style="margin-top: 0px;">Actualmente estás registrando para la sucursal: <?php echo $sucursal;?></p>
+        </div>
+    </div>
+
     <div class="search-bar mb-3">
     <form method="get" action="">
     <div class="row g-3">
@@ -178,6 +184,8 @@ $pdo = null;
         <i class="fa fa-shopping-cart"></i>
     </button>
 </div>
+
+
 
     </div>
     
