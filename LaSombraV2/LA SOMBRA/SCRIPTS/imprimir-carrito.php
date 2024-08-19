@@ -54,6 +54,21 @@ if ($idCliente === null) {
     exit();
 }
 
+// Cambiar de sucursal
+if (isset($_POST['cambio'])) {
+    $sucua = $_POST['lasucu'];
+    try {
+        $stmt_cambiar = $conexion->prepare("UPDATE venta SET sucursal = :suc WHERE id_cliente = $idCliente AND estado = 'CARRITO'");
+        $stmt_cambiar->bindParam(':suc', $sucua, PDO::PARAM_INT);
+        $stmt_cambiar->execute();
+
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+
 // Consulta para verificar si hay algún pedido pendiente
 $queryPedidoPendiente = "SELECT COUNT(*) AS pendientes 
     FROM venta 
