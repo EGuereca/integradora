@@ -147,7 +147,7 @@ $pdo = null;
 
     <div class="container">
         <div class="text-center">
-            <p style="margin-top: 0px;">Actualmente estás registrando para la sucursal: <?php echo $sucursal;?></p>
+            <p style="margin-top: 0px;">Actualmente estás registrando para la sucursal: <?php if($sucursal == 1){echo "Matamoros";}else{echo "Nazas";} ;?></p>
         </div>
     </div>
 
