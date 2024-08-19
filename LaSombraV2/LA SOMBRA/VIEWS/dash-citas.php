@@ -122,19 +122,7 @@ $hoy = date('Y-m-d');
     </div>
     </nav>
     </header>
-  <!--
-  <div class="sidebar">
-            <img src="../IMG/sombra-logo.jpg" alt="La Sombra Logo" class="img-fluid mb-4">
-            <a href="../VIEWS/dash-ventas.php">Ventas</a>
-            <a href="../VIEWS/dash-apartados.php">Apartados</a>
-            <a href="../VIEWS/dashboard.php">Productos</a>
-            <a style="background-color: limegreen;" href="#">Citas</a>
-            <a href="../VIEWS/dash-provee.php">Proveedor</a>
-            <a href="../VIEWS/dsh-empl.php">Registrar empleado</a>
 
-            <a href="../VIEWS/iniciov2.php">Ir a la pagina principal</a>
-        </div>
-        -->
   <div class="container-fluid">
     <div class="forms">
         
@@ -142,6 +130,16 @@ $hoy = date('Y-m-d');
       <div class="col-lg-3 col-sm-6 p-1">
       <input type="date" id="start" name="fecha" value="" min="2024-01-01" max="<?php echo $hoy;?>" />     
       </div>
+                        
+      <div class="col-lg-3 col-sm-6 p-1">
+        <select class="form-select" aria-label="Default select example" name="sucursal">
+            <option selected value="">Sucursal</option>
+            <option value="">Todo</option>
+            <option value="2">Nazas</option>
+            <option value="1">Matamoros</option>
+        </select>
+        </div>
+                        
       <div class="col-lg-3 col-sm-6 p-1">
         <select class="form-select" aria-label="Default select example" name="perforador">
             <option selected value="">Perforador</option>
@@ -153,14 +151,7 @@ $hoy = date('Y-m-d');
             
         </select>
         </div>
-        <div class="col-lg-3 col-sm-6 p-1">
-        <select class="form-select" aria-label="Default select example" name="sucursal">
-            <option selected value="">Sucursal</option>
-            <option value="">Todo</option>
-            <option value="2">Nazas</option>
-            <option value="1">Matamoros</option>
-        </select>
-        </div>
+        
         <div class="col-lg-3 col-sm-6 p-1">
       <button  id="btnaplicar" class="btn boton" type="submit" name="btn-aplicar">Aplicar</button>
       </div>
@@ -181,7 +172,7 @@ $fecha_min = $f->format('Y-m-d\TH:i');
 
 if ($results) {
     echo "<h2>Resultados de búsqueda:</h2>";
-    echo "<div class='tabla'><table border='1' class='table table-striped'>
+    echo "<div class='tabla'><table border='1' class='table table-striped table-sm'>
             <tr>
                 <th>ESTADO</th>
                 <th>Perforador</th>
@@ -190,6 +181,7 @@ if ($results) {
                 <th>Fecha y Hora</th>
                 <th>Sucursal</th>
                 <th>Telefono</th>
+                <th>Comentarios</th>
                 <th></th>
             </tr>";
     foreach ($results as $row) {
@@ -205,6 +197,7 @@ if ($results) {
             <td>" . htmlspecialchars($row["fecha"]) . "</td>
             <td>" . htmlspecialchars($row["sucursal"]) . "</td>
             <td>" . htmlspecialchars($row["telefono"]) . "</td>
+            <td>" . htmlspecialchars($row["comentarios"]) . "</td>
             <td>
                 <a href='modificar-citas.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
             </td>
@@ -243,8 +236,7 @@ if ($results) {
         <?php
     if ($_SESSION["rol"] == 4) { 
         echo '<input type="hidden" name="empleado" value="' . $_SESSION["id_empleado"] . '">';
-    } else {
-       
+    } else { 
         echo '<label for="empleado">Seleccione un perforador</label>';
         echo '<select class="form-select" aria-label="Default select example" name="empleado">';
         echo '<option selected value="">Perforador</option>';
@@ -254,7 +246,6 @@ if ($results) {
         echo '</select>';
     }
     ?>
-       
         </select> <br>
         <div class="tipo-perforacion">
         <fieldset>

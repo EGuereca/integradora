@@ -75,9 +75,11 @@ a
                     <li class="nav-item">
                         <a class="nav-link" style="background-color: limegreen;" href="#">PRODUCTOS</a>
                     </li>
+                    <?php if ($_SESSION["rol"] != 2) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dash-citas.php">CITAS</a>
+                        <a class="nav-link"  href="../VIEWS/dash-citas.php">CITAS</a>
                     </li>
+                    <?php } ?>
                     <?php if ($_SESSION["rol"] == 1 ) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../VIEWS/dash-provee.php">PROVEEDOR</a>

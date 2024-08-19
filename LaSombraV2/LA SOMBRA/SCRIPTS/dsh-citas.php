@@ -30,7 +30,7 @@ $date = isset($_POST['fecha']) ? $_POST['fecha'] : '';
 if ($_SESSION["rol"] == 1) {
     $sql = "SELECT c.id_cita AS id, e.nombres AS perforador, c.nombre_cliente AS cliente, 
             c.tipo_perforacion AS perforacion, c.fecha_hora AS fecha,
-            s.nombre AS sucursal, c.telefono AS telefono
+            s.nombre AS sucursal, c.telefono AS telefono, c.comentarios
             FROM empleado AS e
             JOIN citas AS c ON e.id_empleado = c.empleado
             JOIN sucursales AS s ON c.sucursal = s.id_sucursal
@@ -39,7 +39,7 @@ if ($_SESSION["rol"] == 1) {
 } else if ($_SESSION["rol"] == 4) { 
     $sql = "SELECT c.id_cita AS id, e.nombres AS perforador, c.nombre_cliente AS cliente, 
             c.tipo_perforacion AS perforacion, c.fecha_hora AS fecha,
-            s.nombre AS sucursal, c.telefono AS telefono
+            s.nombre AS sucursal, c.telefono AS telefono, c.comentarios
             FROM empleado AS e
             JOIN citas AS c ON e.id_empleado = c.empleado
             JOIN sucursales AS s ON c.sucursal = s.id_sucursal

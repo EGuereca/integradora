@@ -89,16 +89,7 @@ $empleados = $stmtEmpleados->fetchAll(PDO::FETCH_OBJ);
                 <option value="1" <?= $cita->sucursal == 'Matamoros' ? 'selected' : '' ?>>Matamoros</option>
             </select>
         </div>
-        <div class="form-group">
-        <label for="perforador">Perforador:</label><br>
-        <select id="perforador" name="perforador" class="form-control" required>
-            <?php foreach ($empleados as $empleado): ?>
-                <option value="<?= $empleado->id_empleado ?>" <?= $empleado->id_empleado == $cita->empleado ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($empleado->nombre_completo) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+        
         <div class="form-group">
             <label for="comentarios">Comentarios:</label><br>
             <textarea name="comentarios" id="comentarios" class="form-control" rows="5"><?= htmlspecialchars($cita->comentarios) ?></textarea>

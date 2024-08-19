@@ -12,7 +12,6 @@ if (isset($_POST["btnupdatecit"])) {
     $perforacion = $_POST["perforacion"];
     $fecha_hora = $_POST["datetime"]; 
     $sucursal = $_POST["sucursal"];
-    $perforador = $_POST["perforador"];
     $comentarios = $_POST["comentarios"];
     $id = $_GET["id"];
 
@@ -21,15 +20,12 @@ if (isset($_POST["btnupdatecit"])) {
     $check->execute();
     $exists = $check->fetchColumn();
 
-if ($exists == 0) {
-    die("El empleado no existe. Por favor, selecciona un empleado válido.");
-}
 
 
     $sql = "UPDATE citas
             SET nombre_cliente = :nombre, telefono = :telefono, costo = :costo,
                 tipo_perforacion = :perforacion, fecha_hora = :fecha_hora, sucursal = :sucursal,
-                empleado = :perforador, comentarios = :comentarios
+                comentarios = :comentarios
             WHERE id_cita = :id";
 
     $stmt = $PDOLOCAL->prepare($sql);
@@ -39,7 +35,6 @@ if ($exists == 0) {
     $stmt->bindParam(':perforacion', $perforacion);
     $stmt->bindParam(':fecha_hora', $fecha_hora); 
     $stmt->bindParam(':sucursal', $sucursal);
-    $stmt->bindParam(':perforador', $perforador); 
     $stmt->bindParam(':comentarios', $comentarios);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
