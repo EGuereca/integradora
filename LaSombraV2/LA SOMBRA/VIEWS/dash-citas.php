@@ -82,7 +82,7 @@ $hoy = date('Y-m-d');
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="../VIEWS/dsh-empl.php">xEMPLEADOS</a>
+                        <a class="nav-link" href="../VIEWS/dsh-empl.php">EMPLEADOS</a>
                     </li>
                         
                     <li>
