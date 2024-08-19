@@ -114,7 +114,7 @@ include '../SCRIPTS/dash-clientes.php';
             <div class="card-body">
                 <?php if($topClientesNazas) { ?>
                 <?php foreach ($topClientesNazas as $cliente): ?>
-                    <p><?php echo $clienteNazas['nombre_usuario'] . ' con ' . $clienteNazas['total_ventas'] . ' compras'; ?></p>
+                    <p><?php echo $cliente['nombre_usuario'] . ' con ' . $cliente['total_ventas'] . ' compras'; ?></p>
                 <?php endforeach; ?>
                 <?php } else { ?>
                     <div class="alert alert-warning" role="alert">No se encontraron resultados para nazas.</div>
