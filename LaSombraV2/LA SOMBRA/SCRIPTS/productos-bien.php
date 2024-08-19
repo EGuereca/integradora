@@ -31,7 +31,7 @@ $sql = "SELECT DISTINCT p.id_producto AS id_producto, p.nombre AS nombre,
         JOIN producto_categoria AS pc ON p.id_producto = pc.producto
         JOIN categorias AS c ON pc.categoria = c.id_categoria
         JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto 
-        WHERE ins.cantidad > 0";
+        WHERE 1 = 1";
 
 $parametros = [];
 
@@ -72,7 +72,7 @@ $total_sql = "SELECT COUNT(DISTINCT p.id_producto) as total
             JOIN producto_categoria AS pc ON p.id_producto = pc.producto
             JOIN inventario_sucursal AS ins ON p.id_producto = ins.id_producto
             JOIN categorias AS c ON pc.categoria = c.id_categoria
-            WHERE ins.cantidad > 0";
+            WHERE 1 = 1";
 
 if ($sucursal != null) {
     $total_sql .= " AND ins.id_sucursal = :sucursal";

@@ -193,7 +193,9 @@
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
                                 <p class="card-text">$ <?php echo $row['precio']; ?></p>
-                                <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p>
+                                <?php if($row['stock'] <= 0){?>
+                                <p class="card-text">Articulo no disponble</p> <?php } else{ ?>
+                                <p class="card-text"><?php echo $row['stock']; ?> piezas disponibles</p> <?php } ?>
                             </div>
                         </a>
                     </div>
